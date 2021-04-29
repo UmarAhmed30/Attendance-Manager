@@ -1,6 +1,7 @@
 package com.attendance_manager.pages;
 
 import com.attendance_manager.components.*;
+import com.attendance_manager.components.ColorTheme;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,6 +15,7 @@ public class Login extends JFrame {
 
 	GridBagConstraints gbc = new GridBagConstraints();
 	GridBagConstraints gbcL = new GridBagConstraints();
+	ColorTheme colorTheme=new ColorTheme();
 
 	public Login()
 	{

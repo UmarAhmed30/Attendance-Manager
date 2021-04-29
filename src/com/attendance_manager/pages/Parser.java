@@ -3,11 +3,16 @@ package com.attendance_manager.pages;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class Parser {
+import java.util.ArrayList;
 
-    public static void parse(String response) {
-        //System.out.println(response);
-        //PublicHolidays hols=new PublicHolidays();
+public class Parser {
+    private ArrayList<ArrayList<String>> extractedHolidays=new ArrayList<>();
+
+
+
+
+    public ArrayList<ArrayList<String>> parse(String response) {
+
         String return_string="";
         JSONObject holidays_object = new JSONObject(response);
 
@@ -30,12 +35,14 @@ public class Parser {
             String day_name = day.getString("name");
 
 
-            //System.out.println( date + " - " + day_name+" - "+name );
-            String holidayInfo=date + " - " + day_name+" - "+name+"\n";
-            System.out.print(holidayInfo);
+            ArrayList<String> extractedHoliday=new ArrayList<>();
+            extractedHoliday.add(date);
+            extractedHoliday.add(day_name);
+            extractedHoliday.add(name);
+            extractedHolidays.add(extractedHoliday);
 
 
         }
-        //return return_string;
+        return extractedHolidays;
     }
 }
