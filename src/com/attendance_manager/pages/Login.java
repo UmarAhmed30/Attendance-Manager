@@ -1,14 +1,19 @@
 package com.attendance_manager.pages;
 
+import com.attendance_manager.components.*;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class Login extends JFrame {
 
 	GridBagConstraints gbc = new GridBagConstraints();
+	GridBagConstraints gbcL = new GridBagConstraints();
 
 	public Login()
 	{
@@ -16,11 +21,17 @@ public class Login extends JFrame {
 		Image resizedLogo = null;
 		JLabel logoLabel = new JLabel();
 
+		GothamFont gothamFont = new GothamFont();
+
+		ColorTheme colorTheme = new ColorTheme();
+
+		CustomBorder customBorder = new CustomBorder();
+
 		gbc.insets = new Insets(10,10,10,10);
 
 		try{
-			logo = ImageIO.read(new File("src/resources/images/logo_1.png"));
-			resizedLogo = logo.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+			logo = ImageIO.read(new File("src/resources/images/spotify.png"));
+			resizedLogo = logo.getScaledInstance(75, 75, Image.SCALE_DEFAULT);
 			logoLabel = new JLabel(new ImageIcon(resizedLogo));
 		}
 		catch (Exception e) {
@@ -28,10 +39,12 @@ public class Login extends JFrame {
 		}
 
 		JLabel appTitle = new JLabel("Attendance Manager");
+		appTitle.setFont(gothamFont.assignFont("GothamBold", 30f));
+		appTitle.setForeground(new ColorTheme().getAccColorLight());
 
 		JPanel logoContainer = new JPanel();
-		logoContainer.setBackground(new Color(255, 255, 255, 10));
-		logoContainer.setPreferredSize(new Dimension(500, 150));
+		logoContainer.setBackground(colorTheme.getDarkTransColor());
+		logoContainer.setPreferredSize(new Dimension(540, 150));
 
 		logoContainer.setLayout(new GridBagLayout());
 		gbc.gridx = 0;
@@ -44,34 +57,69 @@ public class Login extends JFrame {
 		gbc.insets = new Insets(20,20,20,20);
 
 		JLabel containerTitle = new JLabel("Login");
+		containerTitle.setFont(gothamFont.assignFont("GothamMedium", 20f));
+		containerTitle.setForeground(colorTheme.getTextColor());
+		containerTitle.setBorder(customBorder.assignBorder(Color.black, 0 , 25, 10, 0, 10));
 
 		JPanel fieldContainer = new JPanel();
-		fieldContainer.setBackground(new Color(255, 255, 255, 5));
-		fieldContainer.setPreferredSize(new Dimension(400, 150));
+		fieldContainer.setBackground(colorTheme.getLightTransColor());
+		fieldContainer.setPreferredSize(new Dimension(500, 150));
 
 		JLabel emailLabel = new JLabel("Email");
-		JTextField emailField = new JTextField();
-		emailField.setColumns(20);
+		emailLabel.setFont(gothamFont.assignFont("GothamBook", 14f));
+		emailLabel.setForeground(colorTheme.getTextColor());
+
+		JTextField emailField = new RoundedTextField(20);
+		emailField.setBorder(customBorder.assignBorder(Color.black, 1, 5, 10, 5, 0));
+		emailField.setFont(gothamFont.assignFont("GothamBook", 14f));
+
 		JLabel passwordLabel = new JLabel("Password");
-		JTextField passwordField = new JTextField();
-		passwordField.setColumns(20);
+		passwordLabel.setFont(gothamFont.assignFont("GothamBook", 14f));
+		passwordLabel.setForeground(colorTheme.getTextColor());
+
+		JTextField passwordField = new RoundedTextField(20);
+		passwordField.setBorder(customBorder.assignBorder(Color.black, 1, 5, 10, 5, 0));
+		passwordField.setFont(gothamFont.assignFont("GothamBook", 14f));
 
 		JPanel loginContainer = new JPanel();
-		loginContainer.setBackground(new Color(255, 255, 255, 5));
-		loginContainer.setPreferredSize(new Dimension(500,450));
+		loginContainer.setBackground(colorTheme.getLightTransColor());
+
+		JLabel forgotPasswordLabel = new JLabel("Forgot Password?");
+		forgotPasswordLabel.setFont(gothamFont.assignFont("GothamBook", 14f));
+		forgotPasswordLabel.setForeground(colorTheme.getTextColor());
 
 		JButton loginButton = new JButton("Login");
+		loginButton.setBorder(new RoundedBorder(20));
+		loginButton.setFont(gothamFont.assignFont("GothamBold", 15f));
+		loginButton.setBackground(colorTheme.getAccColorLight());
+		loginButton.setForeground(colorTheme.getTextColor());
+
+		JLabel signUpLabel = new JLabel("Don't have an account? Sign Up");
+		signUpLabel.setFont(gothamFont.assignFont("GothamBold", 15f));
+		signUpLabel.setForeground(colorTheme.getTextColor());
+		signUpLabel.setBorder(customBorder.assignBorder(Color.black, 0 , 0, 10, 25, 10));
+
+		loginButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String inputEmail = emailField.getText();
+				String inputPassword = passwordField.getText();
+				System.out.println(inputEmail+" "+inputPassword);
+			}
+		});
 
 		fieldContainer.setLayout(new GridBagLayout());
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		fieldContainer.add(emailLabel,gbc);
+		gbcL.gridx = 0;
+		gbcL.gridy = 0;
+		gbcL.anchor = GridBagConstraints.WEST;
+		fieldContainer.add(emailLabel,gbcL);
 		gbc.gridx = 1;
 		gbc.gridy = 0;
 		fieldContainer.add(emailField, gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 1;
-		fieldContainer.add(passwordLabel,gbc);
+		gbcL.gridx = 0;
+		gbcL.gridy = 1;
+		gbcL.anchor = GridBagConstraints.WEST;
+		fieldContainer.add(passwordLabel,gbcL);
 		gbc.gridx = 1;
 		gbc.gridy = 1;
 		fieldContainer.add(passwordField,gbc);
@@ -85,13 +133,19 @@ public class Login extends JFrame {
 		loginContainer.add(fieldContainer, gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 2;
+		loginContainer.add(forgotPasswordLabel, gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 3;
 		loginContainer.add(loginButton, gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 4;
+		loginContainer.add(signUpLabel, gbc);
 
 
 		gbc.insets = new Insets(0,0,0,0);
 
 
-		setIconImage(new ImageIcon("src/resources/images/logo_1.png").getImage());
+		setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
 		setTitle("Attendance Manager");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
