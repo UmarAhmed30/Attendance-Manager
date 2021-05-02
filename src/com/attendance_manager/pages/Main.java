@@ -8,5 +8,9 @@ public class Main {
 //        new AddSubject();
 //        new RemoveSubject();
         new AddAttendance();
+        //new NewUser();
+        //new Login();
+        // new PublicHolidays();
+        //new Mysqlconnect();
     }
 }

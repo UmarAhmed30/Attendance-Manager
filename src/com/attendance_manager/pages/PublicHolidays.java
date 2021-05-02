@@ -2,6 +2,8 @@ package com.attendance_manager.pages;
 
 import com.attendance_manager.components.ColorTheme;
 import com.attendance_manager.components.Parser;
+import com.attendance_manager.components.CustomBorder;
+import com.attendance_manager.components.GothamFont;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -34,6 +36,15 @@ public class PublicHolidays extends JFrame {
 
 
         Parser parser = new Parser();
+        GothamFont gothamFont = new GothamFont();
+        CustomBorder customBorder = new CustomBorder();
+
+        //HEADING
+        JLabel containerTitle = new JLabel("Login");
+        containerTitle.setFont(gothamFont.assignFont("GothamMedium", 20f));
+        containerTitle.setForeground(colorTheme.getTextColor());
+        //containerTitle.setBorder(customBorder.assignBorder(Color.black, 0 , 25, 10, 0, 10));
+        add(containerTitle);
 
         //API
         try {
@@ -90,12 +101,17 @@ public class PublicHolidays extends JFrame {
         table.getTableHeader().setPreferredSize(new Dimension(1000,table.getRowHeight() + 20));
         table.setFillsViewportHeight(true);
         table.setShowVerticalLines(false);
-        table.setBackground(new Color(18,18,18));
-        table.getTableHeader().setBackground(new Color(18,18,18));
-        table.getTableHeader().setForeground(Color.WHITE);
-
+        table.setBackground(new Color(0,0,0));
+        table.setFont(gothamFont.assignFont("GothamMedium", 13f));
+        table.setForeground(colorTheme.getTextColor());
         table.setBorder(createEmptyBorder());
-        table.setForeground(Color.WHITE);
+        //table header row
+        table.getTableHeader().setBackground(new Color(18,18,18));
+        table.getTableHeader().setFont(gothamFont.assignFont("GothamMedium", 16f));
+        table.getTableHeader().setForeground(colorTheme.getTextColor());
+
+
+
 
 
 
