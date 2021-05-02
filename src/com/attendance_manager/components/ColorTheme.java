@@ -6,7 +6,14 @@ public class ColorTheme {
     Color accColorLight = Color.decode("#1ed760");
     Color accColorDark = Color.decode("#1db954");
     Color textColor = Color.decode("#ffffff");
+    Color rounderCornerColor = Color.decode("#242424");
+
+    public Color getRounderCornerColor() {
+        return rounderCornerColor;
+    }
+
     Color darkTransColor = new Color(255, 255, 255, 10);
+    Color lightTransColor = new Color(255, 255, 255, 5);
 
     public Color getDarkTransColor() {
         return darkTransColor;
@@ -15,8 +22,6 @@ public class ColorTheme {
     public Color getLightTransColor() {
         return lightTransColor;
     }
-
-    Color lightTransColor = new Color(255, 255, 255, 5);
 
     public Color getPriColor() {
         return priColor;

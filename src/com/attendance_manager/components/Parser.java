@@ -1,4 +1,4 @@
-package com.attendance_manager.pages;
+package com.attendance_manager.components;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

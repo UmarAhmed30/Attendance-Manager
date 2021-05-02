@@ -15,7 +15,6 @@ public class Login extends JFrame {
 
 	GridBagConstraints gbc = new GridBagConstraints();
 	GridBagConstraints gbcL = new GridBagConstraints();
-	ColorTheme colorTheme=new ColorTheme();
 
 	public Login()
 	{
@@ -42,7 +41,7 @@ public class Login extends JFrame {
 
 		JLabel appTitle = new JLabel("Attendance Manager");
 		appTitle.setFont(gothamFont.assignFont("GothamBold", 30f));
-		appTitle.setForeground(new ColorTheme().getAccColorLight());
+		appTitle.setForeground(colorTheme.getAccColorLight());
 
 		JPanel logoContainer = new JPanel();
 		logoContainer.setBackground(colorTheme.getDarkTransColor());
@@ -91,7 +90,7 @@ public class Login extends JFrame {
 		forgotPasswordLabel.setForeground(colorTheme.getTextColor());
 
 		JButton loginButton = new JButton("Login");
-		loginButton.setBorder(new RoundedBorder(20));
+		loginButton.setBorder(new RoundedBorder(20, colorTheme.getPriColor()));
 		loginButton.setFont(gothamFont.assignFont("GothamBold", 15f));
 		loginButton.setBackground(colorTheme.getAccColorLight());
 		loginButton.setForeground(colorTheme.getTextColor());

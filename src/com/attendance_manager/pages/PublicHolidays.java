@@ -1,6 +1,7 @@
 package com.attendance_manager.pages;
 
 import com.attendance_manager.components.ColorTheme;
+import com.attendance_manager.components.Parser;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

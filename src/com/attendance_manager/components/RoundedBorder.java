@@ -6,9 +6,11 @@ import java.awt.*;
 public class RoundedBorder implements Border {
 
     int radius;
+    Color color;
 
-    public RoundedBorder(int radius) {
+    public RoundedBorder(int radius, Color color) {
         this.radius = radius;
+        this.color = color;
     }
 
     public Insets getBorderInsets(Component c) {
@@ -22,7 +24,7 @@ public class RoundedBorder implements Border {
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
         java.awt.Graphics2D g2 = (java.awt.Graphics2D) g.create();
         g2.setStroke(new BasicStroke(10));
-        g2.setColor(new ColorTheme().getPriColor());
+        g2.setColor(color);
         g2.drawRoundRect(x, y, width-1, height-1, radius, radius);
     }
 
