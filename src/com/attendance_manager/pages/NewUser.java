@@ -102,7 +102,7 @@ public class NewUser extends JFrame {
         forgotPasswordLabel.setForeground(colorTheme.getTextColor());
 
         JButton loginButton = new JButton("Register");
-        loginButton.setBorder(new RoundedBorder(20));
+        loginButton.setBorder(new RoundedBorder(20, colorTheme.getRounderCornerColor()));
         loginButton.setFont(gothamFont.assignFont("GothamBold", 15f));
         loginButton.setBackground(colorTheme.getAccColorLight());
         loginButton.setForeground(colorTheme.getTextColor());
