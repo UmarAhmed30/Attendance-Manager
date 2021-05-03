@@ -1,7 +1,11 @@
 package com.attendance_manager.components;
 
+import com.attendance_manager.services.DBHandler;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SubjectSlot {
     GridBagConstraints gbc = new GridBagConstraints();
@@ -9,7 +13,7 @@ public class SubjectSlot {
     ColorTheme colorTheme = new ColorTheme();
     CustomBorder customBorder = new CustomBorder();
     String subject;
-
+    DBHandler db=new DBHandler();
     public SubjectSlot(String subject) {
         this.subject = subject;
     }
@@ -25,11 +29,32 @@ public class SubjectSlot {
         subPButton.setFont(gothamFont.assignFont("GothamBold", 15f));
         subPButton.setBackground(colorTheme.getAccColorDark());
         subPButton.setForeground(Color.black);
+        subPButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                System.out.println(subject+" PRESENT");
+                db.updateAttendance(subject,1);
+                db.updateHistory(subject,1);
+
+            }
+        });
 
         JButton subAButton = new JButton("Absent");
         subAButton.setFont(gothamFont.assignFont("GothamBold", 15f));
         subAButton.setBackground(colorTheme.getAccColorDark());
         subAButton.setForeground(Color.black);
+
+        subAButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                System.out.println(subject+" ABSENT");
+                db.updateAttendance(subject,0);
+                db.updateHistory(subject,0);
+
+            }
+        });
 
         JPanel entry = new JPanel();
         entry.setBorder(customBorder.assignBorder(null, 0, 10, 0, 10, 0));
