@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class DBHandler {
 
-    String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     String DB_URL = "jdbc:mysql://localhost/javaproject";
 
     //  Database credentials
@@ -170,8 +169,8 @@ public class DBHandler {
                         + " values (?,?,?,?,?,?)";
                 PreparedStatement preparedStmt2 = conn.prepareStatement(query2);
                 preparedStmt2.setString (1, "akash@gmail.com");
-                preparedStmt2.setString (2,"0" );
-                preparedStmt2.setString (3, "0");
+                preparedStmt2.setInt (2,0 );
+                preparedStmt2.setInt (3, 0);
                 preparedStmt2.setString (4, inputSubName);
                 preparedStmt2.setString (5, inputCode);
                 preparedStmt2.setString (6, inputFaculty);
@@ -283,6 +282,192 @@ public class DBHandler {
     }
 
     public ArrayList<String> fetchSubjects(){
-        return null;
+
+        ArrayList<String> returnList=new ArrayList<String>();
+
+        try {
+            //STEP 2: Register JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            //STEP 3: Open a connection
+            System.out.println("Connecting to a selected database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("Connected database successfully...");
+
+            //Query
+            String query="select * from registers";
+
+
+            // create the  preparedstatement
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+
+            ResultSet rs=preparedStmt.executeQuery();
+
+            while (rs.next()) {
+                System.out.println(rs.getString("subjectName"));
+                returnList.add(rs.getString("subjectName"));
+            }
+
+
+
+
+
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return returnList;
+
+    }
+
+
+    public void updateAttendance(String subjectName,int flag){
+
+        try {
+            //STEP 2: Register JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            //STEP 3: Open a connection
+            System.out.println("Connecting to a selected database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("Connected database successfully...");
+
+
+
+                String query="select * from registers where subjectName=?";
+
+
+                // create the  preparedstatement
+                PreparedStatement preparedStmt = conn.prepareStatement(query);
+                preparedStmt.setString(1,subjectName);
+                preparedStmt.execute();
+
+                ResultSet rs=preparedStmt.executeQuery();
+                int currentVal=0;
+                while (rs.next()) {
+                    if (flag == 0) {
+                        currentVal = rs.getInt("missedClasses");
+                    }
+                    else{
+                        currentVal = rs.getInt("attendedClasses");
+                    }
+                }
+            String insertQuery=null;
+                //Query
+                if (flag==0){
+                    insertQuery="update registers set missedClasses=? where subjectName= ?";
+
+                }
+                else {
+
+                    insertQuery = "update registers set attendedClasses=? where subjectName= ?";
+                }
+                // create the  preparedstatement
+                PreparedStatement inspreparedStmt = conn.prepareStatement(insertQuery);
+
+
+
+                inspreparedStmt.setInt(1,currentVal+1);
+                inspreparedStmt.setString(2,subjectName);
+                inspreparedStmt.execute();
+                System.out.println("YOU MISSED A CLASS !");
+
+
+
+
+
+
+
+
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+
+    }
+    public void updateHistory(String subjectName,int flag){
+
+        try {
+            //STEP 2: Register JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            //STEP 3: Open a connection
+            System.out.println("Connecting to a selected database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("Connected database successfully...");
+
+
+
+            String query="insert into history values(?,?)";
+
+
+            // create the  preparedstatement
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setString(1,subjectName);
+
+            if(flag==0){
+                preparedStmt.setString(2,"ABSENT");
+            }
+            else {
+                preparedStmt.setString(2,"PRESENT");
+            }
+
+            preparedStmt.execute();
+
+            System.out.println("updated history");
+
+
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+    }
+
+
+    public ArrayList<ArrayList<String>> fetchHistory() {
+
+         ArrayList<ArrayList<String>> extractedAttendance=new ArrayList<>();
+
+        try {
+            //STEP 2: Register JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            //STEP 3: Open a connection
+            System.out.println("Connecting to a selected database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("Connected database successfully...");
+
+
+            String query = "select * from history";
+            PreparedStatement preparedStatement=conn.prepareStatement(query);
+            ResultSet rs=preparedStatement.executeQuery();
+            while (rs.next()) {
+                ArrayList<String> attRow=new ArrayList<String>();
+                attRow.add(rs.getString("subjectName"));
+                attRow.add(rs.getString("attendance"));
+                //System.out.println(rs.getString("subjectName")+" "+rs.getString("attendance"));
+                extractedAttendance.add(attRow);
+            }
+
+
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return extractedAttendance;
+
     }
 }

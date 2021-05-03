@@ -357,6 +357,8 @@ public class Homepage extends JFrame {
         });
 
 
+
+
         //REMOVE SUBJECT
         removeSubjectBtn.addActionListener(new ActionListener() {
             @Override
@@ -367,12 +369,32 @@ public class Homepage extends JFrame {
             }
         });
 
+        //View History
+        historyBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Displaying History");
+                new History();
+
+            }
+        });
+
+        //ADD Attendance
+        addBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("ADDING Attendance");
+                new AddAttendance();
+
+            }
+        });
+
 
         //GenerateLeaveForm
        generateBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("GENERATING LEAVEFORM");
+                System.out.println("GENERATING LEAVE FORM");
                 new GenerateLeaveForm();
 
             }

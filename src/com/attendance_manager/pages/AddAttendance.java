@@ -1,17 +1,19 @@
 package com.attendance_manager.pages;
 
 import com.attendance_manager.components.*;
+import com.attendance_manager.services.DBHandler;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 
 public class AddAttendance extends JFrame {
     GridBagConstraints gbc = new GridBagConstraints();
     GridBagConstraints gbcL = new GridBagConstraints();
-
+    DBHandler db=new DBHandler();
     public AddAttendance() {
 
         BufferedImage logo = null;
@@ -48,24 +50,32 @@ public class AddAttendance extends JFrame {
         gbc.gridy = 1;
         logoContainer.add(appTitle,gbc);
 
-        SubjectSlot sub1 = new SubjectSlot("Maths");
-        SubjectSlot sub2 = new SubjectSlot("Science");
-        SubjectSlot sub3 = new SubjectSlot("Social");
+        ArrayList<String> subjectsList=db.fetchSubjects();
+
+
+        ArrayList<SubjectSlot> subjectSlots=new ArrayList<SubjectSlot>();
+        for(int i=0;i<subjectsList.size();i++){
+              subjectSlots.add(new SubjectSlot(subjectsList.get(i)));
+
+        }
+
+
 
         JPanel attendanceContainer = new JPanel();
         attendanceContainer.setBackground(colorTheme.getLightTransColor());
         attendanceContainer.setPreferredSize(new Dimension(540, 500));
 
         attendanceContainer.setLayout(new GridBagLayout());
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        attendanceContainer.add(sub1.generateSlot(), gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        attendanceContainer.add(sub2.generateSlot(), gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        attendanceContainer.add(sub3.generateSlot(), gbc);
+
+        for(int i=0;i<subjectsList.size();i++){
+            gbc.gridx = 0;
+            gbc.gridy = i;
+
+            attendanceContainer.add(subjectSlots.get(i).generateSlot(), gbc);
+
+
+        }
+
 
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
         setTitle("Attendance Manager");

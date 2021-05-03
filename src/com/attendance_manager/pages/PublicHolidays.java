@@ -69,7 +69,6 @@ public class PublicHolidays extends JFrame {
 
             ArrayList<ArrayList<String>> extractedHolidays=parser.parse(responseContent.toString());
 
-            ArrayList<JLabel> holidays;
             //System.out.println(extractedHolidays);
 
              holiday = new String[extractedHolidays.size()][extractedHolidays.get(0).size()];

@@ -22,11 +22,8 @@ ALTER TABLE registers
     ADD FOREIGN KEY (subjectCode,staff) REFERENCES subject(subjectCode,staff);
 
 
-create table history(subjectCode varchar(50),email varchar(50),attendance int);
-ALTER TABLE history
-    ADD FOREIGN KEY (subjectCode) REFERENCES subject(subjectCode);
-ALTER TABLE history
-    ADD FOREIGN KEY (email) REFERENCES user(email);
+create table history(subjectName varchar(50),attendance varchar(50));
+
 
 
 
