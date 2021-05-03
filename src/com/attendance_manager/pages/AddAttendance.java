@@ -1,7 +1,6 @@
 package com.attendance_manager.pages;
 
-import com.attendance_manager.components.ColorTheme;
-import com.attendance_manager.components.GothamFont;
+import com.attendance_manager.components.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -20,6 +19,7 @@ public class AddAttendance extends JFrame {
         JLabel logoLabel = new JLabel();
         GothamFont gothamFont = new GothamFont();
         ColorTheme colorTheme = new ColorTheme();
+        CustomBorder customBorder = new CustomBorder();
 
         gbc.insets = new Insets(10,10,10,10);
 
@@ -48,9 +48,24 @@ public class AddAttendance extends JFrame {
         gbc.gridy = 1;
         logoContainer.add(appTitle,gbc);
 
+        SubjectSlot sub1 = new SubjectSlot("Maths");
+        SubjectSlot sub2 = new SubjectSlot("Science");
+        SubjectSlot sub3 = new SubjectSlot("Social");
+
         JPanel attendanceContainer = new JPanel();
-        attendanceContainer.setBackground(colorTheme.getDarkTransColor());
-        attendanceContainer.setPreferredSize(new Dimension(500, 300));
+        attendanceContainer.setBackground(colorTheme.getLightTransColor());
+        attendanceContainer.setPreferredSize(new Dimension(540, 500));
+
+        attendanceContainer.setLayout(new GridBagLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        attendanceContainer.add(sub1.generateSlot(), gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        attendanceContainer.add(sub2.generateSlot(), gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        attendanceContainer.add(sub3.generateSlot(), gbc);
 
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
         setTitle("Attendance Manager");

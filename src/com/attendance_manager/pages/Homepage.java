@@ -130,6 +130,12 @@ public class Homepage extends JFrame {
         holidaysBtn.setForeground(colorTheme.getTextColor());
         holidaysBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
 
+        JButton bioBtn = new JButton("Bio");
+        bioBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
+        bioBtn.setPreferredSize(new Dimension(300,40));
+        bioBtn.setBackground(Color.black);
+        bioBtn.setForeground(colorTheme.getTextColor());
+        bioBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
 
         JPanel menuPane = new JPanel();
         menuPane.setBackground(colorTheme.getDarkTransColor());
@@ -160,6 +166,9 @@ public class Homepage extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 7;
         menuPane.add(holidaysBtn, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        menuPane.add(bioBtn, gbc);
 
         JLabel attendanceTitle = new JLabel("Attendance Percentage");
         attendanceTitle.setFont(gothamFont.assignFont("GothamBold", 20f));
@@ -261,7 +270,6 @@ public class Homepage extends JFrame {
         rbtnPane.setPreferredSize(new Dimension(600, 100));
 
         gbc.insets = new Insets(0,10,0,10);
-
 
         rbtnPane.setLayout(new GridBagLayout());
         gbc.gridx = 0;

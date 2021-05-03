@@ -1,6 +1,6 @@
 create database javaproject;
 use javaproject;
-create table user(email varchar(50),password varchar(50));
+create table user(email varchar(50),password varchar(500));
 
 select * from user;
 ALTER TABLE user

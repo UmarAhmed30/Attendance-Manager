@@ -7,6 +7,11 @@ public class ColorTheme {
     Color accColorDark = Color.decode("#1db954");
     Color textColor = Color.decode("#ffffff");
     Color rounderCornerColor = Color.decode("#242424");
+    Color adjustmentTone = Color.decode("#171717");
+
+    public Color getAdjustmentTone() {
+        return adjustmentTone;
+    }
 
     public Color getRounderCornerColor() {
         return rounderCornerColor;
