@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
 //        new Login();
 //        new PublicHolidays();
-        new Homepage();
+//        new Homepage();
 //        new AddSubject();
 //        new RemoveSubject();
 //        new AddAttendance();
@@ -15,6 +15,6 @@ public class Main {
 //        new PublicHolidays();
 //        new Mysqlconnect();
 //        new FileChooser().triggerDBox();
-//        new Bio();
+        new Bio();
     }
 }
