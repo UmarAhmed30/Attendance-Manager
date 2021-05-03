@@ -1,6 +1,7 @@
 package com.attendance_manager.pages;
 
 import com.attendance_manager.components.*;
+import com.attendance_manager.services.DBHandler;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,6 +17,8 @@ public class AddSubject extends JFrame {
     GridBagConstraints gbcL = new GridBagConstraints();
 
     public AddSubject() {
+
+        DBHandler db=new DBHandler();
 
         BufferedImage logo = null;
         Image resizedLogo = null;
@@ -105,6 +108,8 @@ public class AddSubject extends JFrame {
                 String inputSubName = subNameField.getText();
                 String inputFaculty = facultyField.getText();
                 System.out.println(inputCode+" "+ inputSubName +" "+inputFaculty);
+
+                boolean res= db.addSubject(inputCode,inputSubName,inputFaculty);
             }
         });
 
@@ -147,7 +152,6 @@ public class AddSubject extends JFrame {
 
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
         setTitle("Attendance Manager");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
         setContentPane(new JLabel(new ImageIcon("src/resources/images/background.jpg")));

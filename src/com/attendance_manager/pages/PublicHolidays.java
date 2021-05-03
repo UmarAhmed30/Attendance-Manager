@@ -26,7 +26,7 @@ public class PublicHolidays extends JFrame {
     JTable table;
     String holiday[][];
 
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
     ColorTheme colorTheme=new ColorTheme();
 
     private static HttpURLConnection connection;
@@ -37,18 +37,18 @@ public class PublicHolidays extends JFrame {
 
         Parser parser = new Parser();
         GothamFont gothamFont = new GothamFont();
-        CustomBorder customBorder = new CustomBorder();
+
 
         //HEADING
-        JLabel containerTitle = new JLabel("Login");
+        JLabel containerTitle = new JLabel("PUBLIC HOLIDAYS");
         containerTitle.setFont(gothamFont.assignFont("GothamMedium", 20f));
         containerTitle.setForeground(colorTheme.getTextColor());
-        //containerTitle.setBorder(customBorder.assignBorder(Color.black, 0 , 25, 10, 0, 10));
-        add(containerTitle);
+
 
         //API
         try {
-            URL url = new URL("https://holidayapi.com/v1/holidays?pretty&country=IN&year=2020&key=60f5cc91-b484-44a2" +
+            URL url = new URL("https://holidayapi.com/v1/holidays?pretty&country=" +
+                    "IN&year=2020&key=60f5cc91-b484-44a2" +
                     "-a01f-af5d4571c758");
             connection = (HttpURLConnection) url.openConnection();
             int status = connection.getResponseCode();
@@ -105,10 +105,11 @@ public class PublicHolidays extends JFrame {
         table.setFont(gothamFont.assignFont("GothamMedium", 13f));
         table.setForeground(colorTheme.getTextColor());
         table.setBorder(createEmptyBorder());
+
         //table header row
         table.getTableHeader().setBackground(new Color(18,18,18));
-        table.getTableHeader().setFont(gothamFont.assignFont("GothamMedium", 16f));
-        table.getTableHeader().setForeground(colorTheme.getTextColor());
+        table.getTableHeader().setFont(gothamFont.assignFont("GothamBold", 16f));
+        table.getTableHeader().setForeground(colorTheme.getAccColorLight());
 
 
 
@@ -132,14 +133,20 @@ public class PublicHolidays extends JFrame {
         //OUTER FRAME
         setIconImage(new ImageIcon("src/resources/images/logo_1.png").getImage());
         setTitle("Attendance Manager");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         setVisible(true);
         setContentPane(new JLabel(new ImageIcon("src/resources/images/background.jpg")));
 
-        //adding jps
+
+        gbc.insets= new Insets(10,0,10,0);
         setLayout(new GridBagLayout());
         gbc.gridx=0;
         gbc.gridy=0;
+        add(containerTitle,gbc);
+
+        //adding jps
+        gbc.gridx=0;
+        gbc.gridy=1;
         add(jps,gbc);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }

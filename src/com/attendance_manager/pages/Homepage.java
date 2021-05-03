@@ -8,6 +8,8 @@ import com.attendance_manager.components.RoundedBorder;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -341,6 +343,47 @@ public class Homepage extends JFrame {
         add(contentPane,gbc);
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        // button listeners
+
+        //ADD SUBJECT
+        addSubjectBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("ADDING SUBJECT");
+                new AddSubject();
+
+            }
+        });
+
+
+        //REMOVE SUBJECT
+        removeSubjectBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("REMOVING SUBJECT");
+                new RemoveSubject();
+
+            }
+        });
+
+
+        //GenerateLeaveForm
+       generateBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("GENERATING LEAVEFORM");
+                new GenerateLeaveForm();
+
+            }
+        });
+        //PublicHolidays
+        holidaysBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PublicHolidays();
+            }
+        });
 
     }
 

@@ -5,6 +5,8 @@ import com.attendance_manager.components.ColorTheme;
 import java.sql.DriverManager;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import com.attendance_manager.services.DBHandler;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,6 +22,7 @@ public class Login extends JFrame {
 
 	public Login()
 	{	//JDBC
+		DBHandler db=new DBHandler();
 
 		BufferedImage logo = null;
 		Image resizedLogo = null;
@@ -109,9 +112,9 @@ public class Login extends JFrame {
 				String inputEmail = emailField.getText();
 				String inputPassword = passwordField.getText();
 				System.out.println(inputEmail+" "+inputPassword);
-				if(validateUser(inputEmail,inputPassword)){
+				if(db.validateUser(inputEmail,inputPassword)){
 					System.out.println("VALIDATED");
-
+					new Homepage();
 				}
 				else{
 					System.out.println("WRONG CREDENTIALS");
@@ -176,66 +179,6 @@ public class Login extends JFrame {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 
-	private boolean validateUser(String email, String password) {
-		final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-		final String DB_URL = "jdbc:mysql://localhost/javaproject";
-
-		//  Database credentials
-		final String USER = "root";
-		final String PASS = "1984cezar";
-
-
-			Connection conn = null;
-			Statement stmt = null;
-			String hashedPwd=BCrypt.hashpw(password,BCrypt.gensalt(5));
-			System.out.println(hashedPwd);
-			try{
-				//STEP 2: Register JDBC driver
-				Class.forName("com.mysql.cj.jdbc.Driver");
-
-				//STEP 3: Open a connection
-				System.out.println("Connecting to a selected database...");
-				conn = DriverManager.getConnection(DB_URL, USER, PASS);
-				System.out.println("Connected database successfully...");
-
-				//STEP 4: Execute a query
-				String query="select password from user where email= ?";
-				PreparedStatement checkExisting=conn.prepareStatement(query);
-				checkExisting.setString(1,email);
-				ResultSet rs=checkExisting.executeQuery();
-				//System.out.println(rs);
-				while(rs.next()){
-					if (BCrypt.checkpw(password,rs.getString("password"))) {
-
-						conn.close();
-						return true;
-					}
-				}
-				return false;
-
-			}catch(SQLException se){
-				//Handle errors for JDBC
-				se.printStackTrace();
-			}catch(Exception e){
-				//Handle errors for Class.forName
-				e.printStackTrace();
-			}finally{
-				//finally block used to close resources
-				try{
-					if(stmt!=null)
-						conn.close();
-				}catch(SQLException se){
-				}// do nothing
-				try{
-					if(conn!=null)
-						conn.close();
-				}catch(SQLException se){
-					se.printStackTrace();
-				}//end finally try
-			}//end try
-			System.out.println("Goodbye!");
-		return false;
-	}
 
 
 }

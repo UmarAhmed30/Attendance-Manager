@@ -1,6 +1,7 @@
 package com.attendance_manager.pages;
 
 import com.attendance_manager.components.*;
+import com.attendance_manager.services.DBHandler;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,6 +16,7 @@ public class RemoveSubject extends JFrame{
     GridBagConstraints gbcL = new GridBagConstraints();
 
     public RemoveSubject() {
+        DBHandler db=new DBHandler()    ;
 
         BufferedImage logo = null;
         Image resizedLogo = null;
@@ -85,6 +87,7 @@ public class RemoveSubject extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String inputSubName = subNameField.getText();
+                db.deleteSubject(inputSubName);
                 System.out.println(inputSubName);
             }
         });
@@ -114,7 +117,6 @@ public class RemoveSubject extends JFrame{
 
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
         setTitle("Attendance Manager");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
         setContentPane(new JLabel(new ImageIcon("src/resources/images/background.jpg")));

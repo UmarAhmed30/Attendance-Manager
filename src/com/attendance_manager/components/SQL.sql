@@ -7,7 +7,7 @@ ALTER TABLE user
     ADD PRIMARY KEY (email);
 
 
-create table subject(subjectCode varchar(50),staff varchar(50));
+create table subject(subjectCode varchar(50),staff varchar(50),subjectName varchar(50));
 ALTER TABLE subject
     ADD PRIMARY KEY (subjectCode,staff);
 
