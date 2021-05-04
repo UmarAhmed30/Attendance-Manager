@@ -4,6 +4,7 @@ import com.attendance_manager.components.ColorTheme;
 import com.attendance_manager.components.CustomBorder;
 import com.attendance_manager.components.GothamFont;
 import com.attendance_manager.components.RoundedBorder;
+import com.attendance_manager.services.DBHandler;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 
 public class Homepage extends JFrame {
 
@@ -19,7 +21,7 @@ public class Homepage extends JFrame {
     ColorTheme colorTheme=new ColorTheme();
     GothamFont gothamFont = new GothamFont();
     CustomBorder customBorder = new CustomBorder();
-
+    DBHandler db=new DBHandler();
 
     public Homepage() {
 
@@ -172,18 +174,24 @@ public class Homepage extends JFrame {
         gbc.gridy = 8;
         menuPane.add(bioBtn, gbc);
 
+        ArrayList<Integer> stats=db.getStats();
+        attendancePercentage=((float)stats.get(1)/stats.get(0))*100;
+//        System.out.println(attendancePercentage);
+
+
+
         JLabel attendanceTitle = new JLabel("Attendance Percentage");
         attendanceTitle.setFont(gothamFont.assignFont("GothamBold", 20f));
         attendanceTitle.setForeground(colorTheme.getTextColor());
 
         JLabel attendancePercentLabel = new JLabel(Float.toString(attendancePercentage)+" %");
         attendancePercentLabel.setFont(gothamFont.assignFont("GothamBold", 40f));
-        attendancePercentLabel.setForeground(colorTheme.getAccColorLight());
+        attendancePercentLabel.setForeground((attendancePercentage>75)?colorTheme.getAccColorLight():Color.RED);
 
         JProgressBar attendancePercentBar = new JProgressBar();
         attendancePercentBar.setValue(0);
         attendancePercentBar.setStringPainted(true);
-        attendancePercentBar.setForeground(colorTheme.getAccColorLight());
+        attendancePercentBar.setForeground((attendancePercentage>75)?colorTheme.getAccColorLight():Color.RED);
         attendancePercentBar.setPreferredSize(new Dimension(300, 30));
 
 
@@ -208,16 +216,25 @@ public class Homepage extends JFrame {
 
         gbc.insets = new Insets(0,0,0,0);
 
-        JLabel stat1 = new JLabel("Total number of classes: ");
+
+
+        System.out.println(stats.get(0));
+        System.out.println(stats.get(1));
+        System.out.println(stats.get(2));
+
+        String bunkOrAttend=(stats.get(2)>0)?"Number of safe bunks more: ":"Number of classes to get back on track: ";
+        int safeClasses=(stats.get(2)>0)?stats.get(2):stats.get(2)*(-1);
+
+        JLabel stat1 = new JLabel("Total number of classes: "+stats.get(0));
         stat1.setFont(gothamFont.assignFont("GothamBook", 14f));
         stat1.setForeground(colorTheme.getTextColor());
-        JLabel stat2 = new JLabel("Number of classes attended: ");
+        JLabel stat2 = new JLabel("Number of classes attended: "+stats.get(1));
         stat2.setFont(gothamFont.assignFont("GothamBook", 14f));
         stat2.setForeground(colorTheme.getTextColor());
-        JLabel stat3 = new JLabel("Number of classes absent: ");
+        JLabel stat3 = new JLabel("Number of classes absent: "+(stats.get(0)-stats.get(1)));
         stat3.setFont(gothamFont.assignFont("GothamBook", 14f));
         stat3.setForeground(colorTheme.getTextColor());
-        JLabel stat4 = new JLabel("Number of safe bunks more: ");
+        JLabel stat4 = new JLabel(bunkOrAttend+" "+safeClasses);
         stat4.setFont(gothamFont.assignFont("GothamBook", 14f));
         stat4.setForeground(colorTheme.getTextColor());
 
