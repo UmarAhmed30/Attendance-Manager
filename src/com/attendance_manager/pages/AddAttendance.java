@@ -79,7 +79,6 @@ public class AddAttendance extends JFrame {
 
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
         setTitle("Attendance Manager");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
         setContentPane(new JLabel(new ImageIcon("src/resources/images/background.jpg")));
