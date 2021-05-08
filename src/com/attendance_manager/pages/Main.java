@@ -1,9 +1,13 @@
 package com.attendance_manager.pages;
 
 import com.attendance_manager.components.FileChooser;
+import com.attendance_manager.services.DBHandler;
 
 public class Main {
     public static void main(String[] args) {
+
+        DBHandler db=new DBHandler();
+
 //        new Login();
 //        new PublicHolidays();
         new Homepage();

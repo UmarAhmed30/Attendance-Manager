@@ -401,6 +401,7 @@ public class Homepage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("ADDING Attendance");
+
                 new AddAttendance();
 
             }
@@ -423,6 +424,17 @@ public class Homepage extends JFrame {
                 new PublicHolidays();
             }
         });
+
+        //Bio
+        bioBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Displaying Bio");
+                new Bio();
+
+            }
+        });
+
 
     }
 
