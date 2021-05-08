@@ -12,7 +12,7 @@ public class DBHandler {
 
     //  Database credentials
     String USER = "root";
-    String PASS = "1984cezar";
+    String PASS = "ahmed3633";
     Connection conn = null;
     Statement stmt = null;
 

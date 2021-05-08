@@ -13,7 +13,6 @@ public class Main {
 //        new NewUser();
 //        new Login();
 //        new PublicHolidays();
-//        new Mysqlconnect();
 //        new FileChooser().triggerDBox();
 //        new Bio();
     }
