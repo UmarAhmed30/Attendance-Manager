@@ -174,10 +174,13 @@ public class Homepage extends JFrame {
         gbc.gridy = 8;
         menuPane.add(bioBtn, gbc);
 
-        ArrayList<Integer> stats=db.getStats();
-        attendancePercentage=((float)stats.get(1)/stats.get(0))*100;
-//        System.out.println(attendancePercentage);
 
+        ArrayList<Integer> stats=db.getStats();
+        try{
+            attendancePercentage=((float)stats.get(1)/stats.get(0))*100;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
 
         JLabel attendanceTitle = new JLabel("Attendance Percentage");
