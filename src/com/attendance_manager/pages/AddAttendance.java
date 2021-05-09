@@ -12,16 +12,14 @@ import java.util.ArrayList;
 
 public class AddAttendance extends JFrame {
     GridBagConstraints gbc = new GridBagConstraints();
-    GridBagConstraints gbcL = new GridBagConstraints();
     DBHandler db=new DBHandler();
     public AddAttendance() {
 
-        BufferedImage logo = null;
-        Image resizedLogo = null;
+        BufferedImage logo ;
+        Image resizedLogo ;
         JLabel logoLabel = new JLabel();
         GothamFont gothamFont = new GothamFont();
         ColorTheme colorTheme = new ColorTheme();
-        CustomBorder customBorder = new CustomBorder();
 
         gbc.insets = new Insets(10,10,10,10);
 
@@ -53,9 +51,9 @@ public class AddAttendance extends JFrame {
         ArrayList<String> subjectsList=db.fetchSubjects();
 
 
-        ArrayList<SubjectSlot> subjectSlots=new ArrayList<SubjectSlot>();
-        for(int i=0;i<subjectsList.size();i++){
-              subjectSlots.add(new SubjectSlot(subjectsList.get(i)));
+        ArrayList<SubjectSlot> subjectSlots= new ArrayList<>();
+        for (String s : subjectsList) {
+            subjectSlots.add(new SubjectSlot(s));
 
         }
 

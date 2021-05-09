@@ -27,14 +27,13 @@ public class Bio extends JFrame {
 
         CustomBorder customBorder = new CustomBorder();
 
-        gbc.insets = new Insets(10,10,10,10);
+        gbc.insets = new Insets(10, 10, 10, 10);
 
-        try{
+        try {
             logo = ImageIO.read(new File("src/resources/images/spotify.png"));
             resizedLogo = logo.getScaledInstance(75, 75, Image.SCALE_DEFAULT);
             logoLabel = new JLabel(new ImageIcon(resizedLogo));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.print("Image not found!");
         }
 
@@ -49,12 +48,12 @@ public class Bio extends JFrame {
         logoContainer.setLayout(new GridBagLayout());
         gbc.gridx = 0;
         gbc.gridy = 0;
-        logoContainer.add(logoLabel,gbc);
+        logoContainer.add(logoLabel, gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
-        logoContainer.add(appTitle,gbc);
+        logoContainer.add(appTitle, gbc);
 
-        gbc.insets = new Insets(0,0,0,0);
+        gbc.insets = new Insets(0, 0, 0, 0);
 
         JButton uploadPhotoBtn = new JButton("Upload Photo");
         uploadPhotoBtn.setBorder(new RoundedBorder(20, colorTheme.getAdjustmentTone()));
@@ -72,7 +71,7 @@ public class Bio extends JFrame {
         JLabel containerTitle = new JLabel("Bio");
         containerTitle.setFont(gothamFont.assignFont("GothamMedium", 20f));
         containerTitle.setForeground(colorTheme.getTextColor());
-        containerTitle.setBorder(customBorder.assignBorder(Color.black, 0 , 25, 10, 0, 10));
+        containerTitle.setBorder(customBorder.assignBorder(Color.black, 0, 25, 10, 0, 10));
 
         JLabel nameLabel = new JLabel("Name");
         nameLabel.setFont(gothamFont.assignFont("GothamBook", 14f));
@@ -102,23 +101,23 @@ public class Bio extends JFrame {
         fieldContainer.setBackground(colorTheme.getLightTransColor());
         fieldContainer.setPreferredSize(new Dimension(500, 220));
 
-        gbc.insets = new Insets(20,10,20,10);
+        gbc.insets = new Insets(20, 10, 20, 10);
 
         fieldContainer.setLayout(new GridBagLayout());
         gbcL.gridx = 0;
         gbcL.gridy = 0;
         gbcL.anchor = GridBagConstraints.WEST;
-        fieldContainer.add(nameLabel,gbcL);
+        fieldContainer.add(nameLabel, gbcL);
         gbc.gridx = 1;
         gbc.gridy = 0;
         fieldContainer.add(nameField, gbc);
         gbcL.gridx = 0;
         gbcL.gridy = 1;
         gbcL.anchor = GridBagConstraints.WEST;
-        fieldContainer.add(yearLabel,gbcL);
+        fieldContainer.add(yearLabel, gbcL);
         gbc.gridx = 1;
         gbc.gridy = 1;
-        fieldContainer.add(yearField,gbc);
+        fieldContainer.add(yearField, gbc);
         gbcL.gridx = 0;
         gbcL.gridy = 2;
         gbcL.anchor = GridBagConstraints.WEST;
@@ -153,7 +152,7 @@ public class Bio extends JFrame {
         JPanel container = new JPanel();
         container.setBackground(colorTheme.getLightTransColor());
 
-        gbc.insets = new Insets(10,0,10,0);
+        gbc.insets = new Insets(10, 0, 10, 0);
 
         container.setLayout(new GridBagLayout());
         gbc.gridx = 0;
@@ -175,7 +174,7 @@ public class Bio extends JFrame {
 
         setContentPane(new JLabel(new ImageIcon("src/resources/images/background.jpg")));
 
-        gbc.insets = new Insets(0,0,0,0);
+        gbc.insets = new Insets(0, 0, 0, 0);
 
         setLayout(new GridBagLayout());
         gbc.gridx = 0;

@@ -11,9 +11,59 @@ public class DBHandler {
 
     //  Database credentials
     String USER = "root";
-    String PASS = "ahmed3633";
+    String PASS = "1984cezar";
     Connection conn = null;
     Statement stmt = null;
+
+
+    public boolean userExists(){
+        try {
+            //STEP 2: Register JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            //STEP 3: Open a connection
+            System.out.println("Connecting to a selected database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("Connected database successfully...");
+
+            //check for existing user
+            PreparedStatement checkExisting = conn.prepareStatement("select * from user ", ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+
+            ResultSet rs = checkExisting.executeQuery();
+            //System.out.println(rs);
+            if (rs.absolute(1)) {
+                System.out.println("ALREADY EXISTING USER");
+                conn.close();
+                return false;
+            }
+
+
+
+
+        }  catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    conn.close();
+            } // do nothing
+            catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+        return true;
+
+
+    }
 
     public boolean validateUser(String email, String password) {
 
@@ -44,19 +94,18 @@ public class DBHandler {
             }
             return false;
 
-        } catch (SQLException se) {
+        } catch (Exception se) {
             //Handle errors for JDBC
             se.printStackTrace();
-        } catch (Exception e) {
-            //Handle errors for Class.forName
-            e.printStackTrace();
-        } finally {
+        }//Handle errors for Class.forName
+        finally {
             //finally block used to close resources
             try {
                 if (stmt != null)
                     conn.close();
-            } catch (SQLException se) {
-            }// do nothing
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
             try {
                 if (conn != null)
                     conn.close();
@@ -507,9 +556,12 @@ public class DBHandler {
 
     public int calculateSafeBunks(int attendedClasses, int totalClasses) {
         int safeBunks;
+        if(totalClasses==0){
+            return 0;
+        }
 
-        if ((attendedClasses / totalClasses) > 0.75) {
-            int i;
+        int i=0;
+        if (((float)attendedClasses / totalClasses) > 0.75) {
             for (i = 0; ; i++) {
                 int newTotalClass = totalClasses + i;
                 float newPercentage = ((float) attendedClasses) / newTotalClass;
@@ -519,10 +571,9 @@ public class DBHandler {
 
             }
             safeBunks = i - 1;
-//            System.out.println(i-1+ " classes can be bunked");
+            System.out.println(i-1+ " classes can be bunked");
             return safeBunks;
         } else {
-            int i;
             for (i = 0; ; i++) {
                 int newTotalClass = totalClasses + i;
                 int newAttendedClasses = attendedClasses + i;
@@ -533,7 +584,7 @@ public class DBHandler {
 
             }
             safeBunks = (i + 1);
-//            System.out.println(i+1+ " classes need to be attended");
+            System.out.println(i+1+ " classes need to be attended");
             return safeBunks * (-1);
 
         }

@@ -18,27 +18,26 @@ import java.util.ArrayList;
 public class Homepage extends JFrame {
 
     GridBagConstraints gbc = new GridBagConstraints();
-    ColorTheme colorTheme=new ColorTheme();
+    ColorTheme colorTheme = new ColorTheme();
     GothamFont gothamFont = new GothamFont();
     CustomBorder customBorder = new CustomBorder();
-    DBHandler db=new DBHandler();
+    DBHandler db = new DBHandler();
 
     public Homepage() {
 
-        float attendancePercentage = 90;
+        float attendancePercentage;
 
-        BufferedImage logo = null;
-        Image resizedLogo = null;
+        BufferedImage logo;
+        Image resizedLogo;
         JLabel logoLabel = new JLabel();
 
-        gbc.insets = new Insets(0,0,0,0);
+        gbc.insets = new Insets(0, 0, 0, 0);
 
-        try{
+        try {
             logo = ImageIO.read(new File("src/resources/images/spotify.png"));
             resizedLogo = logo.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
             logoLabel = new JLabel(new ImageIcon(resizedLogo));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.print("Image not found!");
         }
 
@@ -50,18 +49,18 @@ public class Homepage extends JFrame {
         logoContainer.setBackground(colorTheme.getLightTransColor());
         logoContainer.setPreferredSize(new Dimension(300, 150));
 
-        gbc.insets = new Insets(10,10,10,10);
+        gbc.insets = new Insets(10, 10, 10, 10);
 
 
         logoContainer.setLayout(new GridBagLayout());
         gbc.gridx = 0;
         gbc.gridy = 0;
-        logoContainer.add(logoLabel,gbc);
+        logoContainer.add(logoLabel, gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
-        logoContainer.add(appTitle,gbc);
+        logoContainer.add(appTitle, gbc);
 
-        gbc.insets = new Insets(0,0,0,0);
+        gbc.insets = new Insets(0, 0, 0, 0);
 
 
         JPanel greetingsContainer = new JPanel();
@@ -93,28 +92,28 @@ public class Homepage extends JFrame {
 
         JButton historyBtn = new JButton("History");
         historyBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
-        historyBtn.setPreferredSize(new Dimension(300,40));
+        historyBtn.setPreferredSize(new Dimension(300, 40));
         historyBtn.setBackground(Color.black);
         historyBtn.setForeground(colorTheme.getTextColor());
         historyBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
 
         JButton addBtn = new JButton("Add Attendance");
         addBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
-        addBtn.setPreferredSize(new Dimension(300,40));
+        addBtn.setPreferredSize(new Dimension(300, 40));
         addBtn.setBackground(Color.black);
         addBtn.setForeground(colorTheme.getTextColor());
         addBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
 
         JButton addTableBtn = new JButton("Add Timetable");
         addTableBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
-        addTableBtn.setPreferredSize(new Dimension(300,40));
+        addTableBtn.setPreferredSize(new Dimension(300, 40));
         addTableBtn.setBackground(Color.black);
         addTableBtn.setForeground(colorTheme.getTextColor());
         addTableBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
 
         JButton viewTableBtn = new JButton("View Timetable");
         viewTableBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
-        viewTableBtn.setPreferredSize(new Dimension(300,40));
+        viewTableBtn.setPreferredSize(new Dimension(300, 40));
         viewTableBtn.setBackground(Color.black);
         viewTableBtn.setForeground(colorTheme.getTextColor());
         viewTableBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
@@ -122,21 +121,21 @@ public class Homepage extends JFrame {
 
         JButton generateBtn = new JButton("Generate Leave Form");
         generateBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
-        generateBtn.setPreferredSize(new Dimension(300,40));
+        generateBtn.setPreferredSize(new Dimension(300, 40));
         generateBtn.setBackground(Color.black);
         generateBtn.setForeground(colorTheme.getTextColor());
         generateBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
 
         JButton holidaysBtn = new JButton("Public Holidays");
         holidaysBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
-        holidaysBtn.setPreferredSize(new Dimension(300,40));
+        holidaysBtn.setPreferredSize(new Dimension(300, 40));
         holidaysBtn.setBackground(Color.black);
         holidaysBtn.setForeground(colorTheme.getTextColor());
         holidaysBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
 
         JButton bioBtn = new JButton("Bio");
         bioBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
-        bioBtn.setPreferredSize(new Dimension(300,40));
+        bioBtn.setPreferredSize(new Dimension(300, 40));
         bioBtn.setBackground(Color.black);
         bioBtn.setForeground(colorTheme.getTextColor());
         bioBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
@@ -154,13 +153,13 @@ public class Homepage extends JFrame {
         menuPane.add(removeSubjectBtn, gbc);
         gbc.gridx = 0;
         gbc.gridy = 2;
-        menuPane.add(historyBtn,gbc);
+        menuPane.add(historyBtn, gbc);
         gbc.gridx = 0;
         gbc.gridy = 3;
-        menuPane.add(addBtn,gbc);
+        menuPane.add(addBtn, gbc);
         gbc.gridx = 0;
         gbc.gridy = 4;
-        menuPane.add(addTableBtn,gbc);
+        menuPane.add(addTableBtn, gbc);
         gbc.gridx = 0;
         gbc.gridy = 5;
         menuPane.add(viewTableBtn, gbc);
@@ -175,26 +174,31 @@ public class Homepage extends JFrame {
         menuPane.add(bioBtn, gbc);
 
 
-        ArrayList<Integer> stats=db.getStats();
-        try{
-            attendancePercentage=((float)stats.get(1)/stats.get(0))*100;
+        ArrayList<Integer> stats = db.getStats();
+        try {
+            attendancePercentage = ((float) stats.get(1) / stats.get(0)) * 100;
         } catch (Exception e) {
-            System.out.println(e);
+            attendancePercentage = 0;
         }
+        if (Float.isNaN(attendancePercentage)) {
+            attendancePercentage = 0;
+        }
+        System.out.println("attendance percentage= " + attendancePercentage);
+
 
 
         JLabel attendanceTitle = new JLabel("Attendance Percentage");
         attendanceTitle.setFont(gothamFont.assignFont("GothamBold", 20f));
         attendanceTitle.setForeground(colorTheme.getTextColor());
 
-        JLabel attendancePercentLabel = new JLabel(Float.toString(attendancePercentage)+" %");
+        JLabel attendancePercentLabel = new JLabel(Float.toString(attendancePercentage) + " %");
         attendancePercentLabel.setFont(gothamFont.assignFont("GothamBold", 40f));
-        attendancePercentLabel.setForeground((attendancePercentage>75)?colorTheme.getAccColorLight():Color.RED);
+        attendancePercentLabel.setForeground((attendancePercentage > 75) ? colorTheme.getAccColorLight() : Color.RED);
 
         JProgressBar attendancePercentBar = new JProgressBar();
         attendancePercentBar.setValue(0);
         attendancePercentBar.setStringPainted(true);
-        attendancePercentBar.setForeground((attendancePercentage>75)?colorTheme.getAccColorLight():Color.RED);
+        attendancePercentBar.setForeground((attendancePercentage > 75) ? colorTheme.getAccColorLight() : Color.RED);
         attendancePercentBar.setPreferredSize(new Dimension(300, 30));
 
 
@@ -202,7 +206,7 @@ public class Homepage extends JFrame {
         progressPane.setBackground(colorTheme.getDarkTransColor());
         progressPane.setPreferredSize(new Dimension(375, 300));
 
-        gbc.insets = new Insets(20,0,30,0);
+        gbc.insets = new Insets(20, 0, 30, 0);
 
         progressPane.setLayout(new GridBagLayout());
         gbc.gridx = 0;
@@ -217,27 +221,34 @@ public class Homepage extends JFrame {
 
         fill(attendancePercentBar, attendancePercentage);
 
-        gbc.insets = new Insets(0,0,0,0);
+        gbc.insets = new Insets(0, 0, 0, 0);
 
 
+        String bunkOrAttend = "Welcome to attendance Manager !";
+        int safeClasses = 0;
+        int attendedClasses = 0;
+        int totalClasses = 0;
+        int missedClasses = 0;
 
-        System.out.println(stats.get(0));
-        System.out.println(stats.get(1));
-        System.out.println(stats.get(2));
-
-        String bunkOrAttend=(stats.get(2)>0)?"Number of safe bunks more: ":"Number of classes to get back on track: ";
-        int safeClasses=(stats.get(2)>0)?stats.get(2):stats.get(2)*(-1);
-
-        JLabel stat1 = new JLabel("Total number of classes: "+stats.get(0));
+        try {
+            bunkOrAttend = (stats.get(2) > 0) ? "Number of safe bunks more: " : "Number of classes to get back on track: ";
+            safeClasses = (stats.get(2) > 0) ? stats.get(2) : stats.get(2) * (-1);
+            totalClasses = stats.get(0);
+            attendedClasses = stats.get(1);
+            missedClasses = (stats.get(0) - stats.get(1));
+        } catch (Exception e) {
+            System.out.println("FIRST TIME USER");
+        }
+        JLabel stat1 = new JLabel("Total number of classes: " + totalClasses);
         stat1.setFont(gothamFont.assignFont("GothamBook", 14f));
         stat1.setForeground(colorTheme.getTextColor());
-        JLabel stat2 = new JLabel("Number of classes attended: "+stats.get(1));
+        JLabel stat2 = new JLabel("Number of classes attended: " + attendedClasses);
         stat2.setFont(gothamFont.assignFont("GothamBook", 14f));
         stat2.setForeground(colorTheme.getTextColor());
-        JLabel stat3 = new JLabel("Number of classes absent: "+(stats.get(0)-stats.get(1)));
+        JLabel stat3 = new JLabel("Number of classes absent: " + missedClasses);
         stat3.setFont(gothamFont.assignFont("GothamBook", 14f));
         stat3.setForeground(colorTheme.getTextColor());
-        JLabel stat4 = new JLabel(bunkOrAttend+" "+safeClasses);
+        JLabel stat4 = new JLabel(bunkOrAttend + " " + safeClasses);
         stat4.setFont(gothamFont.assignFont("GothamBook", 14f));
         stat4.setForeground(colorTheme.getTextColor());
 
@@ -245,7 +256,7 @@ public class Homepage extends JFrame {
         statPane.setBackground(colorTheme.getDarkTransColor());
         statPane.setPreferredSize(new Dimension(475, 300));
 
-        gbc.insets = new Insets(10,0,10,0);
+        gbc.insets = new Insets(10, 0, 10, 0);
 
 
         statPane.setLayout(new GridBagLayout());
@@ -262,7 +273,7 @@ public class Homepage extends JFrame {
         gbc.gridy = 3;
         statPane.add(stat4, gbc);
 
-        gbc.insets = new Insets(0,0,0,0);
+        gbc.insets = new Insets(0, 0, 0, 0);
 
 
         JPanel mainContentPane = new JPanel();
@@ -291,7 +302,7 @@ public class Homepage extends JFrame {
         rbtnPane.setBackground(colorTheme.getLightTransColor());
         rbtnPane.setPreferredSize(new Dimension(600, 100));
 
-        gbc.insets = new Insets(0,10,0,10);
+        gbc.insets = new Insets(0, 10, 0, 10);
 
         rbtnPane.setLayout(new GridBagLayout());
         gbc.gridx = 0;
@@ -301,7 +312,7 @@ public class Homepage extends JFrame {
         gbc.gridy = 0;
         rbtnPane.add(rbtn2, gbc);
 
-        gbc.insets = new Insets(0,0,0,0);
+        gbc.insets = new Insets(0, 0, 0, 0);
 
 
         JButton resultBtn = new JButton("Get Result");
@@ -313,7 +324,7 @@ public class Homepage extends JFrame {
         JPanel resultBtnPane = new JPanel();
         resultBtnPane.setBackground(colorTheme.getLightTransColor());
         resultBtnPane.setPreferredSize(new Dimension(250, 100));
-        resultBtnPane.setBorder(customBorder.assignBorder(Color.black, 0 , 20, 10, 0, 10));
+        resultBtnPane.setBorder(customBorder.assignBorder(Color.black, 0, 20, 10, 0, 10));
 
 
         resultBtnPane.add(resultBtn);
@@ -351,82 +362,60 @@ public class Homepage extends JFrame {
         setLayout(new GridBagLayout());
         gbc.gridx = 0;
         gbc.gridy = 0;
-        add(logoContainer,gbc);
+        add(logoContainer, gbc);
         gbc.gridx = 1;
         gbc.gridy = 0;
-        add(greetingsContainer,gbc);
+        add(greetingsContainer, gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
-        add(menuPane,gbc);
+        add(menuPane, gbc);
         gbc.gridx = 1;
         gbc.gridy = 1;
-        add(contentPane,gbc);
+        add(contentPane, gbc);
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         // button listeners
 
         //ADD SUBJECT
-        addSubjectBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("ADDING SUBJECT");
-                new AddSubject();
+        addSubjectBtn.addActionListener(e -> {
+            System.out.println("ADDING SUBJECT");
+            new AddSubject();
 
-            }
         });
-
-
 
 
         //REMOVE SUBJECT
-        removeSubjectBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("REMOVING SUBJECT");
-                new RemoveSubject();
+        removeSubjectBtn.addActionListener(e -> {
+            System.out.println("REMOVING SUBJECT");
+            new RemoveSubject();
 
-            }
         });
 
         //View History
-        historyBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Displaying History");
-                new History();
+        historyBtn.addActionListener(e -> {
+            System.out.println("Displaying History");
+            new History();
 
-            }
         });
 
         //ADD Attendance
-        addBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("ADDING Attendance");
+        addBtn.addActionListener(e -> {
+            System.out.println("ADDING Attendance");
 
-                new AddAttendance();
+            new AddAttendance();
 
-            }
         });
 
 
         //GenerateLeaveForm
-       generateBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("GENERATING LEAVE FORM");
-                new GenerateLeaveForm();
+        generateBtn.addActionListener(e -> {
+            System.out.println("GENERATING LEAVE FORM");
+            new GenerateLeaveForm();
 
-            }
         });
         //PublicHolidays
-        holidaysBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new PublicHolidays();
-            }
-        });
+        holidaysBtn.addActionListener(e -> new PublicHolidays());
 
         //Bio
         bioBtn.addActionListener(new ActionListener() {
@@ -441,17 +430,15 @@ public class Homepage extends JFrame {
 
     }
 
-    public static void fill(JProgressBar attendancePercentBar, float attendancePercentage)
-    {
+    public static void fill(JProgressBar attendancePercentBar, float attendancePercentage) {
         int i = 0;
         try {
             while (i <= 100) {
-                attendancePercentBar.setValue((int)attendancePercentage);
+                attendancePercentBar.setValue((int) attendancePercentage);
                 Thread.sleep(1000);
                 i += 20;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }

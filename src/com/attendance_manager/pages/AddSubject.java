@@ -18,7 +18,7 @@ public class AddSubject extends JFrame {
 
     public AddSubject() {
 
-        DBHandler db=new DBHandler();
+        DBHandler db = new DBHandler();
 
         BufferedImage logo = null;
         Image resizedLogo = null;
@@ -30,14 +30,13 @@ public class AddSubject extends JFrame {
 
         CustomBorder customBorder = new CustomBorder();
 
-        gbc.insets = new Insets(10,10,10,10);
+        gbc.insets = new Insets(10, 10, 10, 10);
 
-        try{
+        try {
             logo = ImageIO.read(new File("src/resources/images/spotify.png"));
             resizedLogo = logo.getScaledInstance(75, 75, Image.SCALE_DEFAULT);
             logoLabel = new JLabel(new ImageIcon(resizedLogo));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.print("Image not found!");
         }
 
@@ -52,17 +51,17 @@ public class AddSubject extends JFrame {
         logoContainer.setLayout(new GridBagLayout());
         gbc.gridx = 0;
         gbc.gridy = 0;
-        logoContainer.add(logoLabel,gbc);
+        logoContainer.add(logoLabel, gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
-        logoContainer.add(appTitle,gbc);
+        logoContainer.add(appTitle, gbc);
 
-        gbc.insets = new Insets(20,20,20,20);
+        gbc.insets = new Insets(20, 20, 20, 20);
 
         JLabel containerTitle = new JLabel("Add Subject");
         containerTitle.setFont(gothamFont.assignFont("GothamMedium", 20f));
         containerTitle.setForeground(colorTheme.getTextColor());
-        containerTitle.setBorder(customBorder.assignBorder(Color.black, 0 , 25, 10, 0, 10));
+        containerTitle.setBorder(customBorder.assignBorder(Color.black, 0, 25, 10, 0, 10));
 
         JPanel fieldContainer = new JPanel();
         fieldContainer.setBackground(colorTheme.getLightTransColor());
@@ -107,9 +106,9 @@ public class AddSubject extends JFrame {
                 String inputCode = codeField.getText();
                 String inputSubName = subNameField.getText();
                 String inputFaculty = facultyField.getText();
-                System.out.println(inputCode+" "+ inputSubName +" "+inputFaculty);
+                System.out.println(inputCode + " " + inputSubName + " " + inputFaculty);
 
-                boolean res= db.addSubject(inputCode,inputSubName,inputFaculty);
+                boolean res = db.addSubject(inputCode, inputSubName, inputFaculty);
             }
         });
 
@@ -117,17 +116,17 @@ public class AddSubject extends JFrame {
         gbcL.gridx = 0;
         gbcL.gridy = 0;
         gbcL.anchor = GridBagConstraints.WEST;
-        fieldContainer.add(codeLabel,gbcL);
+        fieldContainer.add(codeLabel, gbcL);
         gbc.gridx = 1;
         gbc.gridy = 0;
         fieldContainer.add(codeField, gbc);
         gbcL.gridx = 0;
         gbcL.gridy = 1;
         gbcL.anchor = GridBagConstraints.WEST;
-        fieldContainer.add(subNameLabel,gbcL);
+        fieldContainer.add(subNameLabel, gbcL);
         gbc.gridx = 1;
         gbc.gridy = 1;
-        fieldContainer.add(subNameField,gbc);
+        fieldContainer.add(subNameField, gbc);
         gbcL.gridx = 0;
         gbcL.gridy = 2;
         gbcL.anchor = GridBagConstraints.WEST;
@@ -139,7 +138,7 @@ public class AddSubject extends JFrame {
         addSubjectContainer.setLayout(new GridBagLayout());
         gbc.gridx = 0;
         gbc.gridy = 0;
-        addSubjectContainer.add(containerTitle,gbc);
+        addSubjectContainer.add(containerTitle, gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
         addSubjectContainer.add(fieldContainer, gbc);
@@ -148,7 +147,7 @@ public class AddSubject extends JFrame {
         addSubjectContainer.add(addButton, gbc);
 
 
-        gbc.insets = new Insets(0,0,0,0);
+        gbc.insets = new Insets(0, 0, 0, 0);
 
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
         setTitle("Attendance Manager");
@@ -159,10 +158,10 @@ public class AddSubject extends JFrame {
         setLayout(new GridBagLayout());
         gbc.gridx = 0;
         gbc.gridy = 0;
-        add(logoContainer,gbc);
+        add(logoContainer, gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
-        add(addSubjectContainer,gbc);
+        add(addSubjectContainer, gbc);
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
