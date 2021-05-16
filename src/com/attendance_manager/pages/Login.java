@@ -20,8 +20,10 @@ public class Login extends JFrame {
 	GridBagConstraints gbc = new GridBagConstraints();
 	GridBagConstraints gbcL = new GridBagConstraints();
 
-	public Login()
+	public Login(String validation)
 	{	//JDBC
+
+		final String[] validationMessage = {validation};
 		DBHandler db=new DBHandler();
 
 		BufferedImage logo = null;
@@ -91,7 +93,7 @@ public class Login extends JFrame {
 		JPanel loginContainer = new JPanel();
 		loginContainer.setBackground(colorTheme.getLightTransColor());
 
-		JLabel forgotPasswordLabel = new JLabel("Forgot Password?");
+		JLabel forgotPasswordLabel = new JLabel(validationMessage[0]);
 		forgotPasswordLabel.setFont(gothamFont.assignFont("GothamBook", 14f));
 		forgotPasswordLabel.setForeground(colorTheme.getTextColor());
 
@@ -117,7 +119,10 @@ public class Login extends JFrame {
 					new Homepage();
 				}
 				else{
-					System.out.println("WRONG CREDENTIALS");
+//					System.out.println("WRONG CREDENTIALS");
+					validationMessage[0] ="Wrong credentials";
+					dispose();
+					new Login(validationMessage[0]);
 				}
 
 			}
