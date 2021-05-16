@@ -112,6 +112,8 @@ public class AddSubject extends JFrame {
 
                 Toast toast = new Toast("Subject Added!", 700, 50);
                 toast.showtoast();
+                new Homepage();
+                dispose();
             }
         });
 

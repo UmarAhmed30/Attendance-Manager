@@ -91,6 +91,8 @@ public class RemoveSubject extends JFrame{
                 System.out.println(inputSubName);
                 Toast toast = new Toast("Subject Removed!", 700, 50);
                 toast.showtoast();
+                new Homepage();
+                dispose();
             }
         });
 

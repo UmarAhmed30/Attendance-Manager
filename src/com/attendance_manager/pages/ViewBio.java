@@ -18,8 +18,14 @@ public class ViewBio extends JDialog {
     String filePath = null;
 
     public ViewBio(String filePath) {
-
-        this.filePath = filePath;
+        DBHandler db=new DBHandler();
+        String[] bioInfo=new String[4];
+        bioInfo=db.getBio();
+       String  name=bioInfo[0];
+        String year=bioInfo[1];
+        String college=bioInfo[2];
+        String fileP=bioInfo[3];
+        this.filePath = fileP;
 
         ColorTheme colorTheme = new ColorTheme();
         GothamFont gothamFont = new GothamFont();
@@ -36,17 +42,11 @@ public class ViewBio extends JDialog {
         catch (Exception e) {
             System.out.print("Image not found!");
         }
-        String name="name";
-        String year="2021";
-        String college="PEG";
 
-        DBHandler db=new DBHandler();
 
-        String[] bioInfo=new String[3];
-        bioInfo=db.getBio();
-        name=bioInfo[0];
-        year=bioInfo[1];
-        college=bioInfo[2];
+
+
+
 
         JLabel nameLabel = new JLabel("Name:");
         nameLabel.setFont(gothamFont.assignFont("GothamBold", 18f));

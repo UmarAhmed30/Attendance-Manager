@@ -1,5 +1,8 @@
 package com.attendance_manager.components;
 
+import com.attendance_manager.pages.AddAttendance;
+import com.attendance_manager.pages.Homepage;
+import com.attendance_manager.pages.RemoveSubject;
 import com.attendance_manager.services.DBHandler;
 
 import javax.swing.*;
@@ -13,9 +16,11 @@ public class SubjectSlot {
     ColorTheme colorTheme = new ColorTheme();
     CustomBorder customBorder = new CustomBorder();
     String subject;
+    AddAttendance addAtt;
     DBHandler db=new DBHandler();
-    public SubjectSlot(String subject) {
+    public SubjectSlot(String subject, AddAttendance a) {
         this.subject = subject;
+        this.addAtt=a;
     }
 
     public JPanel generateSlot () {
@@ -38,6 +43,10 @@ public class SubjectSlot {
                 db.updateHistory(subject,1);
                 Toast toast = new Toast("Attendance Added!", 700, 50);
                 toast.showtoast();
+
+                new Homepage();
+                addAtt.dispose();
+
             }
         });
 
@@ -55,6 +64,8 @@ public class SubjectSlot {
                 db.updateHistory(subject,0);
                 Toast toast = new Toast("Added to missed classes!", 700, 50);
                 toast.showtoast();
+                new Homepage();
+                addAtt.dispose();
             }
         });
 
