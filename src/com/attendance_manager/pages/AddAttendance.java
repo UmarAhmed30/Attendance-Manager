@@ -52,7 +52,7 @@ public class AddAttendance extends JFrame {
 
         ArrayList<SubjectSlot> subjectSlots= new ArrayList<>();
         for (String s : subjectsList) {
-            subjectSlots.add(new SubjectSlot(s));
+            subjectSlots.add(new SubjectSlot(s,this));
         }
 
         JPanel attendanceContainer = new JPanel();

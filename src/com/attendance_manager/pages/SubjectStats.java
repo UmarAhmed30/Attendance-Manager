@@ -3,11 +3,10 @@ package com.attendance_manager.pages;
 import com.attendance_manager.components.ColorTheme;
 import com.attendance_manager.components.GothamFont;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
+
 
 import static com.attendance_manager.pages.Homepage.fill;
 
@@ -22,17 +21,19 @@ public class SubjectStats extends JDialog {
         GothamFont gothamFont = new GothamFont();
 
         float attendancePercentage = 100*((float)_attendedClasses/_totalClasses);
+        double roundedPercent=Math.round(attendancePercentage*100.0)/100.0;
 
         if (Float.isNaN(attendancePercentage)) {
             attendancePercentage = 0;
+            roundedPercent=0.0;
         }
-        System.out.println("Attendance percentage = " + attendancePercentage);
+        System.out.println("Attendance percentage = " + roundedPercent);
 
         JLabel attendanceTitle = new JLabel("Attendance Percentage");
         attendanceTitle.setFont(gothamFont.assignFont("GothamBold", 20f));
         attendanceTitle.setForeground(colorTheme.getTextColor());
 
-        JLabel attendancePercentLabel = new JLabel(Float.toString(attendancePercentage) + " %");
+        JLabel attendancePercentLabel = new JLabel(Double.toString(roundedPercent) + " %");
         attendancePercentLabel.setFont(gothamFont.assignFont("GothamBold", 40f));
         attendancePercentLabel.setForeground((attendancePercentage > 75) ? colorTheme.getAccColorLight() : Color.RED);
 

@@ -1,6 +1,7 @@
 package com.attendance_manager.pages;
 
 import com.attendance_manager.components.*;
+import com.attendance_manager.services.DBHandler;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -60,19 +61,16 @@ public class Bio extends JFrame {
         uploadPhotoBtn.setBackground(colorTheme.getAccColorLight());
         uploadPhotoBtn.setForeground(colorTheme.getTextColor());
 
-        uploadPhotoBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setMultiSelectionEnabled(false);
-                fileChooser.setFileSelectionMode(JFileChooser.APPROVE_OPTION);
-                fileChooser.setFileHidingEnabled(false);
-                FileNameExtensionFilter restrict = new FileNameExtensionFilter("Only .jpeg/.jpg/png files", "jpeg","jpg","png");
-                fileChooser.addChoosableFileFilter(restrict);
-                if(JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(null)) {
-                    File file = fileChooser.getSelectedFile();
-                    filePath = file.getPath();
-                }
+        uploadPhotoBtn.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setMultiSelectionEnabled(false);
+            fileChooser.setFileSelectionMode(JFileChooser.APPROVE_OPTION);
+            fileChooser.setFileHidingEnabled(false);
+            FileNameExtensionFilter restrict = new FileNameExtensionFilter("Only .jpeg/.jpg/png files", "jpeg","jpg","png");
+            fileChooser.addChoosableFileFilter(restrict);
+            if(JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(null)) {
+                File file = fileChooser.getSelectedFile();
+                filePath = file.getPath();
             }
         });
 
@@ -140,13 +138,16 @@ public class Bio extends JFrame {
         updateBioBtn.setBackground(colorTheme.getAccColorLight());
         updateBioBtn.setForeground(colorTheme.getTextColor());
 
-        updateBioBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String inputName = nameField.getText();
-                String inputYear = yearField.getText();
-                String inputCollege = collegeField.getText();
-            }
+        updateBioBtn.addActionListener(e -> {
+            String inputName = nameField.getText();
+            String inputYear = yearField.getText();
+            String inputCollege = collegeField.getText();
+            String inputFilePath=filePath;
+
+            DBHandler db=new DBHandler();
+            db.updateBio(inputName,inputYear,inputCollege,inputFilePath);
+            new Homepage();
+            dispose();
         });
 
         JButton viewBioBtn = new JButton("View Bio");
@@ -155,12 +156,7 @@ public class Bio extends JFrame {
         viewBioBtn.setBackground(colorTheme.getAccColorLight());
         viewBioBtn.setForeground(colorTheme.getTextColor());
 
-        viewBioBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new ViewBio(filePath);
-            }
-        });
+        viewBioBtn.addActionListener(e -> new ViewBio(filePath));
 
         JPanel btnPane = new JPanel();
         btnPane.setBackground(colorTheme.getPriColor());

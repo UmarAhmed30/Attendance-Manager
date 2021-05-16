@@ -116,7 +116,9 @@ public class Login extends JFrame {
 				System.out.println(inputEmail+" "+inputPassword);
 				if(db.validateUser(inputEmail,inputPassword)){
 					System.out.println("VALIDATED");
+
 					new Homepage();
+					dispose();
 				}
 				else{
 //					System.out.println("WRONG CREDENTIALS");

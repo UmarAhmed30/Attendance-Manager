@@ -11,12 +11,12 @@ public class DBHandler {
 
     //  Database credentials
     String USER = "root";
-    String PASS = "ahmed3633";
+    String PASS = "1984cezar";
     Connection conn = null;
     Statement stmt = null;
 
 
-    public boolean userExists(){
+    public boolean userExists() {
         try {
             //STEP 2: Register JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -39,9 +39,7 @@ public class DBHandler {
             }
 
 
-
-
-        }  catch (Exception e) {
+        } catch (Exception e) {
             //Handle errors for Class.forName
             e.printStackTrace();
         } finally {
@@ -154,13 +152,11 @@ public class DBHandler {
             // execute the preparedstatement
             preparedStmt.execute();
 
-        } catch (SQLException se) {
+        } catch (Exception se) {
             //Handle errors for JDBC
             se.printStackTrace();
-        } catch (Exception e) {
-            //Handle errors for Class.forName
-            e.printStackTrace();
-        } finally {
+        }//Handle errors for Class.forName
+        finally {
             //finally block used to close resources
             try {
                 if (stmt != null)
@@ -210,11 +206,27 @@ public class DBHandler {
                 preparedStmt.setString(2, inputFaculty);
                 preparedStmt.setString(3, inputSubName);
                 preparedStmt.execute();
+                
+                
+
+                String userQuery="select email from user";
+                PreparedStatement prep=conn.prepareStatement(userQuery);
+                ResultSet resultSet=prep.executeQuery();
+                String userName=null;
+                while (resultSet.next()){
+                    userName=resultSet.getString("email");
+
+                }
+                System.out.println(userName);
+
+
+
+
 
                 String query2 = " insert into registers"
                         + " values (?,?,?,?,?,?)";
                 PreparedStatement preparedStmt2 = conn.prepareStatement(query2);
-                preparedStmt2.setString(1, "akash@gmail.com");
+                preparedStmt2.setString(1, userName);
                 preparedStmt2.setInt(2, 0);
                 preparedStmt2.setInt(3, 0);
                 preparedStmt2.setString(4, inputSubName);
@@ -228,13 +240,11 @@ public class DBHandler {
             }
 
 
-        } catch (SQLException se) {
+        } catch (Exception se) {
             //Handle errors for JDBC
             se.printStackTrace();
-        } catch (Exception e) {
-            //Handle errors for Class.forName
-            e.printStackTrace();
-        } finally {
+        }//Handle errors for Class.forName
+        finally {
             //finally block used to close resources
             try {
                 if (stmt != null)
@@ -302,13 +312,11 @@ public class DBHandler {
             }
 
 
-        } catch (SQLException se) {
+        } catch (Exception se) {
             //Handle errors for JDBC
             se.printStackTrace();
-        } catch (Exception e) {
-            //Handle errors for Class.forName
-            e.printStackTrace();
-        } finally {
+        }//Handle errors for Class.forName
+        finally {
             //finally block used to close resources
             try {
                 if (stmt != null)
@@ -354,10 +362,8 @@ public class DBHandler {
             }
 
 
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
 
         return returnList;
@@ -413,10 +419,8 @@ public class DBHandler {
             System.out.println("YOU MISSED A CLASS !");
 
 
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
 
 
@@ -452,10 +456,8 @@ public class DBHandler {
             System.out.println("updated history");
 
 
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
 
 
@@ -488,10 +490,8 @@ public class DBHandler {
             }
 
 
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
         return extractedAttendance;
 
@@ -567,7 +567,7 @@ public class DBHandler {
             System.out.println("Connected database successfully...");
 
             //Query to find number of missed classes
-            String selectMissed = "select missedClasses from registers where subjectName='"+sub+"'";
+            String selectMissed = "select missedClasses from registers where subjectName='" + sub + "'";
             PreparedStatement selectMissedpreparedStmt = conn.prepareStatement(selectMissed);
             ResultSet rs1 = selectMissedpreparedStmt.executeQuery();
             int missedClasses = 0;
@@ -580,7 +580,7 @@ public class DBHandler {
 
             //Query to find number of attended classes
 
-            String selectAttended = "select attendedClasses from registers where subjectName='"+sub+"'";
+            String selectAttended = "select attendedClasses from registers where subjectName='" + sub + "'";
             PreparedStatement selectAttendedpreparedStmt = conn.prepareStatement(selectAttended);
             ResultSet rs2 = selectAttendedpreparedStmt.executeQuery();
             int attendedClasses = 0;
@@ -601,10 +601,8 @@ public class DBHandler {
             stats.add(safeBunks);
 
 
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
 
 
@@ -613,12 +611,12 @@ public class DBHandler {
 
     public int calculateSafeBunks(int attendedClasses, int totalClasses) {
         int safeBunks;
-        if(totalClasses==0){
+        if (totalClasses == 0) {
             return 0;
         }
 
-        int i=0;
-        if (((float)attendedClasses / totalClasses) > 0.75) {
+        int i = 0;
+        if (((float) attendedClasses / totalClasses) > 0.75) {
             for (i = 0; ; i++) {
                 int newTotalClass = totalClasses + i;
                 float newPercentage = ((float) attendedClasses) / newTotalClass;
@@ -628,7 +626,7 @@ public class DBHandler {
 
             }
             safeBunks = i - 1;
-            System.out.println(i-1+ " classes can be bunked");
+            System.out.println(i - 1 + " classes can be bunked");
             return safeBunks;
         } else {
             for (i = 0; ; i++) {
@@ -641,7 +639,7 @@ public class DBHandler {
 
             }
             safeBunks = (i + 1);
-            System.out.println(i+1+ " classes need to be attended");
+            System.out.println(i + 1 + " classes need to be attended");
             return safeBunks * (-1);
 
         }
@@ -649,8 +647,8 @@ public class DBHandler {
 
     }
 
-    public String[] getBio(){
-        String[] bio=new String[3];
+    public String[] getBio() {
+        String[] bio = new String[4];
 
 
         try {
@@ -672,12 +670,11 @@ public class DBHandler {
             ResultSet rs = preparedStmt.executeQuery();
 
             while (rs.next()) {
-//                System.out.println(rs.getString("name"));
-//                System.out.println(rs.getString("year"));
-//                System.out.println(rs.getString("college"));
-                bio[0]=rs.getString("name");
-                bio[1]=rs.getString("year");
-                bio[2]=rs.getString("college");
+
+                bio[0] = rs.getString("name");
+                bio[1] = rs.getString("year");
+                bio[2] = rs.getString("college");
+                bio[3]=rs.getString("filepath");
             }
 
 
@@ -689,5 +686,55 @@ public class DBHandler {
         return bio;
     }
 
+    public void updateBio(String inputName, String inputYear, String inputCollege, String inputFilePath) {
 
+        try {
+            //STEP 2: Register JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            //STEP 3: Open a connection
+            System.out.println("Connecting to a selected database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("Connected database successfully...");
+            System.out.println("DEBUG");
+
+
+            // Execute delete query
+            String query = " delete from bio";
+            PreparedStatement d = conn.prepareStatement(query);
+            d.execute();
+
+            // create the mysql insert preparedstatement
+            String query1 = "insert into bio values(?,?,?,?)";
+            PreparedStatement updateBio = conn.prepareStatement(query1);
+            updateBio.setString(1, inputName);
+            updateBio.setString(2, inputYear);
+            updateBio.setString(3, inputCollege);
+            updateBio.setString(4, inputFilePath);
+            updateBio.execute();
+
+
+        } catch (Exception classNotFoundException) {
+            classNotFoundException.printStackTrace();
+        }//Handle errors for Class.forName
+        finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    conn.close();
+            } catch (SQLException ignored) {
+            }// do nothing
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+        System.out.println("Goodbye!");
+
+    }
 }
+
+
+

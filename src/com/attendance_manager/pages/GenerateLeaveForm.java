@@ -1,6 +1,7 @@
 package com.attendance_manager.pages;
 
 import com.attendance_manager.components.*;
+import com.attendance_manager.services.DBHandler;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -116,10 +117,15 @@ public class GenerateLeaveForm extends JFrame {
             String inputStaff = staffField.getText();
             String inputSubject = subjectField.getText();
 
-            String leaveLetter = "\n\n\n\n\nFrom,\n\tUmar\n\nTo,\n\t" + inputStaff + "\n\n\nRespected Mam/Sir,\n\tI " +
+            String[] bio=new DBHandler().getBio();
+            String name=bio[0];
+
+
+
+            String leaveLetter = "\n\n\n\n\nFrom,\n\t"+name+"\n\nTo,\n\t" + inputStaff + "\n\n\nRespected Mam/Sir,\n\tI " +
                     "was not able to attend the " + inputSubject + " class on " + inputDate + " because " + inputReason + ". " +
                     "Kindly grant me leave for my absence.\nThanking you!\n\n\n" +
-                    "Yours faithfully,\nUmar\n";
+                    "Yours faithfully,\n"+name+"\n";
             System.out.println(leaveLetter);
             new LeaveForm(leaveLetter);
         });

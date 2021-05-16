@@ -23,6 +23,12 @@ public class Homepage extends JFrame {
     public Homepage() {
 
         float attendancePercentage;
+        double roundedPercent;
+        String username;
+
+        String[] bio=db.getBio();
+        username=bio[0];
+
 
         BufferedImage logo;
         Image resizedLogo;
@@ -64,7 +70,7 @@ public class Homepage extends JFrame {
         greetingsContainer.setBackground(colorTheme.getDarkTransColor());
         greetingsContainer.setPreferredSize(new Dimension(850, 150));
 
-        JLabel greetings = new JLabel("Hi Umar!");
+        JLabel greetings = new JLabel("Hi "+username+"!");
         greetings.setFont(gothamFont.assignFont("GothamMedium", 30f));
         greetings.setForeground(colorTheme.getTextColor());
 
@@ -172,12 +178,15 @@ public class Homepage extends JFrame {
         ArrayList<Integer> stats = db.getStats();
         try {
             attendancePercentage = ((float) stats.get(1) / stats.get(0)) * 100;
+            roundedPercent=Math.round(attendancePercentage*100.0)/100.0;
         } catch (Exception e) {
             attendancePercentage = 0;
+            roundedPercent=0.0;
         }
 
         if (Float.isNaN(attendancePercentage)) {
             attendancePercentage = 0;
+            roundedPercent=0.0;
         }
         System.out.println("Attendance percentage = " + attendancePercentage);
 
@@ -185,7 +194,7 @@ public class Homepage extends JFrame {
         attendanceTitle.setFont(gothamFont.assignFont("GothamBold", 20f));
         attendanceTitle.setForeground(colorTheme.getTextColor());
 
-        JLabel attendancePercentLabel = new JLabel(Float.toString(attendancePercentage) + " %");
+        JLabel attendancePercentLabel = new JLabel(Double.toString(roundedPercent) + " %");
         attendancePercentLabel.setFont(gothamFont.assignFont("GothamBold", 40f));
         attendancePercentLabel.setForeground((attendancePercentage > 75) ? colorTheme.getAccColorLight() : Color.RED);
 
@@ -370,6 +379,7 @@ public class Homepage extends JFrame {
         addSubjectBtn.addActionListener(e -> {
             System.out.println("ADDING SUBJECT");
             new AddSubject();
+            dispose();
 
         });
 
@@ -378,6 +388,7 @@ public class Homepage extends JFrame {
         removeSubjectBtn.addActionListener(e -> {
             System.out.println("REMOVING SUBJECT");
             new RemoveSubject();
+            dispose();
 
         });
 
@@ -393,6 +404,7 @@ public class Homepage extends JFrame {
             System.out.println("ADDING Attendance");
 
             new AddAttendance();
+            dispose();
 
         });
 
@@ -412,6 +424,7 @@ public class Homepage extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Displaying Bio");
                 new Bio();
+                dispose();
 
             }
         });

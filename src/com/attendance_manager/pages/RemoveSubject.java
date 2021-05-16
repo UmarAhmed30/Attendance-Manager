@@ -89,6 +89,8 @@ public class RemoveSubject extends JFrame{
                 String inputSubName = subNameField.getText();
                 db.deleteSubject(inputSubName);
                 System.out.println(inputSubName);
+                new Homepage();
+                dispose();
             }
         });
 

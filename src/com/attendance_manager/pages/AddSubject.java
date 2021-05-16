@@ -109,6 +109,8 @@ public class AddSubject extends JFrame {
                 System.out.println(inputCode + " " + inputSubName + " " + inputFaculty);
 
                 boolean res = db.addSubject(inputCode, inputSubName, inputFaculty);
+                new Homepage();
+                dispose();
             }
         });
 
