@@ -304,7 +304,7 @@ public class Homepage extends JFrame {
         gbc.insets = new Insets(0, 0, 0, 0);
 
 
-        JButton resultBtn = new JButton("Get Result");
+        JButton resultBtn = new JButton("Sign out");
         resultBtn.setBorder(new RoundedBorder(20, colorTheme.getRounderCornerColor()));
         resultBtn.setFont(gothamFont.assignFont("GothamBold", 15f));
         resultBtn.setBackground(colorTheme.getAccColorLight());
@@ -314,9 +314,6 @@ public class Homepage extends JFrame {
         resultBtnPane.setBackground(colorTheme.getLightTransColor());
         resultBtnPane.setPreferredSize(new Dimension(250, 100));
         resultBtnPane.setBorder(customBorder.assignBorder(Color.black, 0, 20, 10, 0, 10));
-
-
-        if(subjectsList.size()!=0) resultBtnPane.add(resultBtn);
 
         JPanel radioBtnPane = new JPanel();
         radioBtnPane.setBackground(colorTheme.getDarkTransColor());

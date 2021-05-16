@@ -40,7 +40,7 @@ public class PublicHolidays extends JFrame {
 
 
         //HEADING
-        JLabel containerTitle = new JLabel("PUBLIC HOLIDAYS");
+        JLabel containerTitle = new JLabel("Public Holidays");
         containerTitle.setFont(gothamFont.assignFont("GothamMedium", 20f));
         containerTitle.setForeground(colorTheme.getTextColor());
 

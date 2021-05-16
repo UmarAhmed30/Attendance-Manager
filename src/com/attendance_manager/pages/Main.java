@@ -13,6 +13,7 @@ public class Main {
         } else {
             new Login("");
         }
+//        new AddTimetable();
 //        new NewUser();
 //        new Login();
 //        new PublicHolidays();

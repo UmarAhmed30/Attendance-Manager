@@ -1,20 +1,29 @@
 package com.attendance_manager.pages;
 
+import com.attendance_manager.components.CustomBorder;
+import com.attendance_manager.components.GothamFont;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class LeaveForm extends JDialog {
 
+    GothamFont gothamFont = new GothamFont();
     GridBagConstraints gbc = new GridBagConstraints();
+    CustomBorder customBorder = new CustomBorder();
 
     public LeaveForm(String leaveLetter) {
 
         JTextArea leaveLetterTextArea = new JTextArea(leaveLetter);
+        leaveLetterTextArea.setFont(gothamFont.assignFont("GothamMedium", 14f));
+        leaveLetterTextArea.setLineWrap(true);
+        leaveLetterTextArea.setPreferredSize(new Dimension(420, 400));
+        leaveLetterTextArea.setBorder(customBorder.assignBorder(Color.white, 0, 5, 5, 5, 5));
 
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
         setTitle("Attendance Manager");
         setVisible(true);
-        setSize(700, 300);
+        setSize(500, 500);
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 

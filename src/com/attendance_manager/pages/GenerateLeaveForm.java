@@ -104,7 +104,7 @@ public class GenerateLeaveForm extends JFrame {
 
 
         JButton generateButton = new JButton("Generate");
-        generateButton.setBorder(new RoundedBorder(20, colorTheme.getRounderCornerColor()));
+        generateButton.setBorder(new RoundedBorder(20, colorTheme.getAdjustmentTone()));
         generateButton.setFont(gothamFont.assignFont("GothamBold", 15f));
         generateButton.setBackground(colorTheme.getAccColorLight());
         generateButton.setForeground(colorTheme.getTextColor());
@@ -116,10 +116,10 @@ public class GenerateLeaveForm extends JFrame {
             String inputStaff = staffField.getText();
             String inputSubject = subjectField.getText();
 
-            String leaveLetter = "From\n\tUmar\nTo\n\t" + inputStaff + "\n\nRespected Mam/Sir,\n\tI " +
+            String leaveLetter = "\n\n\n\n\nFrom,\n\tUmar\n\nTo,\n\t" + inputStaff + "\n\n\nRespected Mam/Sir,\n\tI " +
                     "was not able to attend the " + inputSubject + " class on " + inputDate + " because " + inputReason + ". " +
-                    "Kindly grant me leave for my absence.\n\tThanking you,\n\n\t\t\t\t\t\t\t" +
-                    "Yours faithfully,\t\n\t\t\t\t\t\t\tUmar\n";
+                    "Kindly grant me leave for my absence.\nThanking you!\n\n\n" +
+                    "Yours faithfully,\nUmar\n";
             System.out.println(leaveLetter);
             new LeaveForm(leaveLetter);
         });
