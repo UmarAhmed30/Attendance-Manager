@@ -9,65 +9,94 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+import static com.attendance_manager.pages.Homepage.fill;
+
 public class SubjectStats extends JDialog {
 
     GridBagConstraints gbc = new GridBagConstraints();
     GridBagConstraints gbcL = new GridBagConstraints();
-//    int totalClasses,attendedClasses,missedClasses,safeBunks;
 
     public SubjectStats(String _subject,int _totalClasses,int _attendedClasses,int _missedClasses,int _safeBunks) {
 
         ColorTheme colorTheme = new ColorTheme();
         GothamFont gothamFont = new GothamFont();
 
-//        totalClasses=_totalClasses;
-//        attendedClasses=_attendedClasses;
-//        missedClasses=_missedClasses;
-//        safeBunks=_safeBunks;
-        float attendance=100*((float)_attendedClasses/_totalClasses);
-        System.out.println(attendance);
+        float attendancePercentage = 100*((float)_attendedClasses/_totalClasses);
 
-        BufferedImage profile = null;
-        Image resizedProfile = null;
-        JLabel profileLabel = new JLabel();
+        if (Float.isNaN(attendancePercentage)) {
+            attendancePercentage = 0;
+        }
+        System.out.println("Attendance percentage = " + attendancePercentage);
 
+        JLabel attendanceTitle = new JLabel("Attendance Percentage");
+        attendanceTitle.setFont(gothamFont.assignFont("GothamBold", 20f));
+        attendanceTitle.setForeground(colorTheme.getTextColor());
 
+        JLabel attendancePercentLabel = new JLabel(Float.toString(attendancePercentage) + " %");
+        attendancePercentLabel.setFont(gothamFont.assignFont("GothamBold", 40f));
+        attendancePercentLabel.setForeground((attendancePercentage > 75) ? colorTheme.getAccColorLight() : Color.RED);
 
-        JLabel nameLabel = new JLabel("Total Classes:");
-        nameLabel.setFont(gothamFont.assignFont("GothamBold", 18f));
+        JProgressBar attendancePercentBar = new JProgressBar();
+        attendancePercentBar.setValue(0);
+        attendancePercentBar.setStringPainted(true);
+        attendancePercentBar.setForeground((attendancePercentage > 75) ? colorTheme.getAccColorLight() : Color.RED);
+        attendancePercentBar.setPreferredSize(new Dimension(300, 30));
+
+        JPanel progressPane = new JPanel();
+        progressPane.setBackground(colorTheme.getLightTransColor());
+        progressPane.setPreferredSize(new Dimension(375, 300));
+
+        gbc.insets = new Insets(20, 0, 30, 0);
+
+        progressPane.setLayout(new GridBagLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        progressPane.add(attendanceTitle, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        progressPane.add(attendancePercentLabel, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        progressPane.add(attendancePercentBar, gbc);
+
+        fill(attendancePercentBar, attendancePercentage);
+
+        gbc.insets = new Insets(0, 0, 0, 0);
+
+        JLabel nameLabel = new JLabel("Total number of classes:");
+        nameLabel.setFont(gothamFont.assignFont("GothamBook", 14f));
         nameLabel.setForeground(colorTheme.getTextColor());
 
         JLabel nameDataLabel = new JLabel(Integer.toString(_totalClasses));
-        nameDataLabel.setFont(gothamFont.assignFont("GothamBook", 18f));
+        nameDataLabel.setFont(gothamFont.assignFont("GothamBook", 14f));
         nameDataLabel.setForeground(colorTheme.getTextColor());
 
-        JLabel yearLabel = new JLabel("Attended Classes:");
-        yearLabel.setFont(gothamFont.assignFont("GothamBold", 18f));
+        JLabel yearLabel = new JLabel("Number of classes attended:");
+        yearLabel.setFont(gothamFont.assignFont("GothamBook", 14f));
         yearLabel.setForeground(colorTheme.getTextColor());
 
         JLabel yearDataLabel = new JLabel(Integer.toString(_attendedClasses));
-        yearDataLabel.setFont(gothamFont.assignFont("GothamBook", 18f));
+        yearDataLabel.setFont(gothamFont.assignFont("GothamBook", 14f));
         yearDataLabel.setForeground(colorTheme.getTextColor());
 
-        JLabel collegeLabel = new JLabel("Missed Classes:");
-        collegeLabel.setFont(gothamFont.assignFont("GothamBold", 18f));
+        JLabel collegeLabel = new JLabel("Number of classes absent: ");
+        collegeLabel.setFont(gothamFont.assignFont("GothamBook", 14f));
         collegeLabel.setForeground(colorTheme.getTextColor());
 
         JLabel collegeDataLabel = new JLabel(Integer.toString(_missedClasses));
-        collegeDataLabel.setFont(gothamFont.assignFont("GothamBook", 18f));
+        collegeDataLabel.setFont(gothamFont.assignFont("GothamBook", 14f));
         collegeDataLabel.setForeground(colorTheme.getTextColor());
 
-        JLabel percentLabel = new JLabel((_safeBunks>=0)?"Safebunks Available: ":"Attend Next: ");
-        percentLabel.setFont(gothamFont.assignFont("GothamBold", 18f));
+        JLabel percentLabel = new JLabel((_safeBunks>=0)?"Number of safe bunks more: ":"Number of classes to get back on track: ");
+        percentLabel.setFont(gothamFont.assignFont("GothamBook", 14f));
         percentLabel.setForeground(colorTheme.getTextColor());
 
-
         JLabel percentageDataLabel = new JLabel((_safeBunks>=0)?Integer.toString(_safeBunks):Integer.toString(_safeBunks*-1));
-        percentageDataLabel.setFont(gothamFont.assignFont("GothamBook", 18f));
+        percentageDataLabel.setFont(gothamFont.assignFont("GothamBook", 14f));
         percentageDataLabel.setForeground(colorTheme.getTextColor());
 
         JPanel dataContainer = new JPanel();
-        dataContainer.setPreferredSize(new Dimension(350, 350));
+        dataContainer.setPreferredSize(new Dimension(350, 300));
         dataContainer.setBackground(colorTheme.getLightTransColor());
 
         gbcL.insets = new Insets(10,10,10,10);
@@ -97,8 +126,6 @@ public class SubjectStats extends JDialog {
         gbcL.gridy = 2;
         gbcL.anchor = GridBagConstraints.WEST;
         dataContainer.add(collegeDataLabel, gbcL);
-
-
         gbcL.gridx = 0;
         gbcL.gridy = 3;
         gbcL.anchor = GridBagConstraints.WEST;
@@ -108,12 +135,10 @@ public class SubjectStats extends JDialog {
         gbcL.anchor = GridBagConstraints.WEST;
         dataContainer.add(percentageDataLabel, gbcL);
 
-
-
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
         setTitle(_subject);
         setVisible(true);
-        setSize(700, 350);
+        setSize(800, 450);
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -127,12 +152,12 @@ public class SubjectStats extends JDialog {
 
         setContentPane(new JLabel(new ImageIcon("src/resources/images/background.jpg")));
 
-        gbc.insets = new Insets(10,10,10,10);
+        gbc.insets = new Insets(0,0,0,0);
 
         setLayout(new GridBagLayout());
         gbc.gridx = 0;
         gbc.gridy = 0;
-        add(profileLabel, gbc);
+        add(progressPane, gbc);
         gbc.gridx = 1;
         gbc.gridy = 0;
         add(dataContainer, gbc);

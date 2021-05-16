@@ -14,7 +14,11 @@ public class ViewBio extends JDialog {
     GridBagConstraints gbc = new GridBagConstraints();
     GridBagConstraints gbcL = new GridBagConstraints();
 
-    public ViewBio() {
+    String filePath = null;
+
+    public ViewBio(String filePath) {
+
+        this.filePath = filePath;
 
         ColorTheme colorTheme = new ColorTheme();
         GothamFont gothamFont = new GothamFont();
@@ -24,7 +28,7 @@ public class ViewBio extends JDialog {
         JLabel profileLabel = new JLabel();
 
         try{
-            profile = ImageIO.read(new File("src/resources/images/mark.jpg"));
+            profile = ImageIO.read(new File(this.filePath));
             resizedProfile = profile.getScaledInstance(200, 250, Image.SCALE_DEFAULT);
             profileLabel = new JLabel(new ImageIcon(resizedProfile));
         }

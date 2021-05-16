@@ -231,6 +231,7 @@ public class Homepage extends JFrame {
         } catch (Exception e) {
             System.out.println("FIRST TIME USER");
         }
+
         JLabel stat1 = new JLabel("Total number of classes: " + totalClasses);
         stat1.setFont(gothamFont.assignFont("GothamBook", 14f));
         stat1.setForeground(colorTheme.getTextColor());
@@ -314,6 +315,8 @@ public class Homepage extends JFrame {
         resultBtnPane.setBackground(colorTheme.getLightTransColor());
         resultBtnPane.setPreferredSize(new Dimension(250, 100));
         resultBtnPane.setBorder(customBorder.assignBorder(Color.black, 0, 20, 10, 0, 10));
+
+        resultBtnPane.add(resultBtn);
 
         JPanel radioBtnPane = new JPanel();
         radioBtnPane.setBackground(colorTheme.getDarkTransColor());

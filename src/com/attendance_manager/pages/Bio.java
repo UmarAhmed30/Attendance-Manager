@@ -4,6 +4,7 @@ import com.attendance_manager.components.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,8 @@ public class Bio extends JFrame {
     GridBagConstraints gbc = new GridBagConstraints();
     GridBagConstraints gbcL = new GridBagConstraints();
 
+    String filePath = null;
+
     public Bio() {
 
         BufferedImage logo = null;
@@ -24,7 +27,6 @@ public class Bio extends JFrame {
         GothamFont gothamFont = new GothamFont();
         ColorTheme colorTheme = new ColorTheme();
         CustomBorder customBorder = new CustomBorder();
-        FileChooser fileChooser = new FileChooser();
 
         gbc.insets = new Insets(10, 10, 10, 10);
 
@@ -63,12 +65,18 @@ public class Bio extends JFrame {
         uploadPhotoBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fileChooser.triggerDBox();
-                System.out.println(fileChooser.getFilePath());
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setMultiSelectionEnabled(false);
+                fileChooser.setFileSelectionMode(JFileChooser.APPROVE_OPTION);
+                fileChooser.setFileHidingEnabled(false);
+                FileNameExtensionFilter restrict = new FileNameExtensionFilter("Only .jpeg/.jpg/png files", "jpeg","jpg","png");
+                fileChooser.addChoosableFileFilter(restrict);
+                if(JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(null)) {
+                    File file = fileChooser.getSelectedFile();
+                    filePath = file.getPath();
+                }
             }
         });
-
-
 
         JLabel containerTitle = new JLabel("Bio");
         containerTitle.setFont(gothamFont.assignFont("GothamMedium", 20f));
@@ -140,7 +148,6 @@ public class Bio extends JFrame {
                 String inputName = nameField.getText();
                 String inputYear = yearField.getText();
                 String inputCollege = collegeField.getText();
-                System.out.println(fileChooser.getFilePath());
             }
         });
 
@@ -153,7 +160,7 @@ public class Bio extends JFrame {
         viewBioBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ViewBio();
+                new ViewBio(filePath);
             }
         });
 

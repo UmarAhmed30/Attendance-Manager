@@ -1,5 +1,4 @@
 package com.attendance_manager.pages;
-
 import com.attendance_manager.services.DBHandler;
 
 public class Main {
