@@ -9,9 +9,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class AddTimetable extends JFrame {
+public class AddTimetable extends JFrame implements Serializable {
 
     ColorTheme colorTheme = new ColorTheme();
     GothamFont gothamFont = new GothamFont();
@@ -31,7 +34,8 @@ public class AddTimetable extends JFrame {
         gbc.gridy = 0;
         containerPanel.add(containerTitle, gbc);
 
-        ArrayList<String> days = new ArrayList<>(){};
+        ArrayList<String> days = new ArrayList<>() {
+        };
         days.add("Monday");
         days.add("Tuesday");
         days.add("Wednesday");
@@ -47,26 +51,25 @@ public class AddTimetable extends JFrame {
 
         containerTimetable.setLayout(new GridBagLayout());
 
-        for (int i=0; i<days.size(); i++) {
-            for(int j=0; j<9; j++) {
+        for (int i = 0; i < days.size(); i++) {
+            for (int j = 0; j < 9; j++) {
                 gbc.gridx = j;
                 gbc.gridy = i;
-                if(j==0) {
+                if (j == 0) {
                     gbc.insets = new Insets(0, 0, 0, 20);
                     JLabel dayLabel = new JLabel(days.get(i));
                     dayLabel.setFont(gothamFont.assignFont("GothamMedium", 14f));
                     dayLabel.setForeground(colorTheme.getTextColor());
                     containerTimetable.add(dayLabel, gbc);
-                }
-                else {
+                } else {
                     gbc.insets = new Insets(0, 0, 0, 0);
                     JTextField textField = new JTextField();
                     textField.setPreferredSize(new Dimension(100, 40));
                     textField.setFont(gothamFont.assignFont("GothamBook", 14f));
                     textField.setBackground(Color.black);
                     textField.setForeground(colorTheme.getTextColor());
-                    containerTimetable.add(textField,gbc);
-                    classesTextField[i][j-1] = textField;
+                    containerTimetable.add(textField, gbc);
+                    classesTextField[i][j - 1] = textField;
                 }
             }
         }
@@ -86,19 +89,34 @@ public class AddTimetable extends JFrame {
         updateBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for(int i=0;i<days.size();i++) {
-                    for(int j=0;j<8;j++) {
-                        if(classesTextField[i][j].getText().isEmpty()) classes[i][j] = "-";
+                for (int i = 0; i < days.size(); i++) {
+                    for (int j = 0; j < 8; j++) {
+                        if (classesTextField[i][j].getText().isEmpty()) classes[i][j] = "-";
                         else classes[i][j] = classesTextField[i][j].getText();
                     }
                 }
-                for(int i=0;i<days.size();i++) {
-                    for(int j=0;j<8;j++) {
-                        System.out.print(classes[i][j]+" ");
+
+                try {
+
+                    FileOutputStream fileOut = new FileOutputStream("textfile.txt");
+                    ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+                    objectOut.writeObject(classes);
+                    objectOut.close();
+                    System.out.println("The Object  was succesfully written to a file");
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+
+                }
+
+                for (int i = 0; i < days.size(); i++) {
+                    for (int j = 0; j < 8; j++) {
+                        System.out.print(classes[i][j] + " ");
                     }
                     System.out.println("");
                 }
             }
+
         });
 
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());

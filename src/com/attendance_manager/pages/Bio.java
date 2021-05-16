@@ -5,8 +5,6 @@ import com.attendance_manager.components.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -17,9 +15,9 @@ public class Bio extends JFrame {
 
     public Bio() {
 
-        BufferedImage logo = null;
+        BufferedImage logo ;
         JLabel logoLabel = new JLabel();
-        Image resizedLogo = null;
+        Image resizedLogo ;
 
         GothamFont gothamFont = new GothamFont();
         ColorTheme colorTheme = new ColorTheme();
@@ -60,12 +58,9 @@ public class Bio extends JFrame {
         uploadPhotoBtn.setBackground(colorTheme.getAccColorLight());
         uploadPhotoBtn.setForeground(colorTheme.getTextColor());
 
-        uploadPhotoBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                fileChooser.triggerDBox();
-                System.out.println(fileChooser.getFilePath());
-            }
+        uploadPhotoBtn.addActionListener(e -> {
+            fileChooser.triggerDBox();
+            System.out.println(fileChooser.getFilePath());
         });
 
 
@@ -134,14 +129,12 @@ public class Bio extends JFrame {
         updateBioBtn.setBackground(colorTheme.getAccColorLight());
         updateBioBtn.setForeground(colorTheme.getTextColor());
 
-        updateBioBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String inputName = nameField.getText();
-                String inputYear = yearField.getText();
-                String inputCollege = collegeField.getText();
-                System.out.println(fileChooser.getFilePath());
-            }
+        updateBioBtn.addActionListener(e -> {
+            String inputName = nameField.getText();
+            String inputYear = yearField.getText();
+            String inputCollege = collegeField.getText();
+            
+            System.out.println(fileChooser.getFilePath());
         });
 
         JButton viewBioBtn = new JButton("View Bio");
@@ -150,12 +143,7 @@ public class Bio extends JFrame {
         viewBioBtn.setBackground(colorTheme.getAccColorLight());
         viewBioBtn.setForeground(colorTheme.getTextColor());
 
-        viewBioBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new ViewBio();
-            }
-        });
+        viewBioBtn.addActionListener(e -> new ViewBio());
 
         JPanel btnPane = new JPanel();
         btnPane.setBackground(colorTheme.getPriColor());
