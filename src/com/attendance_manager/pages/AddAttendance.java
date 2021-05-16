@@ -50,14 +50,10 @@ public class AddAttendance extends JFrame {
 
         ArrayList<String> subjectsList=db.fetchSubjects();
 
-
         ArrayList<SubjectSlot> subjectSlots= new ArrayList<>();
         for (String s : subjectsList) {
             subjectSlots.add(new SubjectSlot(s));
-
         }
-
-
 
         JPanel attendanceContainer = new JPanel();
         attendanceContainer.setBackground(colorTheme.getLightTransColor());
@@ -68,10 +64,7 @@ public class AddAttendance extends JFrame {
         for(int i=0;i<subjectsList.size();i++){
             gbc.gridx = 0;
             gbc.gridy = i;
-
             attendanceContainer.add(subjectSlots.get(i).generateSlot(), gbc);
-
-
         }
 
 

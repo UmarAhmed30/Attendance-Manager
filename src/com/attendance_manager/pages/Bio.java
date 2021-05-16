@@ -22,10 +22,9 @@ public class Bio extends JFrame {
         Image resizedLogo = null;
 
         GothamFont gothamFont = new GothamFont();
-
         ColorTheme colorTheme = new ColorTheme();
-
         CustomBorder customBorder = new CustomBorder();
+        FileChooser fileChooser = new FileChooser();
 
         gbc.insets = new Insets(10, 10, 10, 10);
 
@@ -64,9 +63,12 @@ public class Bio extends JFrame {
         uploadPhotoBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new FileChooser().triggerDBox();
+                fileChooser.triggerDBox();
+                System.out.println(fileChooser.getFilePath());
             }
         });
+
+
 
         JLabel containerTitle = new JLabel("Bio");
         containerTitle.setFont(gothamFont.assignFont("GothamMedium", 20f));
@@ -132,11 +134,28 @@ public class Bio extends JFrame {
         updateBioBtn.setBackground(colorTheme.getAccColorLight());
         updateBioBtn.setForeground(colorTheme.getTextColor());
 
+        updateBioBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String inputName = nameField.getText();
+                String inputYear = yearField.getText();
+                String inputCollege = collegeField.getText();
+                System.out.println(fileChooser.getFilePath());
+            }
+        });
+
         JButton viewBioBtn = new JButton("View Bio");
         viewBioBtn.setBorder(new RoundedBorder(20, colorTheme.getAdjustmentTone()));
         viewBioBtn.setFont(gothamFont.assignFont("GothamBold", 15f));
         viewBioBtn.setBackground(colorTheme.getAccColorLight());
         viewBioBtn.setForeground(colorTheme.getTextColor());
+
+        viewBioBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ViewBio();
+            }
+        });
 
         JPanel btnPane = new JPanel();
         btnPane.setBackground(colorTheme.getPriColor());

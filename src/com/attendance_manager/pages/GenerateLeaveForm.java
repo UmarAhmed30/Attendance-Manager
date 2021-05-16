@@ -57,7 +57,7 @@ public class GenerateLeaveForm extends JFrame {
 
         gbc.insets = new Insets(20, 20, 20, 20);
 
-        JLabel containerTitle = new JLabel("Generate");
+        JLabel containerTitle = new JLabel("Generate Leave Form");
         containerTitle.setFont(gothamFont.assignFont("GothamMedium", 20f));
         containerTitle.setForeground(colorTheme.getTextColor());
         containerTitle.setBorder(customBorder.assignBorder(Color.black, 0, 25, 10, 0, 10));
@@ -116,14 +116,12 @@ public class GenerateLeaveForm extends JFrame {
             String inputStaff = staffField.getText();
             String inputSubject = subjectField.getText();
 
-            //System.out.println(inputDate+" "+inputReason+" "+inputStaff+" "+inputSubject);
-
-            String leaveLetter = "From\n\tUmar.\nTo\n\t" + inputStaff + "\nRespected mam/sir,\n\tI " +
+            String leaveLetter = "From\n\tUmar\nTo\n\t" + inputStaff + "\n\nRespected Mam/Sir,\n\tI " +
                     "was not able to attend the " + inputSubject + " class on " + inputDate + " because " + inputReason + ". " +
-                    "\nKindly grant me leave for my absence.\n\t\t\t\t\t\t\tThanking you,\n\t\t\t\t\t\t\t\t\t\t" +
-                    "Yours faithfully,\n\t\t\t\t\t\t\t\t\t\tUmar.";
+                    "Kindly grant me leave for my absence.\n\tThanking you,\n\n\t\t\t\t\t\t\t" +
+                    "Yours faithfully,\t\n\t\t\t\t\t\t\tUmar\n";
             System.out.println(leaveLetter);
-
+            new LeaveForm(leaveLetter);
         });
 
         fieldContainer.setLayout(new GridBagLayout());

@@ -1,9 +1,6 @@
 package com.attendance_manager.pages;
 
-import com.attendance_manager.components.ColorTheme;
-import com.attendance_manager.components.CustomBorder;
-import com.attendance_manager.components.GothamFont;
-import com.attendance_manager.components.RoundedBorder;
+import com.attendance_manager.components.*;
 import com.attendance_manager.services.DBHandler;
 
 import javax.imageio.ImageIO;
@@ -118,7 +115,6 @@ public class Homepage extends JFrame {
         viewTableBtn.setForeground(colorTheme.getTextColor());
         viewTableBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
 
-
         JButton generateBtn = new JButton("Generate Leave Form");
         generateBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
         generateBtn.setPreferredSize(new Dimension(300, 40));
@@ -173,19 +169,17 @@ public class Homepage extends JFrame {
         gbc.gridy = 8;
         menuPane.add(bioBtn, gbc);
 
-
         ArrayList<Integer> stats = db.getStats();
         try {
             attendancePercentage = ((float) stats.get(1) / stats.get(0)) * 100;
         } catch (Exception e) {
             attendancePercentage = 0;
         }
+
         if (Float.isNaN(attendancePercentage)) {
             attendancePercentage = 0;
         }
-        System.out.println("attendance percentage= " + attendancePercentage);
-
-
+        System.out.println("Attendance percentage = " + attendancePercentage);
 
         JLabel attendanceTitle = new JLabel("Attendance Percentage");
         attendanceTitle.setFont(gothamFont.assignFont("GothamBold", 20f));
@@ -200,7 +194,6 @@ public class Homepage extends JFrame {
         attendancePercentBar.setStringPainted(true);
         attendancePercentBar.setForeground((attendancePercentage > 75) ? colorTheme.getAccColorLight() : Color.RED);
         attendancePercentBar.setPreferredSize(new Dimension(300, 30));
-
 
         JPanel progressPane = new JPanel();
         progressPane.setBackground(colorTheme.getDarkTransColor());
@@ -222,7 +215,6 @@ public class Homepage extends JFrame {
         fill(attendancePercentBar, attendancePercentage);
 
         gbc.insets = new Insets(0, 0, 0, 0);
-
 
         String bunkOrAttend = "Welcome to attendance Manager !";
         int safeClasses = 0;
@@ -288,15 +280,12 @@ public class Homepage extends JFrame {
         gbc.gridy = 0;
         mainContentPane.add(statPane, gbc);
 
-        JRadioButton rbtn1 = new JRadioButton("Maths");
-        rbtn1.setBackground(colorTheme.getRounderCornerColor());
-        rbtn1.setForeground(colorTheme.getTextColor());
-        rbtn1.setFont(gothamFont.assignFont("GothamMedium", 14f));
+        ArrayList<String> subjectsList = db.fetchSubjects();
+        ArrayList<CustomRadioButton> radioBtns = new ArrayList<>();
 
-        JRadioButton rbtn2 = new JRadioButton("Science");
-        rbtn2.setBackground(colorTheme.getRounderCornerColor());
-        rbtn2.setForeground(colorTheme.getTextColor());
-        rbtn2.setFont(gothamFont.assignFont("GothamMedium", 14f));
+        for (String subject: subjectsList) {
+            radioBtns.add(new CustomRadioButton(subject));
+        }
 
         JPanel rbtnPane = new JPanel();
         rbtnPane.setBackground(colorTheme.getLightTransColor());
@@ -305,12 +294,12 @@ public class Homepage extends JFrame {
         gbc.insets = new Insets(0, 10, 0, 10);
 
         rbtnPane.setLayout(new GridBagLayout());
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        rbtnPane.add(rbtn1, gbc);
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        rbtnPane.add(rbtn2, gbc);
+
+        for(int i=0;i<subjectsList.size();i++){
+            gbc.gridx = i;
+            gbc.gridy = 0;
+            rbtnPane.add(radioBtns.get(i).generateButton(), gbc);
+        }
 
         gbc.insets = new Insets(0, 0, 0, 0);
 
@@ -327,7 +316,7 @@ public class Homepage extends JFrame {
         resultBtnPane.setBorder(customBorder.assignBorder(Color.black, 0, 20, 10, 0, 10));
 
 
-        resultBtnPane.add(resultBtn);
+        if(subjectsList.size()!=0) resultBtnPane.add(resultBtn);
 
         JPanel radioBtnPane = new JPanel();
         radioBtnPane.setBackground(colorTheme.getDarkTransColor());

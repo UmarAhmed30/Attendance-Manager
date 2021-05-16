@@ -1,17 +1,23 @@
 package com.attendance_manager.components;
 
-import com.attendance_manager.services.Client;
-
 import javax.swing.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import javax.swing.filechooser.*;
 
 public class FileChooser extends JFrame implements ActionListener {
 
     static JLabel l;
+    String filePath;
 
     public FileChooser() {
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     public void triggerDBox() {
@@ -41,7 +47,6 @@ public class FileChooser extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
 
         JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        String file_path = null;
 
         j.setAcceptAllFileFilterUsed(false);
 
@@ -54,14 +59,7 @@ public class FileChooser extends JFrame implements ActionListener {
 
         if (r == JFileChooser.APPROVE_OPTION) {
             l.setText(j.getSelectedFile().getAbsolutePath());
-            file_path = j.getSelectedFile().getPath();
-            System.out.println(file_path);
-            Client client = new Client();
-            try{
-                client.sendRequest(file_path);
-            } catch (Exception e) {
-                System.out.println(e);
-            }
+            this.setFilePath(j.getSelectedFile().getAbsolutePath());
         } else
             l.setText("The user cancelled the operation!");
     }

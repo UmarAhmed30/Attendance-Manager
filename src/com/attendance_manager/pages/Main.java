@@ -1,6 +1,5 @@
 package com.attendance_manager.pages;
 
-import com.attendance_manager.components.FileChooser;
 import com.attendance_manager.services.DBHandler;
 
 public class Main {

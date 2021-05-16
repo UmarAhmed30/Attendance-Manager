@@ -24,6 +24,8 @@ ALTER TABLE registers
 
 create table history(subjectName varchar(50),attendance varchar(50));
 
+select * from registers;
+
 
 
 
