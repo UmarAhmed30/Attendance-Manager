@@ -11,7 +11,7 @@ public class DBHandler {
 
     //  Database credentials
     String USER = "root";
-    String PASS = "ahmed3633";
+    String PASS = "1984cezar";
     Connection conn = null;
     Statement stmt = null;
 
@@ -554,6 +554,63 @@ public class DBHandler {
         return stats;
     }
 
+    public ArrayList<Integer> getStatsForSub(String sub) {
+        ArrayList<Integer> stats = new ArrayList<>();
+
+        try {
+            //STEP 2: Register JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            //STEP 3: Open a connection
+            System.out.println("Connecting to a selected database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("Connected database successfully...");
+
+            //Query to find number of missed classes
+            String selectMissed = "select missedClasses from registers where subjectName='"+sub+"'";
+            PreparedStatement selectMissedpreparedStmt = conn.prepareStatement(selectMissed);
+            ResultSet rs1 = selectMissedpreparedStmt.executeQuery();
+            int missedClasses = 0;
+            while (rs1.next()) {
+                missedClasses += rs1.getInt("missedClasses");
+
+            }
+//            System.out.println(missedClasses);
+
+
+            //Query to find number of attended classes
+
+            String selectAttended = "select attendedClasses from registers where subjectName='"+sub+"'";
+            PreparedStatement selectAttendedpreparedStmt = conn.prepareStatement(selectAttended);
+            ResultSet rs2 = selectAttendedpreparedStmt.executeQuery();
+            int attendedClasses = 0;
+            while (rs2.next()) {
+                attendedClasses += rs2.getInt("attendedClasses");
+
+            }
+
+
+            int totalClasses = missedClasses + attendedClasses;
+
+
+            int safeBunks = calculateSafeBunks(attendedClasses, totalClasses);
+
+            //append to arraylist for frontend
+            stats.add(totalClasses);
+            stats.add(attendedClasses);
+            stats.add(safeBunks);
+
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+        return stats;
+    }
+
     public int calculateSafeBunks(int attendedClasses, int totalClasses) {
         int safeBunks;
         if(totalClasses==0){
@@ -591,5 +648,7 @@ public class DBHandler {
 
 
     }
+
+
 
 }

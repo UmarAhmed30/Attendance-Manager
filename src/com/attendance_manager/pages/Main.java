@@ -8,15 +8,15 @@ public class Main {
 
         DBHandler db = new DBHandler();
 
-        if (db.userExists()) {
-            new NewUser();
-        } else {
-            new Login("");
-        }
+//        if (db.userExists()) {
+//            new NewUser();
+//        } else {
+//            new Login("");
+//        }
 //        new NewUser();
 //        new Login();
 //        new PublicHolidays();
-//        new Homepage();
+        new Homepage();
 //        new AddSubject();
 //        new RemoveSubject();
 //        new AddAttendance();
