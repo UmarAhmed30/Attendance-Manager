@@ -36,7 +36,8 @@ public class SubjectSlot {
                 System.out.println(subject+" PRESENT");
                 db.updateAttendance(subject,1);
                 db.updateHistory(subject,1);
-
+                Toast toast = new Toast("Attendance Added!", 700, 50);
+                toast.showtoast();
             }
         });
 
@@ -52,7 +53,8 @@ public class SubjectSlot {
                 System.out.println(subject+" ABSENT");
                 db.updateAttendance(subject,0);
                 db.updateHistory(subject,0);
-
+                Toast toast = new Toast("Added to missed classes!", 700, 50);
+                toast.showtoast();
             }
         });
 

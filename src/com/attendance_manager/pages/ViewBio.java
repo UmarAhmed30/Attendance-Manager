@@ -105,7 +105,7 @@ public class ViewBio extends JDialog {
         dataContainer.add(collegeDataLabel, gbcL);
 
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
-        setTitle("Attendance Manager");
+        setTitle("User Bio");
         setVisible(true);
         setSize(700, 350);
 

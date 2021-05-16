@@ -69,7 +69,7 @@ public class AddAttendance extends JFrame {
 
 
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
-        setTitle("Attendance Manager");
+        setTitle("Add Attendance");
         setVisible(true);
 
         setContentPane(new JLabel(new ImageIcon("src/resources/images/background.jpg")));

@@ -109,6 +109,9 @@ public class AddSubject extends JFrame {
                 System.out.println(inputCode + " " + inputSubName + " " + inputFaculty);
 
                 boolean res = db.addSubject(inputCode, inputSubName, inputFaculty);
+
+                Toast toast = new Toast("Subject Added!", 700, 50);
+                toast.showtoast();
             }
         });
 
@@ -150,7 +153,7 @@ public class AddSubject extends JFrame {
         gbc.insets = new Insets(0, 0, 0, 0);
 
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
-        setTitle("Attendance Manager");
+        setTitle("Add Subject");
         setVisible(true);
 
         setContentPane(new JLabel(new ImageIcon("src/resources/images/background.jpg")));

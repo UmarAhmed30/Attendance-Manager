@@ -171,7 +171,7 @@ public class GenerateLeaveForm extends JFrame {
 
 
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
-        setTitle("Attendance Manager");
+        setTitle("Generate Leave Form");
         setVisible(true);
 
         setContentPane(new JLabel(new ImageIcon("src/resources/images/background.jpg")));

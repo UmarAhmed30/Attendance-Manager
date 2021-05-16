@@ -21,7 +21,7 @@ public class LeaveForm extends JDialog {
         leaveLetterTextArea.setBorder(customBorder.assignBorder(Color.white, 0, 5, 5, 5, 5));
 
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
-        setTitle("Attendance Manager");
+        setTitle("Leave Form");
         setVisible(true);
         setSize(500, 500);
 

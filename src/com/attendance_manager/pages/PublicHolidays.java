@@ -131,7 +131,7 @@ public class PublicHolidays extends JFrame {
 
         //OUTER FRAME
         setIconImage(new ImageIcon("src/resources/images/logo_1.png").getImage());
-        setTitle("Attendance Manager");
+        setTitle("Public Holidays");
 
         setVisible(true);
         setContentPane(new JLabel(new ImageIcon("src/resources/images/background.jpg")));

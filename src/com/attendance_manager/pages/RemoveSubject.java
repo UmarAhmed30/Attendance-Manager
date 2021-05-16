@@ -89,6 +89,8 @@ public class RemoveSubject extends JFrame{
                 String inputSubName = subNameField.getText();
                 db.deleteSubject(inputSubName);
                 System.out.println(inputSubName);
+                Toast toast = new Toast("Subject Removed!", 700, 50);
+                toast.showtoast();
             }
         });
 
@@ -116,7 +118,7 @@ public class RemoveSubject extends JFrame{
         gbc.insets = new Insets(0,0,0,0);
 
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
-        setTitle("Attendance Manager");
+        setTitle("Remove Subject");
         setVisible(true);
 
         setContentPane(new JLabel(new ImageIcon("src/resources/images/background.jpg")));

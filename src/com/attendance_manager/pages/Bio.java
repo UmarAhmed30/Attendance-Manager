@@ -6,6 +6,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -146,6 +148,8 @@ public class Bio extends JFrame {
                 String inputName = nameField.getText();
                 String inputYear = yearField.getText();
                 String inputCollege = collegeField.getText();
+                Toast toast = new Toast("Bio Updated!", 700, 50);
+                toast.showtoast();
             }
         });
 
@@ -193,7 +197,7 @@ public class Bio extends JFrame {
         container.add(btnPane, gbc);
 
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
-        setTitle("Attendance Manager");
+        setTitle("User Bio");
         setVisible(true);
 
         setContentPane(new JLabel(new ImageIcon("src/resources/images/background.jpg")));

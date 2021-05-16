@@ -1,9 +1,6 @@
 package com.attendance_manager.pages;
 
-import com.attendance_manager.components.ColorTheme;
-import com.attendance_manager.components.CustomBorder;
-import com.attendance_manager.components.GothamFont;
-import com.attendance_manager.components.RoundedBorder;
+import com.attendance_manager.components.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -97,16 +94,16 @@ public class AddTimetable extends JFrame implements Serializable {
                 }
 
                 try {
-
                     FileOutputStream fileOut = new FileOutputStream("textfile.txt");
                     ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
                     objectOut.writeObject(classes);
                     objectOut.close();
                     System.out.println("The Object  was succesfully written to a file");
+                    Toast toast = new Toast("Timetable Updated!", 700, 50);
+                    toast.showtoast();
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
-
                 }
 
                 for (int i = 0; i < days.size(); i++) {
@@ -120,7 +117,7 @@ public class AddTimetable extends JFrame implements Serializable {
         });
 
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
-        setTitle("Attendance Manager");
+        setTitle("Add Timetable");
         setVisible(true);
         setContentPane(new JLabel(new ImageIcon("src/resources/images/background.jpg")));
 
