@@ -68,6 +68,8 @@ public class Bio extends JFrame {
             }
         });
 
+
+
         JLabel containerTitle = new JLabel("Bio");
         containerTitle.setFont(gothamFont.assignFont("GothamMedium", 20f));
         containerTitle.setForeground(colorTheme.getTextColor());

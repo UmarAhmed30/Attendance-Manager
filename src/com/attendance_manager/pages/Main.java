@@ -12,7 +12,7 @@ public class Main {
         if (db.userExists()) {
             new NewUser();
         } else {
-            new Login();
+            new Login("");
         }
 //        new NewUser();
 //        new Login();
