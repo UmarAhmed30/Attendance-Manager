@@ -2,6 +2,7 @@ package com.attendance_manager.pages;
 
 import com.attendance_manager.components.ColorTheme;
 import com.attendance_manager.components.GothamFont;
+import com.attendance_manager.services.DBHandler;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -35,12 +36,23 @@ public class ViewBio extends JDialog {
         catch (Exception e) {
             System.out.print("Image not found!");
         }
+        String name="name";
+        String year="2021";
+        String college="PEG";
+
+        DBHandler db=new DBHandler();
+
+        String[] bioInfo=new String[3];
+        bioInfo=db.getBio();
+        name=bioInfo[0];
+        year=bioInfo[1];
+        college=bioInfo[2];
 
         JLabel nameLabel = new JLabel("Name:");
         nameLabel.setFont(gothamFont.assignFont("GothamBold", 18f));
         nameLabel.setForeground(colorTheme.getTextColor());
 
-        JLabel nameDataLabel = new JLabel("Mark Zuckerberg");
+        JLabel nameDataLabel = new JLabel(name);
         nameDataLabel.setFont(gothamFont.assignFont("GothamBook", 18f));
         nameDataLabel.setForeground(colorTheme.getTextColor());
 
@@ -48,7 +60,7 @@ public class ViewBio extends JDialog {
         yearLabel.setFont(gothamFont.assignFont("GothamBold", 18f));
         yearLabel.setForeground(colorTheme.getTextColor());
 
-        JLabel yearDataLabel = new JLabel("3");
+        JLabel yearDataLabel = new JLabel(year);
         yearDataLabel.setFont(gothamFont.assignFont("GothamBook", 18f));
         yearDataLabel.setForeground(colorTheme.getTextColor());
 
@@ -56,7 +68,7 @@ public class ViewBio extends JDialog {
         collegeLabel.setFont(gothamFont.assignFont("GothamBold", 18f));
         collegeLabel.setForeground(colorTheme.getTextColor());
 
-        JLabel collegeDataLabel = new JLabel("CEG");
+        JLabel collegeDataLabel = new JLabel(college);
         collegeDataLabel.setFont(gothamFont.assignFont("GothamBook", 18f));
         collegeDataLabel.setForeground(colorTheme.getTextColor());
 

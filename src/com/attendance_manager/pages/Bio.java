@@ -6,8 +6,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -20,9 +18,9 @@ public class Bio extends JFrame {
 
     public Bio() {
 
-        BufferedImage logo = null;
+        BufferedImage logo ;
         JLabel logoLabel = new JLabel();
-        Image resizedLogo = null;
+        Image resizedLogo ;
 
         GothamFont gothamFont = new GothamFont();
         ColorTheme colorTheme = new ColorTheme();

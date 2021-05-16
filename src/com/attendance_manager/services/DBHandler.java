@@ -649,6 +649,45 @@ public class DBHandler {
 
     }
 
+    public String[] getBio(){
+        String[] bio=new String[3];
+
+
+        try {
+            //STEP 2: Register JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            //STEP 3: Open a connection
+            System.out.println("Connecting to a selected database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("Connected database successfully...");
+
+            //Query
+            String query = "select * from bio";
+
+
+            // create the  preparedstatement
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+
+            ResultSet rs = preparedStmt.executeQuery();
+
+            while (rs.next()) {
+//                System.out.println(rs.getString("name"));
+//                System.out.println(rs.getString("year"));
+//                System.out.println(rs.getString("college"));
+                bio[0]=rs.getString("name");
+                bio[1]=rs.getString("year");
+                bio[2]=rs.getString("college");
+            }
+
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return bio;
+    }
 
 
 }

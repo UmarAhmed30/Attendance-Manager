@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
 
         DBHandler db = new DBHandler();
-
+//        new ViewTT();
         if (db.userExists()) {
             new NewUser();
         } else {

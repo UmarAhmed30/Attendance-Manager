@@ -416,7 +416,19 @@ public class Homepage extends JFrame {
             }
         });
 
-        //get result
+        //ADD timetable
+        addTableBtn.addActionListener(e -> {
+            System.out.println("Add TT");
+            new AddTimetable();
+
+        });
+
+        //VIEW timetable
+        viewTableBtn.addActionListener(e -> {
+            System.out.println("View TT");
+            new ViewTT();
+
+        });
 
 
 
