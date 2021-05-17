@@ -420,6 +420,23 @@ public class DBHandler {
 
     }
 
+    public void clearHistory() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("Connecting to a selected database...");
+
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("Connected database successfully...");
+
+            String query = "truncate history";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.executeQuery();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<Integer> getStats() {
         ArrayList<Integer> stats = new ArrayList<>();
 

@@ -2,11 +2,14 @@ package com.attendance_manager.pages;
 
 import com.attendance_manager.components.ColorTheme;
 import com.attendance_manager.components.GothamFont;
+import com.attendance_manager.components.RoundedBorder;
 import com.attendance_manager.services.DBHandler;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import static javax.swing.BorderFactory.createEmptyBorder;
@@ -69,6 +72,21 @@ public class History extends JFrame{
 
         JScrollPane jps=new JScrollPane(table);
 
+        JButton clearButton = new JButton("Clear History");
+        clearButton.setBorder(new RoundedBorder(20, colorTheme.getPriColor()));
+        clearButton.setFont(gothamFont.assignFont("GothamBold", 15f));
+        clearButton.setBackground(colorTheme.getAccColorLight());
+        clearButton.setForeground(colorTheme.getTextColor());
+
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                db.clearHistory();
+                new Homepage();
+                dispose();
+            }
+        });
+
         setIconImage(new ImageIcon("src/resources/images/logo_1.png").getImage());
         setTitle("History");
 
@@ -80,10 +98,12 @@ public class History extends JFrame{
         gbc.gridx=0;
         gbc.gridy=0;
         add(containerTitle,gbc);
-
         gbc.gridx=0;
         gbc.gridy=1;
         add(jps,gbc);
+        gbc.gridx=0;
+        gbc.gridy=2;
+        add(clearButton,gbc);
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 

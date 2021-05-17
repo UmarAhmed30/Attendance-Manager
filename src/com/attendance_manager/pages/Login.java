@@ -120,7 +120,6 @@ public class Login extends JFrame {
 					dispose();
 					new Login(validationMessage[0]);
 				}
-
 			}
 		});
 

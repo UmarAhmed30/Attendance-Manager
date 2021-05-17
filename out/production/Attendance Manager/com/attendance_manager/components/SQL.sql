@@ -24,7 +24,13 @@ ALTER TABLE registers
 
 create table history(subjectName varchar(50),attendance varchar(50));
 
+select * from history;
+
 select * from registers;
+
+create table bio(name varchar(50), year varchar(50), college varchar(50), filepath varchar(50));
+
+select * from bio;
 
 
 
