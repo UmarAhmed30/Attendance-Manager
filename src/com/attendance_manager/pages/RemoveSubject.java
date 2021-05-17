@@ -16,6 +16,7 @@ public class RemoveSubject extends JFrame{
     GridBagConstraints gbcL = new GridBagConstraints();
 
     public RemoveSubject() {
+
         DBHandler db=new DBHandler()    ;
 
         BufferedImage logo = null;
@@ -115,7 +116,6 @@ public class RemoveSubject extends JFrame{
         gbc.gridx = 0;
         gbc.gridy = 2;
         removeSubjectContainer.add(removeButton, gbc);
-
 
         gbc.insets = new Insets(0,0,0,0);
 

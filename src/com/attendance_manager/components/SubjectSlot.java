@@ -37,8 +37,7 @@ public class SubjectSlot {
         subPButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                System.out.println(subject+" PRESENT");
+                System.out.println(subject+" Present!");
                 db.updateAttendance(subject,1);
                 db.updateHistory(subject,1);
                 Toast toast = new Toast("Attendance Added!", 700, 50);
@@ -59,7 +58,7 @@ public class SubjectSlot {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                System.out.println(subject+" ABSENT");
+                System.out.println(subject+" Absent");
                 db.updateAttendance(subject,0);
                 db.updateHistory(subject,0);
                 Toast toast = new Toast("Added to missed classes!", 700, 50);

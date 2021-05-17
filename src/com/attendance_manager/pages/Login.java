@@ -21,7 +21,7 @@ public class Login extends JFrame {
 	GridBagConstraints gbcL = new GridBagConstraints();
 
 	public Login(String validation)
-	{	//JDBC
+	{
 
 		final String[] validationMessage = {validation};
 		DBHandler db=new DBHandler();
@@ -121,7 +121,6 @@ public class Login extends JFrame {
 					dispose();
 				}
 				else{
-//					System.out.println("WRONG CREDENTIALS");
 					validationMessage[0] ="Wrong credentials";
 					dispose();
 					new Login(validationMessage[0]);

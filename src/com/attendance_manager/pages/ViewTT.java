@@ -29,14 +29,10 @@ public class ViewTT extends JFrame {
             ois.close();
             fis.close();
 
-
-            //HEADING
             JLabel containerTitle = new JLabel("Time Table");
             containerTitle.setFont(gothamFont.assignFont("GothamMedium", 20f));
             containerTitle.setForeground(colorTheme.getTextColor());
 
-
-            //SETTING THE TABLE
             String[] columnNames={"DAY","1","2","3","4","5","6","7","8"};
 
             String[][] TT=new String[5][9];
@@ -51,9 +47,7 @@ public class ViewTT extends JFrame {
                 }
             }
 
-
-            table=new JTable(TT,columnNames);
-//            System.out.println();
+            table = new JTable(TT,columnNames);
             table.setPreferredScrollableViewportSize(new Dimension(1000,280));
             table.setRowHeight(table.getRowHeight() + 40);
             table.getTableHeader().setPreferredSize(new Dimension(1000,table.getRowHeight() + 20));
@@ -63,27 +57,18 @@ public class ViewTT extends JFrame {
             table.setFont(gothamFont.assignFont("GothamMedium", 13f));
             table.setForeground(colorTheme.getTextColor());
             table.setBorder(createEmptyBorder());
-
-            //table header row
             table.getTableHeader().setBackground(new Color(18,18,18));
             table.getTableHeader().setFont(gothamFont.assignFont("GothamBold", 16f));
             table.getTableHeader().setForeground(colorTheme.getAccColorLight());
 
-
-
-
-
-
-            //aligning cell contents to center
             for(int i=0;i<9;i++){
                 DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
                 centerRenderer.setHorizontalAlignment( JLabel.CENTER );
                 table.getColumnModel().getColumn(i).setCellRenderer( centerRenderer );
             }
 
-            //scroll Pane
             JScrollPane jps=new JScrollPane(table);
-            //OUTER FRAME
+
             setIconImage(new ImageIcon("src/resources/images/logo_1.png").getImage());
             setTitle("View Timetable");
 
@@ -97,7 +82,6 @@ public class ViewTT extends JFrame {
             gbc.gridy=0;
             add(containerTitle,gbc);
 
-            //adding jps
             gbc.gridx=0;
             gbc.gridy=1;
             add(jps,gbc);

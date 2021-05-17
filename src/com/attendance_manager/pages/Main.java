@@ -6,23 +6,10 @@ public class Main {
     public static void main(String[] args) {
 
         DBHandler db = new DBHandler();
-//        new ViewTT();
         if (db.userExists()) {
             new NewUser();
         } else {
             new Login("");
         }
-//        new AddTimetable();
-//        new NewUser();
-//        new Login();
-//        new PublicHolidays();
-        // new Homepage();
-//        new AddSubject();
-//        new RemoveSubject();
-//        new AddAttendance();
-//        new PublicHolidays();
-//        new FileChooser().triggerDBox();
-//        new Bio();
-        //new History();
     }
 }

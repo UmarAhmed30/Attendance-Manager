@@ -1,6 +1,5 @@
 package com.attendance_manager.components;
 
-import com.attendance_manager.pages.History;
 import com.attendance_manager.pages.SubjectStats;
 import com.attendance_manager.services.DBHandler;
 
@@ -31,21 +30,15 @@ public class CustomRadioButton {
                 System.out.println("Calculating results for " + this.subject);
                 ArrayList<Integer> stats= new DBHandler().getStatsForSub(this.subject);
 
-
                 int totalClasses=stats.get(0);
                 int attendedClasses=stats.get(1);
                 int missedClasses=stats.get(0)-stats.get(1);
                 int safeBunks=stats.get(2);
 
-
-
                 new SubjectStats(this.subject,totalClasses,attendedClasses,missedClasses,safeBunks);
 
             }
-
-
         });
-
         return button;
     }
 }

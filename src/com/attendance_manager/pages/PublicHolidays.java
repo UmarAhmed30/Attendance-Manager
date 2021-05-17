@@ -34,18 +34,13 @@ public class PublicHolidays extends JFrame {
 
     public PublicHolidays() {
 
-
         Parser parser = new Parser();
         GothamFont gothamFont = new GothamFont();
 
-
-        //HEADING
         JLabel containerTitle = new JLabel("Public Holidays");
         containerTitle.setFont(gothamFont.assignFont("GothamMedium", 20f));
         containerTitle.setForeground(colorTheme.getTextColor());
 
-
-        //API
         try {
             URL url = new URL("https://holidayapi.com/v1/holidays?pretty&country=" +
                     "IN&year=2020&key=60f5cc91-b484-44a2" +
@@ -65,24 +60,18 @@ public class PublicHolidays extends JFrame {
                 reader.close();
 
             }
+
             setLayout(new GridBagLayout());
 
             ArrayList<ArrayList<String>> extractedHolidays=parser.parse(responseContent.toString());
 
-            //System.out.println(extractedHolidays);
-
              holiday = new String[extractedHolidays.size()][extractedHolidays.get(0).size()];
 
             for(int i=0;i<extractedHolidays.size();i++){
-
-                //System.out.println(extractedHolidays.get(i));
                 for(int j=0;j<extractedHolidays.get(i).size();j++){
-                    //System.out.print(extractedHolidays.get(i).get(j));
                     String line=extractedHolidays.get(i).get(j);
                     holiday[i][j]=line;
-
                 }
-
             }
 
 
@@ -90,9 +79,7 @@ public class PublicHolidays extends JFrame {
             e.printStackTrace();
         }
 
-        //SETTING THE TABLE
         String[] columnNames={"Date","Day","Occasion"};
-
 
         table=new JTable(holiday,columnNames);
         table.setPreferredScrollableViewportSize(new Dimension(1000,600));
@@ -105,37 +92,22 @@ public class PublicHolidays extends JFrame {
         table.setForeground(colorTheme.getTextColor());
         table.setBorder(createEmptyBorder());
 
-        //table header row
         table.getTableHeader().setBackground(new Color(18,18,18));
         table.getTableHeader().setFont(gothamFont.assignFont("GothamBold", 16f));
         table.getTableHeader().setForeground(colorTheme.getAccColorLight());
 
-
-
-
-
-
-        //aligning cell contents to center
         for(int i=0;i<3;i++){
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
             centerRenderer.setHorizontalAlignment( JLabel.CENTER );
             table.getColumnModel().getColumn(i).setCellRenderer( centerRenderer );
         }
 
-
-        //scroll Pane
         JScrollPane jps=new JScrollPane(table);
-
-
-
-
-        //OUTER FRAME
         setIconImage(new ImageIcon("src/resources/images/logo_1.png").getImage());
         setTitle("Public Holidays");
 
         setVisible(true);
         setContentPane(new JLabel(new ImageIcon("src/resources/images/background.jpg")));
-
 
         gbc.insets= new Insets(10,0,10,0);
         setLayout(new GridBagLayout());
@@ -143,7 +115,6 @@ public class PublicHolidays extends JFrame {
         gbc.gridy=0;
         add(containerTitle,gbc);
 
-        //adding jps
         gbc.gridx=0;
         gbc.gridy=1;
         add(jps,gbc);

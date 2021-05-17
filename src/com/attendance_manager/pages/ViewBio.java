@@ -43,11 +43,6 @@ public class ViewBio extends JDialog {
             System.out.print("Image not found!");
         }
 
-
-
-
-
-
         JLabel nameLabel = new JLabel("Name:");
         nameLabel.setFont(gothamFont.assignFont("GothamBold", 18f));
         nameLabel.setForeground(colorTheme.getTextColor());

@@ -16,9 +16,7 @@ public class GenerateLeaveForm extends JFrame {
     GridBagConstraints gbc = new GridBagConstraints();
     GridBagConstraints gbcL = new GridBagConstraints();
 
-    public GenerateLeaveForm() {    //JDBC
-
-
+    public GenerateLeaveForm() {
 
         BufferedImage logo ;
         Image resizedLogo ;
@@ -120,8 +118,6 @@ public class GenerateLeaveForm extends JFrame {
             String[] bio=new DBHandler().getBio();
             String name=bio[0];
 
-
-
             String leaveLetter = "\n\n\n\n\nFrom,\n\t"+name+"\n\nTo,\n\t" + inputStaff + "\n\n\nRespected Mam/Sir,\n\tI " +
                     "was not able to attend the " + inputSubject + " class on " + inputDate + " because " + inputReason + ". " +
                     "Kindly grant me leave for my absence.\nThanking you!\n\n\n" +
@@ -172,9 +168,7 @@ public class GenerateLeaveForm extends JFrame {
         gbc.gridy = 3;
         loginContainer.add(generateButton, gbc);
 
-
         gbc.insets = new Insets(0, 0, 0, 0);
-
 
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
         setTitle("Generate Leave Form");
@@ -189,7 +183,6 @@ public class GenerateLeaveForm extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 1;
         add(loginContainer, gbc);
-
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }

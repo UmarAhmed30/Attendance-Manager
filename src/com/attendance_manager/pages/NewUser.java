@@ -21,7 +21,7 @@ public class NewUser extends JFrame {
     ColorTheme colorTheme=new ColorTheme();
 
     public NewUser()
-    {	//JDBC
+    {
         DBHandler db=new DBHandler();
 
 
@@ -178,7 +178,6 @@ public class NewUser extends JFrame {
 
         gbc.insets = new Insets(0,0,0,0);
 
-
         setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
         setTitle("Attendance Manager");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -194,18 +193,12 @@ public class NewUser extends JFrame {
         gbc.gridy = 1;
         add(loginContainer,gbc);
 
-
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
-
-
 
     static boolean isValid(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return email.matches(regex);
     }
-
-
-
 }
 

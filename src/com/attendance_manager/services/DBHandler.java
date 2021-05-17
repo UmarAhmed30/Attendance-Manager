@@ -8,8 +8,6 @@ import java.util.ArrayList;
 public class DBHandler {
 
     String DB_URL = "jdbc:mysql://localhost/javaproject";
-
-    //  Database credentials
     String USER = "root";
     String PASS = "1984cezar";
     Connection conn = null;
@@ -18,36 +16,31 @@ public class DBHandler {
 
     public boolean userExists() {
         try {
-            //STEP 2: Register JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //STEP 3: Open a connection
             System.out.println("Connecting to a selected database...");
+
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connected database successfully...");
 
-            //check for existing user
             PreparedStatement checkExisting = conn.prepareStatement("select * from user ", ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
 
             ResultSet rs = checkExisting.executeQuery();
-            //System.out.println(rs);
+
             if (rs.absolute(1)) {
-                System.out.println("ALREADY EXISTING USER");
+                System.out.println("Already Existing User !");
                 conn.close();
                 return false;
             }
 
 
         } catch (Exception e) {
-            //Handle errors for Class.forName
             e.printStackTrace();
         } finally {
-            //finally block used to close resources
             try {
                 if (stmt != null)
                     conn.close();
-            } // do nothing
+            }
             catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -56,33 +49,27 @@ public class DBHandler {
                     conn.close();
             } catch (SQLException se) {
                 se.printStackTrace();
-            }//end finally try
-        }//end try
+            }
+        }
         return true;
-
-
     }
 
     public boolean validateUser(String email, String password) {
 
-
         String hashedPwd = BCrypt.hashpw(password, BCrypt.gensalt(5));
         System.out.println(hashedPwd);
         try {
-            //STEP 2: Register JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //STEP 3: Open a connection
             System.out.println("Connecting to a selected database...");
+
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connected database successfully...");
 
-            //STEP 4: Execute a query
             String query = "select password from user where email= ?";
             PreparedStatement checkExisting = conn.prepareStatement(query);
             checkExisting.setString(1, email);
             ResultSet rs = checkExisting.executeQuery();
-            //System.out.println(rs);
+
             while (rs.next()) {
                 if (BCrypt.checkpw(password, rs.getString("password"))) {
 
@@ -93,11 +80,9 @@ public class DBHandler {
             return false;
 
         } catch (Exception se) {
-            //Handle errors for JDBC
             se.printStackTrace();
-        }//Handle errors for Class.forName
+        }
         finally {
-            //finally block used to close resources
             try {
                 if (stmt != null)
                     conn.close();
@@ -109,8 +94,8 @@ public class DBHandler {
                     conn.close();
             } catch (SQLException se) {
                 se.printStackTrace();
-            }//end finally try
-        }//end try
+            }
+        }
         System.out.println("Goodbye!");
         return false;
     }
@@ -121,110 +106,91 @@ public class DBHandler {
 
 
         try {
-            //STEP 2: Register JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //STEP 3: Open a connection
             System.out.println("Connecting to a selected database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connected database successfully...");
 
-            //check for existing user
-            PreparedStatement checkExisting = conn.prepareStatement("select * from user where email= ?", ResultSet.TYPE_SCROLL_SENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE);
+            PreparedStatement checkExisting = conn.prepareStatement("select * from user where email= ?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             checkExisting.setString(1, email);
             ResultSet rs = checkExisting.executeQuery();
-            //System.out.println(rs);
+
             if (rs.absolute(1)) {
-                System.out.println("ALREADY EXISTING USER");
+                System.out.println("Already existing user !");
                 conn.close();
                 return;
             }
 
-
-            //STEP 4: Execute a query
             String query = " insert into user"
                     + " values (?, ?)";
-            // create the mysql insert preparedstatement
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setString(1, email);
             preparedStmt.setString(2, hashedPwd);
-            // execute the preparedstatement
             preparedStmt.execute();
 
         } catch (Exception se) {
-            //Handle errors for JDBC
             se.printStackTrace();
-        }//Handle errors for Class.forName
+        }
         finally {
-            //finally block used to close resources
             try {
                 if (stmt != null)
                     conn.close();
             } catch (SQLException se) {
-            }// do nothing
+            }
             try {
                 if (conn != null)
                     conn.close();
             } catch (SQLException se) {
                 se.printStackTrace();
-            }//end finally try
-        }//end try
+            }
+        }
         System.out.println("Goodbye!");
     }
 
     public boolean addSubject(String inputCode, String inputSubName, String inputFaculty) {
 
         try {
-            //STEP 2: Register JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //STEP 3: Open a connection
             System.out.println("Connecting to a selected database...");
+
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connected database successfully...");
-            System.out.println("DEBUG");
-            //check for existing user
+
             PreparedStatement checkExisting = conn.prepareStatement("select * from subject where subjectCode= ? and staff= ?", ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
             checkExisting.setString(1, inputCode);
             checkExisting.setString(2, inputFaculty);
             ResultSet rs = checkExisting.executeQuery();
-            //System.out.println(rs);
+
             if (rs.absolute(1)) {
-                System.out.println("ALREADY EXISTING SUBJECT");
+                System.out.println("Alreadt existing subject !");
                 return false;
 
             } else {
-                System.out.println("NEW SUBJECT DETECTED !");
-                //STEP 4: Execute a query
+                System.out.println("New subject detected !");
                 String query = " insert into subject"
                         + " values (?,?,?)";
-                // create the mysql insert preparedstatement
+
                 PreparedStatement preparedStmt = conn.prepareStatement(query);
                 preparedStmt.setString(1, inputCode);
                 preparedStmt.setString(2, inputFaculty);
                 preparedStmt.setString(3, inputSubName);
                 preparedStmt.execute();
-                
-                
 
                 String userQuery="select email from user";
                 PreparedStatement prep=conn.prepareStatement(userQuery);
                 ResultSet resultSet=prep.executeQuery();
                 String userName=null;
+
                 while (resultSet.next()){
                     userName=resultSet.getString("email");
 
                 }
                 System.out.println(userName);
 
-
-
-
-
                 String query2 = " insert into registers"
                         + " values (?,?,?,?,?,?)";
+
                 PreparedStatement preparedStmt2 = conn.prepareStatement(query2);
                 preparedStmt2.setString(1, userName);
                 preparedStmt2.setInt(2, 0);
@@ -236,28 +202,23 @@ public class DBHandler {
                 preparedStmt2.execute();
                 return true;
 
-
             }
-
-
         } catch (Exception se) {
-            //Handle errors for JDBC
             se.printStackTrace();
-        }//Handle errors for Class.forName
+        }
         finally {
-            //finally block used to close resources
             try {
                 if (stmt != null)
                     conn.close();
             } catch (SQLException se) {
-            }// do nothing
+            }
             try {
                 if (conn != null)
                     conn.close();
             } catch (SQLException se) {
                 se.printStackTrace();
-            }//end finally try
-        }//end try
+            }
+        }
         System.out.println("Goodbye!");
 
 
@@ -268,70 +229,54 @@ public class DBHandler {
     public void deleteSubject(String inputSubName) {
 
         try {
-            //STEP 2: Register JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //STEP 3: Open a connection
             System.out.println("Connecting to a selected database...");
+
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connected database successfully...");
 
-            //check if existing subject
             PreparedStatement checkExisting = conn.prepareStatement("select * from registers where subjectName= ? ", ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
             checkExisting.setString(1, inputSubName);
 
             ResultSet rs = checkExisting.executeQuery();
-            //System.out.println(rs);
-            if (rs.absolute(1)) {
 
-                //UNREGISTER
-                System.out.println("REMOVING SUBJECT");
+            if (rs.absolute(1)) {
+                System.out.println("Removing Subject !");
                 String query = " delete from registers where subjectName=?";
 
-
-                // create the mysql delete preparedstatement
                 PreparedStatement preparedStmt = conn.prepareStatement(query);
                 preparedStmt.setString(1, inputSubName);
                 preparedStmt.execute();
 
-                //remove subject
-
                 String query2 = " delete from subject where subjectName=?";
 
-
-                // create the mysql insert preparedstatement
                 PreparedStatement preparedStmt2 = conn.prepareStatement(query2);
                 preparedStmt2.setString(1, inputSubName);
                 preparedStmt2.execute();
 
             } else {
-
-                System.out.println("WRONG SUBJECT NAME");
-
+                System.out.println("Wrong subject name !");
             }
 
 
         } catch (Exception se) {
-            //Handle errors for JDBC
             se.printStackTrace();
-        }//Handle errors for Class.forName
+        }
         finally {
-            //finally block used to close resources
             try {
                 if (stmt != null)
                     conn.close();
             } catch (SQLException se) {
-            }// do nothing
+            }
             try {
                 if (conn != null)
                     conn.close();
             } catch (SQLException se) {
                 se.printStackTrace();
-            }//end finally try
-        }//end try
+            }
+        }
         System.out.println("Goodbye!");
-
     }
 
     public ArrayList<String> fetchSubjects() {
@@ -339,19 +284,13 @@ public class DBHandler {
         ArrayList<String> returnList = new ArrayList<String>();
 
         try {
-            //STEP 2: Register JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //STEP 3: Open a connection
             System.out.println("Connecting to a selected database...");
+
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connected database successfully...");
 
-            //Query
             String query = "select * from registers";
-
-
-            // create the  preparedstatement
             PreparedStatement preparedStmt = conn.prepareStatement(query);
 
             ResultSet rs = preparedStmt.executeQuery();
@@ -374,25 +313,21 @@ public class DBHandler {
     public void updateAttendance(String subjectName, int flag) {
 
         try {
-            //STEP 2: Register JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //STEP 3: Open a connection
             System.out.println("Connecting to a selected database...");
+
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connected database successfully...");
 
-
             String query = "select * from registers where subjectName=?";
 
-
-            // create the  preparedstatement
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setString(1, subjectName);
             preparedStmt.execute();
 
             ResultSet rs = preparedStmt.executeQuery();
             int currentVal = 0;
+
             while (rs.next()) {
                 if (flag == 0) {
                     currentVal = rs.getInt("missedClasses");
@@ -401,7 +336,6 @@ public class DBHandler {
                 }
             }
             String insertQuery = null;
-            //Query
             if (flag == 0) {
                 insertQuery = "update registers set missedClasses=? where subjectName= ?";
 
@@ -409,14 +343,13 @@ public class DBHandler {
 
                 insertQuery = "update registers set attendedClasses=? where subjectName= ?";
             }
-            // create the  preparedstatement
-            PreparedStatement inspreparedStmt = conn.prepareStatement(insertQuery);
 
+            PreparedStatement inspreparedStmt = conn.prepareStatement(insertQuery);
 
             inspreparedStmt.setInt(1, currentVal + 1);
             inspreparedStmt.setString(2, subjectName);
             inspreparedStmt.execute();
-            System.out.println("YOU MISSED A CLASS !");
+            System.out.println("You missed a class !");
 
 
         } catch (ClassNotFoundException | SQLException e) {
@@ -429,19 +362,14 @@ public class DBHandler {
     public void updateHistory(String subjectName, int flag) {
 
         try {
-            //STEP 2: Register JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //STEP 3: Open a connection
             System.out.println("Connecting to a selected database...");
+
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connected database successfully...");
 
-
             String query = "insert into history values(?,?)";
 
-
-            // create the  preparedstatement
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setString(1, subjectName);
 
@@ -453,14 +381,12 @@ public class DBHandler {
 
             preparedStmt.execute();
 
-            System.out.println("updated history");
+            System.out.println("Updated history !");
 
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
-
     }
 
 
@@ -469,23 +395,20 @@ public class DBHandler {
         ArrayList<ArrayList<String>> extractedAttendance = new ArrayList<>();
 
         try {
-            //STEP 2: Register JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //STEP 3: Open a connection
             System.out.println("Connecting to a selected database...");
+
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connected database successfully...");
-
 
             String query = "select * from history";
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             ResultSet rs = preparedStatement.executeQuery();
+
             while (rs.next()) {
                 ArrayList<String> attRow = new ArrayList<String>();
                 attRow.add(rs.getString("subjectName"));
                 attRow.add(rs.getString("attendance"));
-                //System.out.println(rs.getString("subjectName")+" "+rs.getString("attendance"));
                 extractedAttendance.add(attRow);
             }
 
@@ -501,56 +424,45 @@ public class DBHandler {
         ArrayList<Integer> stats = new ArrayList<>();
 
         try {
-            //STEP 2: Register JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //STEP 3: Open a connection
             System.out.println("Connecting to a selected database...");
+
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connected database successfully...");
 
-            //Query to find number of missed classes
             String selectMissed = "select missedClasses from registers";
             PreparedStatement selectMissedpreparedStmt = conn.prepareStatement(selectMissed);
             ResultSet rs1 = selectMissedpreparedStmt.executeQuery();
+
             int missedClasses = 0;
+
             while (rs1.next()) {
                 missedClasses += rs1.getInt("missedClasses");
 
             }
-//            System.out.println(missedClasses);
-
-
-            //Query to find number of attended classes
 
             String selectAttended = "select attendedClasses from registers";
             PreparedStatement selectAttendedpreparedStmt = conn.prepareStatement(selectAttended);
             ResultSet rs2 = selectAttendedpreparedStmt.executeQuery();
+
             int attendedClasses = 0;
+
             while (rs2.next()) {
                 attendedClasses += rs2.getInt("attendedClasses");
-
             }
-
 
             int totalClasses = missedClasses + attendedClasses;
 
-
             int safeBunks = calculateSafeBunks(attendedClasses, totalClasses);
 
-            //append to arraylist for frontend
             stats.add(totalClasses);
             stats.add(attendedClasses);
             stats.add(safeBunks);
-
-
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-
         return stats;
     }
 
@@ -558,44 +470,35 @@ public class DBHandler {
         ArrayList<Integer> stats = new ArrayList<>();
 
         try {
-            //STEP 2: Register JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //STEP 3: Open a connection
             System.out.println("Connecting to a selected database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connected database successfully...");
 
-            //Query to find number of missed classes
             String selectMissed = "select missedClasses from registers where subjectName='" + sub + "'";
             PreparedStatement selectMissedpreparedStmt = conn.prepareStatement(selectMissed);
             ResultSet rs1 = selectMissedpreparedStmt.executeQuery();
+
             int missedClasses = 0;
+
             while (rs1.next()) {
                 missedClasses += rs1.getInt("missedClasses");
-
             }
-//            System.out.println(missedClasses);
-
-
-            //Query to find number of attended classes
 
             String selectAttended = "select attendedClasses from registers where subjectName='" + sub + "'";
             PreparedStatement selectAttendedpreparedStmt = conn.prepareStatement(selectAttended);
             ResultSet rs2 = selectAttendedpreparedStmt.executeQuery();
+
             int attendedClasses = 0;
+
             while (rs2.next()) {
                 attendedClasses += rs2.getInt("attendedClasses");
-
             }
-
 
             int totalClasses = missedClasses + attendedClasses;
 
-
             int safeBunks = calculateSafeBunks(attendedClasses, totalClasses);
 
-            //append to arraylist for frontend
             stats.add(totalClasses);
             stats.add(attendedClasses);
             stats.add(safeBunks);
@@ -604,18 +507,19 @@ public class DBHandler {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
-
         return stats;
     }
 
     public int calculateSafeBunks(int attendedClasses, int totalClasses) {
+
         int safeBunks;
+
         if (totalClasses == 0) {
             return 0;
         }
 
         int i = 0;
+
         if (((float) attendedClasses / totalClasses) > 0.75) {
             for (i = 0; ; i++) {
                 int newTotalClass = totalClasses + i;
@@ -626,7 +530,7 @@ public class DBHandler {
 
             }
             safeBunks = i - 1;
-            System.out.println(i - 1 + " classes can be bunked");
+            System.out.println(i - 1 + " Classes can be bunked !");
             return safeBunks;
         } else {
             for (i = 0; ; i++) {
@@ -636,15 +540,11 @@ public class DBHandler {
                 if (newPercentage > 0.75) {
                     break;
                 }
-
             }
             safeBunks = (i + 1);
-            System.out.println(i + 1 + " classes need to be attended");
+            System.out.println(i + 1 + " Classes need to be attended !");
             return safeBunks * (-1);
-
         }
-
-
     }
 
     public String[] getBio() {
@@ -652,25 +552,19 @@ public class DBHandler {
 
 
         try {
-            //STEP 2: Register JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //STEP 3: Open a connection
             System.out.println("Connecting to a selected database...");
+
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connected database successfully...");
 
-            //Query
             String query = "select * from bio";
 
-
-            // create the  preparedstatement
             PreparedStatement preparedStmt = conn.prepareStatement(query);
 
             ResultSet rs = preparedStmt.executeQuery();
 
             while (rs.next()) {
-
                 bio[0] = rs.getString("name");
                 bio[1] = rs.getString("year");
                 bio[2] = rs.getString("college");
@@ -682,29 +576,22 @@ public class DBHandler {
             e.printStackTrace();
         }
 
-
         return bio;
     }
 
     public void updateBio(String inputName, String inputYear, String inputCollege, String inputFilePath) {
 
         try {
-            //STEP 2: Register JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //STEP 3: Open a connection
             System.out.println("Connecting to a selected database...");
+
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connected database successfully...");
-            System.out.println("DEBUG");
 
-
-            // Execute delete query
             String query = " delete from bio";
             PreparedStatement d = conn.prepareStatement(query);
             d.execute();
 
-            // create the mysql insert preparedstatement
             String query1 = "insert into bio values(?,?,?,?)";
             PreparedStatement updateBio = conn.prepareStatement(query1);
             updateBio.setString(1, inputName);
@@ -713,24 +600,22 @@ public class DBHandler {
             updateBio.setString(4, inputFilePath);
             updateBio.execute();
 
-
         } catch (Exception classNotFoundException) {
             classNotFoundException.printStackTrace();
-        }//Handle errors for Class.forName
+        }
         finally {
-            //finally block used to close resources
             try {
                 if (stmt != null)
                     conn.close();
             } catch (SQLException ignored) {
-            }// do nothing
+            }
             try {
                 if (conn != null)
                     conn.close();
             } catch (SQLException se) {
                 se.printStackTrace();
-            }//end finally try
-        }//end try
+            }
+        }
         System.out.println("Goodbye!");
 
     }
