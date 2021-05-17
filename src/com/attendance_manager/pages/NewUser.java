@@ -85,7 +85,7 @@ public class NewUser extends JFrame {
         passwordLabel.setFont(gothamFont.assignFont("GothamBook", 14f));
         passwordLabel.setForeground(colorTheme.getTextColor());
 
-        JTextField passwordField = new RoundedTextField(20);
+        JPasswordField passwordField = new RoundedPasswordField(20);
         passwordField.setBorder(customBorder.assignBorder(Color.black, 1, 5, 10, 5, 0));
         passwordField.setFont(gothamFont.assignFont("GothamBook", 14f));
 
@@ -93,16 +93,12 @@ public class NewUser extends JFrame {
         confirmpasswordLabel.setFont(gothamFont.assignFont("GothamBook", 14f));
         confirmpasswordLabel.setForeground(colorTheme.getTextColor());
 
-        JTextField confirmpasswordField = new RoundedTextField(20);
+        JPasswordField confirmpasswordField = new RoundedPasswordField(20);
         confirmpasswordField.setBorder(customBorder.assignBorder(Color.black, 1, 5, 10, 5, 0));
         confirmpasswordField.setFont(gothamFont.assignFont("GothamBook", 14f));
 
         JPanel loginContainer = new JPanel();
         loginContainer.setBackground(colorTheme.getLightTransColor());
-
-        JLabel forgotPasswordLabel = new JLabel("Forgot Password?");
-        forgotPasswordLabel.setFont(gothamFont.assignFont("GothamBook", 14f));
-        forgotPasswordLabel.setForeground(colorTheme.getTextColor());
 
         JButton loginButton = new JButton("Register");
         loginButton.setBorder(new RoundedBorder(20, colorTheme.getRounderCornerColor()));
@@ -162,9 +158,6 @@ public class NewUser extends JFrame {
         loginContainer.add(fieldContainer, gbc);
         gbc.gridx = 0;
         gbc.gridy = 2;
-        loginContainer.add(forgotPasswordLabel, gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 3;
         loginContainer.add(loginButton, gbc);
 
         gbc.insets = new Insets(0,0,0,0);

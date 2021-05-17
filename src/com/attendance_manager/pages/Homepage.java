@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Homepage extends JFrame {
@@ -80,101 +81,304 @@ public class Homepage extends JFrame {
         gbc.gridy = 0;
         greetingsContainer.add(greetings, gbc);
 
+        BufferedImage icon1 = null;
+        Image resizedIcon1 = null;
+        JLabel iconLabel1 = null;
+
+        try {
+            icon1 = ImageIO.read(new File("src/resources/images/AddSubject.png"));
+            resizedIcon1 = icon1.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            iconLabel1 = new JLabel(new ImageIcon(resizedIcon1));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         JButton addSubjectBtn = new JButton("Add Subject");
         addSubjectBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
-        addSubjectBtn.setPreferredSize(new Dimension(300, 40));
+        addSubjectBtn.setPreferredSize(new Dimension(260, 40));
         addSubjectBtn.setBackground(Color.black);
         addSubjectBtn.setForeground(colorTheme.getTextColor());
         addSubjectBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
 
+        JPanel btnIconPane1 = new JPanel();
+        btnIconPane1.setBackground(Color.black);
+        btnIconPane1.setLayout(new GridBagLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        btnIconPane1.add(iconLabel1, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        btnIconPane1.add(addSubjectBtn, gbc);
+
+        BufferedImage icon2 = null;
+        Image resizedIcon2 = null;
+        JLabel iconLabel2 = null;
+
+        try {
+            icon2 = ImageIO.read(new File("src/resources/images/RemoveSubject.png"));
+            resizedIcon2 = icon2.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            iconLabel2 = new JLabel(new ImageIcon(resizedIcon2));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         JButton removeSubjectBtn = new JButton("Remove Subject");
         removeSubjectBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
-        removeSubjectBtn.setPreferredSize(new Dimension(300, 40));
+        removeSubjectBtn.setPreferredSize(new Dimension(260, 40));
         removeSubjectBtn.setBackground(Color.black);
         removeSubjectBtn.setForeground(colorTheme.getTextColor());
         removeSubjectBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
 
+        JPanel btnIconPane2 = new JPanel();
+        btnIconPane2.setBackground(Color.black);
+        btnIconPane2.setLayout(new GridBagLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        btnIconPane2.add(iconLabel2, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        btnIconPane2.add(removeSubjectBtn, gbc);
+
+        BufferedImage icon3 = null;
+        Image resizedIcon3 = null;
+        JLabel iconLabel3 = null;
+
+        try {
+            icon3 = ImageIO.read(new File("src/resources/images/History.png"));
+            resizedIcon3 = icon3.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            iconLabel3 = new JLabel(new ImageIcon(resizedIcon3));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         JButton historyBtn = new JButton("History");
         historyBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
-        historyBtn.setPreferredSize(new Dimension(300, 40));
+        historyBtn.setPreferredSize(new Dimension(260, 40));
         historyBtn.setBackground(Color.black);
         historyBtn.setForeground(colorTheme.getTextColor());
         historyBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
 
+        JPanel btnIconPane3 = new JPanel();
+        btnIconPane3.setBackground(Color.black);
+        btnIconPane3.setLayout(new GridBagLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        btnIconPane3.add(iconLabel3, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        btnIconPane3.add(historyBtn, gbc);
+
+        BufferedImage icon4 = null;
+        Image resizedIcon4 = null;
+        JLabel iconLabel4 = null;
+
+        try {
+            icon4 = ImageIO.read(new File("src/resources/images/AddAttendance.png"));
+            resizedIcon4 = icon4.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            iconLabel4 = new JLabel(new ImageIcon(resizedIcon4));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         JButton addBtn = new JButton("Add Attendance");
         addBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
-        addBtn.setPreferredSize(new Dimension(300, 40));
+        addBtn.setPreferredSize(new Dimension(260, 40));
         addBtn.setBackground(Color.black);
         addBtn.setForeground(colorTheme.getTextColor());
         addBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
 
+        JPanel btnIconPane4 = new JPanel();
+        btnIconPane4.setBackground(Color.black);
+        btnIconPane4.setLayout(new GridBagLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        btnIconPane4.add(iconLabel4, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        btnIconPane4.add(addBtn, gbc);
+
+        BufferedImage icon5 = null;
+        Image resizedIcon5 = null;
+        JLabel iconLabel5 = null;
+
+        try {
+            icon5 = ImageIO.read(new File("src/resources/images/AddTimetable.png"));
+            resizedIcon5 = icon5.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            iconLabel5 = new JLabel(new ImageIcon(resizedIcon5));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         JButton addTableBtn = new JButton("Add Timetable");
         addTableBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
-        addTableBtn.setPreferredSize(new Dimension(300, 40));
+        addTableBtn.setPreferredSize(new Dimension(260, 40));
         addTableBtn.setBackground(Color.black);
         addTableBtn.setForeground(colorTheme.getTextColor());
         addTableBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
 
+        JPanel btnIconPane5 = new JPanel();
+        btnIconPane5.setBackground(Color.black);
+        btnIconPane5.setLayout(new GridBagLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        btnIconPane5.add(iconLabel5, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        btnIconPane5.add(addTableBtn, gbc);
+
+        BufferedImage icon6 = null;
+        Image resizedIcon6 = null;
+        JLabel iconLabel6 = null;
+
+        try {
+            icon6 = ImageIO.read(new File("src/resources/images/ViewTimetable.png"));
+            resizedIcon6 = icon6.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            iconLabel6 = new JLabel(new ImageIcon(resizedIcon6));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         JButton viewTableBtn = new JButton("View Timetable");
         viewTableBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
-        viewTableBtn.setPreferredSize(new Dimension(300, 40));
+        viewTableBtn.setPreferredSize(new Dimension(260, 40));
         viewTableBtn.setBackground(Color.black);
         viewTableBtn.setForeground(colorTheme.getTextColor());
         viewTableBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
 
+        JPanel btnIconPane6 = new JPanel();
+        btnIconPane6.setBackground(Color.black);
+        btnIconPane6.setLayout(new GridBagLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        btnIconPane6.add(iconLabel6, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        btnIconPane6.add(viewTableBtn, gbc);
+
+        BufferedImage icon7 = null;
+        Image resizedIcon7 = null;
+        JLabel iconLabel7 = null;
+
+        try {
+            icon7 = ImageIO.read(new File("src/resources/images/LeaveForm.png"));
+            resizedIcon7 = icon7.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            iconLabel7 = new JLabel(new ImageIcon(resizedIcon7));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         JButton generateBtn = new JButton("Generate Leave Form");
         generateBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
-        generateBtn.setPreferredSize(new Dimension(300, 40));
+        generateBtn.setPreferredSize(new Dimension(260, 40));
         generateBtn.setBackground(Color.black);
         generateBtn.setForeground(colorTheme.getTextColor());
         generateBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
 
+        JPanel btnIconPane7 = new JPanel();
+        btnIconPane7.setBackground(Color.black);
+        btnIconPane7.setLayout(new GridBagLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        btnIconPane7.add(iconLabel7, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        btnIconPane7.add(generateBtn, gbc);
+
+        BufferedImage icon8 = null;
+        Image resizedIcon8 = null;
+        JLabel iconLabel8 = null;
+
+        try {
+            icon8 = ImageIO.read(new File("src/resources/images/Holidays.png"));
+            resizedIcon8 = icon8.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            iconLabel8 = new JLabel(new ImageIcon(resizedIcon8));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         JButton holidaysBtn = new JButton("Public Holidays");
         holidaysBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
-        holidaysBtn.setPreferredSize(new Dimension(300, 40));
+        holidaysBtn.setPreferredSize(new Dimension(260, 40));
         holidaysBtn.setBackground(Color.black);
         holidaysBtn.setForeground(colorTheme.getTextColor());
         holidaysBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
 
+        JPanel btnIconPane8 = new JPanel();
+        btnIconPane8.setBackground(Color.black);
+        btnIconPane8.setLayout(new GridBagLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        btnIconPane8.add(iconLabel8, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        btnIconPane8.add(holidaysBtn, gbc);
+
+        BufferedImage icon9 = null;
+        Image resizedIcon9 = null;
+        JLabel iconLabel9 = null;
+
+        try {
+            icon9 = ImageIO.read(new File("src/resources/images/Bio.png"));
+            resizedIcon9 = icon9.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            iconLabel9 = new JLabel(new ImageIcon(resizedIcon9));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         JButton bioBtn = new JButton("Bio");
         bioBtn.setFont(gothamFont.assignFont("GothamMedium", 14f));
-        bioBtn.setPreferredSize(new Dimension(300, 40));
+        bioBtn.setPreferredSize(new Dimension(260, 40));
         bioBtn.setBackground(Color.black);
         bioBtn.setForeground(colorTheme.getTextColor());
         bioBtn.setBorder(BorderFactory.createLineBorder(colorTheme.getAccColorLight(), 1));
+
+        JPanel btnIconPane9 = new JPanel();
+        btnIconPane9.setBackground(Color.black);
+        btnIconPane9.setLayout(new GridBagLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        btnIconPane9.add(iconLabel9, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        btnIconPane9.add(bioBtn, gbc);
 
         JPanel menuPane = new JPanel();
         menuPane.setBackground(colorTheme.getDarkTransColor());
         menuPane.setPreferredSize(new Dimension(300, 400));
 
+        gbc.insets = new Insets(2, 0, 2, 0);
+
         menuPane.setLayout(new GridBagLayout());
         gbc.gridx = 0;
         gbc.gridy = 0;
-        menuPane.add(addSubjectBtn, gbc);
+        menuPane.add(btnIconPane1, gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
-        menuPane.add(removeSubjectBtn, gbc);
+        menuPane.add(btnIconPane2, gbc);
         gbc.gridx = 0;
         gbc.gridy = 2;
-        menuPane.add(historyBtn, gbc);
+        menuPane.add(btnIconPane3, gbc);
         gbc.gridx = 0;
         gbc.gridy = 3;
-        menuPane.add(addBtn, gbc);
+        menuPane.add(btnIconPane4, gbc);
         gbc.gridx = 0;
         gbc.gridy = 4;
-        menuPane.add(addTableBtn, gbc);
+        menuPane.add(btnIconPane5, gbc);
         gbc.gridx = 0;
         gbc.gridy = 5;
-        menuPane.add(viewTableBtn, gbc);
+        menuPane.add(btnIconPane6, gbc);
         gbc.gridx = 0;
         gbc.gridy = 6;
-        menuPane.add(generateBtn, gbc);
+        menuPane.add(btnIconPane7, gbc);
         gbc.gridx = 0;
         gbc.gridy = 7;
-        menuPane.add(holidaysBtn, gbc);
+        menuPane.add(btnIconPane8, gbc);
         gbc.gridx = 0;
         gbc.gridy = 8;
-        menuPane.add(bioBtn, gbc);
+        menuPane.add(btnIconPane9, gbc);
+
+        gbc.insets = new Insets(0, 10, 0, 10);
+
 
         ArrayList<Integer> stats = db.getStats();
         try {
@@ -373,30 +577,30 @@ public class Homepage extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         addSubjectBtn.addActionListener(e -> {
-            System.out.println("ADDING SUBJECT");
+            System.out.println("Adding subject !");
             new AddSubject();
             dispose();
         });
 
         removeSubjectBtn.addActionListener(e -> {
-            System.out.println("REMOVING SUBJECT");
+            System.out.println("Removing subject !");
             new RemoveSubject();
             dispose();
         });
 
         historyBtn.addActionListener(e -> {
-            System.out.println("Displaying History");
+            System.out.println("Displaying History !");
             new History();
         });
 
         addBtn.addActionListener(e -> {
-            System.out.println("ADDING Attendance");
+            System.out.println("Adding Attendance !");
             new AddAttendance();
             dispose();
         });
 
         generateBtn.addActionListener(e -> {
-            System.out.println("GENERATING LEAVE FORM");
+            System.out.println("Generating leave form !");
             new GenerateLeaveForm();
         });
 
@@ -405,19 +609,19 @@ public class Homepage extends JFrame {
         bioBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Displaying Bio");
+                System.out.println("Displaying Bio !");
                 new Bio();
                 dispose();
             }
         });
 
         addTableBtn.addActionListener(e -> {
-            System.out.println("Add TT");
+            System.out.println("Add TT !");
             new AddTimetable();
         });
 
         viewTableBtn.addActionListener(e -> {
-            System.out.println("View TT");
+            System.out.println("View TT !");
             new ViewTT();
         });
 

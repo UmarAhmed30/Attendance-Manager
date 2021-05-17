@@ -86,7 +86,7 @@ public class Login extends JFrame {
 		passwordLabel.setFont(gothamFont.assignFont("GothamBook", 14f));
 		passwordLabel.setForeground(colorTheme.getTextColor());
 
-		JTextField passwordField = new RoundedTextField(20);
+		JPasswordField passwordField = new RoundedPasswordField(20);
 		passwordField.setBorder(customBorder.assignBorder(Color.black, 1, 5, 10, 5, 0));
 		passwordField.setFont(gothamFont.assignFont("GothamBook", 14f));
 
