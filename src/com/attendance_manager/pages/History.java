@@ -25,28 +25,35 @@ public class History extends JFrame{
 
     public History() {
 
+
         JLabel containerTitle = new JLabel("Attendance History");
         containerTitle.setFont(gothamFont.assignFont("GothamMedium", 20f));
         containerTitle.setForeground(colorTheme.getTextColor());
 
         String[] columnNames={"Subject Name","Attendance"};
+        ArrayList<ArrayList<String>> extractedHistory;
+        try {
+            extractedHistory= db.fetchHistory();
+            for (int i = 0; i < extractedHistory.size(); i++) {
+                for (int j = 0; j < extractedHistory.get(0).size(); j++) {
+                    System.out.print(extractedHistory.get(i).get(j) + " ");
 
-        ArrayList<ArrayList<String>> extractedHistory=db.fetchHistory();
-        for(int i=0;i<extractedHistory.size();i++){
-            for(int j=0;j<extractedHistory.get(0).size();j++  ){
-                System.out.print(extractedHistory.get(i).get(j)+" ");
-
+                }
+                System.out.println();
             }
-            System.out.println();
+
+            history = new String[extractedHistory.size()][extractedHistory.get(0).size()];
+
+            for (int i = 0; i < extractedHistory.size(); i++) {
+                for (int j = 0; j < extractedHistory.get(i).size(); j++) {
+                    String line = extractedHistory.get(i).get(j);
+                    history[i][j] = line;
+                }
+            }
         }
+        catch (Exception e){
+            System.out.println(e);
 
-        history = new String[extractedHistory.size()][extractedHistory.get(0).size()];
-
-        for(int i=0;i<extractedHistory.size();i++){
-            for(int j=0;j<extractedHistory.get(i).size();j++){
-                String line=extractedHistory.get(i).get(j);
-                history[i][j]=line;
-            }
         }
 
         table=new JTable(history,columnNames);
@@ -87,7 +94,7 @@ public class History extends JFrame{
             }
         });
 
-        setIconImage(new ImageIcon("src/resources/images/logo_1.png").getImage());
+        setIconImage(new ImageIcon("src/resources/images/spotify.png").getImage());
         setTitle("History");
 
         setVisible(true);
@@ -107,5 +114,8 @@ public class History extends JFrame{
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
+
     }
+
+
 }

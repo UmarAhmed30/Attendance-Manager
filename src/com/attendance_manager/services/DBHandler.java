@@ -416,7 +416,7 @@ public class DBHandler {
             }
 
 
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (ClassNotFoundException | SQLException | IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
         return extractedAttendance;
@@ -431,9 +431,9 @@ public class DBHandler {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connected database successfully...");
 
-            String query = "truncate history";
+            String query = "delete from history";
             PreparedStatement preparedStatement = conn.prepareStatement(query);
-            preparedStatement.executeQuery();
+            preparedStatement.execute();
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
