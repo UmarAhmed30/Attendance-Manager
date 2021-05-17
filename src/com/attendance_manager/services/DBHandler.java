@@ -9,7 +9,7 @@ public class DBHandler {
 
     String DB_URL = "jdbc:mysql://localhost/javaproject";
     String USER = "root";
-    String PASS = "ahmed3633";
+    String PASS = "1984cezar";
     Connection conn = null;
     Statement stmt = null;
 

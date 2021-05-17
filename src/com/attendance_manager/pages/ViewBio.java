@@ -21,7 +21,7 @@ public class ViewBio extends JDialog {
         DBHandler db=new DBHandler();
         String[] bioInfo=new String[4];
         bioInfo=db.getBio();
-       String  name=bioInfo[0];
+        String  name=bioInfo[0];
         String year=bioInfo[1];
         String college=bioInfo[2];
         String fileP=bioInfo[3];
