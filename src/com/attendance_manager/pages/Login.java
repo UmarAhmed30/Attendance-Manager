@@ -103,11 +103,6 @@ public class Login extends JFrame {
 		loginButton.setBackground(colorTheme.getAccColorLight());
 		loginButton.setForeground(colorTheme.getTextColor());
 
-		JLabel signUpLabel = new JLabel("Don't have an account? Sign Up");
-		signUpLabel.setFont(gothamFont.assignFont("GothamBold", 15f));
-		signUpLabel.setForeground(colorTheme.getTextColor());
-		signUpLabel.setBorder(customBorder.assignBorder(Color.black, 0 , 0, 10, 25, 10));
-
 		loginButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -158,9 +153,6 @@ public class Login extends JFrame {
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		loginContainer.add(loginButton, gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 4;
-		loginContainer.add(signUpLabel, gbc);
 
 
 		gbc.insets = new Insets(0,0,0,0);

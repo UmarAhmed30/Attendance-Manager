@@ -38,7 +38,7 @@ public class Homepage extends JFrame {
 
         try {
             logo = ImageIO.read(new File("src/resources/images/spotify.png"));
-            resizedLogo = logo.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+            resizedLogo = logo.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
             logoLabel = new JLabel(new ImageIcon(resizedLogo));
         } catch (Exception e) {
             System.out.print("Image not found!");
@@ -53,7 +53,6 @@ public class Homepage extends JFrame {
         logoContainer.setPreferredSize(new Dimension(300, 150));
 
         gbc.insets = new Insets(10, 10, 10, 10);
-
 
         logoContainer.setLayout(new GridBagLayout());
         gbc.gridx = 0;
@@ -70,7 +69,9 @@ public class Homepage extends JFrame {
         greetingsContainer.setBackground(colorTheme.getDarkTransColor());
         greetingsContainer.setPreferredSize(new Dimension(850, 150));
 
-        JLabel greetings = new JLabel("Hi "+username+"!");
+        if(username==null) {username="";}
+
+        JLabel greetings = new JLabel("Hey "+username+"!");
         greetings.setFont(gothamFont.assignFont("GothamMedium", 30f));
         greetings.setForeground(colorTheme.getTextColor());
 
@@ -225,7 +226,7 @@ public class Homepage extends JFrame {
 
         gbc.insets = new Insets(0, 0, 0, 0);
 
-        String bunkOrAttend = "Welcome to attendance Manager !";
+        String bunkOrAttend = "";
         int safeClasses = 0;
         int attendedClasses = 0;
         int totalClasses = 0;
@@ -238,7 +239,7 @@ public class Homepage extends JFrame {
             attendedClasses = stats.get(1);
             missedClasses = (stats.get(0) - stats.get(1));
         } catch (Exception e) {
-            System.out.println("FIRST TIME USER");
+            System.out.println("First Time User !");
         }
 
         JLabel stat1 = new JLabel("Total number of classes: " + totalClasses);
@@ -260,7 +261,6 @@ public class Homepage extends JFrame {
 
         gbc.insets = new Insets(10, 0, 10, 0);
 
-
         statPane.setLayout(new GridBagLayout());
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -276,7 +276,6 @@ public class Homepage extends JFrame {
         statPane.add(stat4, gbc);
 
         gbc.insets = new Insets(0, 0, 0, 0);
-
 
         JPanel mainContentPane = new JPanel();
         mainContentPane.setBackground(colorTheme.getDarkTransColor());
@@ -373,74 +372,53 @@ public class Homepage extends JFrame {
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        // button listeners
-
-        //ADD SUBJECT
         addSubjectBtn.addActionListener(e -> {
             System.out.println("ADDING SUBJECT");
             new AddSubject();
             dispose();
-
         });
 
-
-        //REMOVE SUBJECT
         removeSubjectBtn.addActionListener(e -> {
             System.out.println("REMOVING SUBJECT");
             new RemoveSubject();
             dispose();
-
         });
 
-        //View History
         historyBtn.addActionListener(e -> {
             System.out.println("Displaying History");
             new History();
-
         });
 
-        //ADD Attendance
         addBtn.addActionListener(e -> {
             System.out.println("ADDING Attendance");
-
             new AddAttendance();
             dispose();
-
         });
 
-
-        //GenerateLeaveForm
         generateBtn.addActionListener(e -> {
             System.out.println("GENERATING LEAVE FORM");
             new GenerateLeaveForm();
-
         });
-        //PublicHolidays
+
         holidaysBtn.addActionListener(e -> new PublicHolidays());
 
-        //Bio
         bioBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Displaying Bio");
                 new Bio();
                 dispose();
-
             }
         });
 
-        //ADD timetable
         addTableBtn.addActionListener(e -> {
             System.out.println("Add TT");
             new AddTimetable();
-
         });
 
-        //VIEW timetable
         viewTableBtn.addActionListener(e -> {
             System.out.println("View TT");
             new ViewTT();
-
         });
 
 
