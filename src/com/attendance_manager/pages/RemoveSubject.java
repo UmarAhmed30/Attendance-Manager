@@ -88,9 +88,10 @@ public class RemoveSubject extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String inputSubName = subNameField.getText();
-                db.deleteSubject(inputSubName);
+                int flag=db.deleteSubject(inputSubName);
+                String toastString=(flag==0)?"Wrong Subject Name!":"Subject Removed!";
                 System.out.println(inputSubName);
-                Toast toast = new Toast("Subject Removed!", 700, 50);
+                Toast toast = new Toast(toastString, 700, 50);
                 toast.showtoast();
                 new Homepage();
                 dispose();

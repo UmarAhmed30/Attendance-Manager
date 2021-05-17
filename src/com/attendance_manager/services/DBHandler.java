@@ -226,7 +226,7 @@ public class DBHandler {
     }
 
 
-    public void deleteSubject(String inputSubName) {
+    public int deleteSubject(String inputSubName) {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -255,8 +255,10 @@ public class DBHandler {
                 preparedStmt2.setString(1, inputSubName);
                 preparedStmt2.execute();
 
+
             } else {
                 System.out.println("Wrong subject name !");
+                return 0;
             }
 
 
@@ -277,6 +279,7 @@ public class DBHandler {
             }
         }
         System.out.println("Goodbye!");
+        return 1;
     }
 
     public ArrayList<String> fetchSubjects() {
