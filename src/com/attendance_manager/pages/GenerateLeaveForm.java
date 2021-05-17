@@ -116,7 +116,11 @@ public class GenerateLeaveForm extends JFrame {
             String inputSubject = subjectField.getText();
 
             String[] bio=new DBHandler().getBio();
-            String name=bio[0];
+
+            String name=null;
+
+            name=(bio[0]==null)?"":bio[0];
+
 
             String leaveLetter = "\n\n\n\n\nFrom,\n\t"+name+"\n\nTo,\n\t" + inputStaff + "\n\n\nRespected Mam/Sir,\n\tI " +
                     "was not able to attend the " + inputSubject + " class on " + inputDate + " because " + inputReason + ". " +
