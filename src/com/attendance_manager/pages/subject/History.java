@@ -45,10 +45,10 @@ public class History extends JFrame{
 
             history = new String[extractedHistory.size()][extractedHistory.get(0).size()];
 
-            for (int i = 0; i < extractedHistory.size(); i++) {
+            for (int i = 0; i <extractedHistory.size(); i++) {
                 for (int j = 0; j < extractedHistory.get(i).size(); j++) {
                     String line = extractedHistory.get(i).get(j);
-                    history[i][j] = line;
+                    history[extractedHistory.size()-i-1][j] = line;
                 }
             }
         }

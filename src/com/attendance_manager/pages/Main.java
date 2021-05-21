@@ -8,12 +8,12 @@ public class Main {
     public static void main(String[] args) {
 
         DBHandler db = new DBHandler();
-//        if (db.userExists()) {
-//            new NewUser();
-//        } else {
-//            new Login("");
-//        }
+        if (db.userExists()) {
+            new NewUser();
+        } else {
+            new Login("");
+        }
 
-        new Homepage();
+//        new Homepage();
     }
 }
