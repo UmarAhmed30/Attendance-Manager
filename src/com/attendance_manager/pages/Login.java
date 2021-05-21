@@ -176,7 +176,5 @@ public class Login extends JFrame {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 
-
-
 }
 
