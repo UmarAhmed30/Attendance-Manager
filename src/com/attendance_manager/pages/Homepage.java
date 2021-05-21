@@ -1,7 +1,22 @@
 package com.attendance_manager.pages;
 
-import com.attendance_manager.components.*;
+import com.attendance_manager.components.UIcomponents.CustomRadioButton;
+import com.attendance_manager.components.styles.ColorTheme;
+import com.attendance_manager.components.styles.CustomBorder;
+import com.attendance_manager.components.styles.GothamFont;
+import com.attendance_manager.components.styles.RoundedBorder;
+import com.attendance_manager.pages.bio.Bio;
+import com.attendance_manager.pages.holidaysAPI.PublicHolidays;
+import com.attendance_manager.pages.leaveForm.GenerateLeaveForm;
+import com.attendance_manager.pages.subject.AddAttendance;
+import com.attendance_manager.pages.subject.AddSubject;
+import com.attendance_manager.pages.subject.History;
+import com.attendance_manager.pages.subject.RemoveSubject;
+import com.attendance_manager.pages.timeTable.AddTimetable;
+import com.attendance_manager.pages.timeTable.ViewTT;
 import com.attendance_manager.services.DBHandler;
+import models.BioData;
+import models.Subject;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -27,8 +42,8 @@ public class Homepage extends JFrame {
         double roundedPercent;
         String username;
 
-        String[] bio=db.getBio();
-        username=bio[0];
+
+        username=db.getBio().getName();
 
 
         BufferedImage logo;
@@ -493,11 +508,11 @@ public class Homepage extends JFrame {
         gbc.gridy = 0;
         mainContentPane.add(statPane, gbc);
 
-        ArrayList<String> subjectsList = db.fetchSubjects();
+        ArrayList<Subject> subjectsList = db.fetchSubjects();
         ArrayList<CustomRadioButton> radioBtns = new ArrayList<>();
 
-        for (String subject: subjectsList) {
-            radioBtns.add(new CustomRadioButton(subject));
+        for (Subject subject: subjectsList) {
+            radioBtns.add(new CustomRadioButton(subject.getSubjectName()));
         }
 
         JPanel rbtnPane = new JPanel();

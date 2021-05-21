@@ -10,7 +10,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/com/attendance_manager/components/json-20210307.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/com/attendance_manager/components/dependencies/json-20210307.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -19,7 +19,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/com/attendance_manager/components/mysql-connector-java-8.0.23.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/com/attendance_manager/components/dependencies/mysql-connector-java-8.0.23.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -28,7 +28,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/com/attendance_manager/components/spring-security-crypto-5.4.5.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/com/attendance_manager/components/dependencies/spring-security-crypto-5.4.5.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
