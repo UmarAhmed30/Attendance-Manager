@@ -15,6 +15,8 @@ import com.attendance_manager.pages.subject.RemoveSubject;
 import com.attendance_manager.pages.timeTable.AddTimetable;
 import com.attendance_manager.pages.timeTable.ViewTT;
 import com.attendance_manager.services.DBHandler;
+import models.BioData;
+import models.Subject;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -40,8 +42,8 @@ public class Homepage extends JFrame {
         double roundedPercent;
         String username;
 
-        String[] bio=db.getBio();
-        username=bio[0];
+
+        username=db.getBio().getName();
 
 
         BufferedImage logo;
@@ -506,11 +508,11 @@ public class Homepage extends JFrame {
         gbc.gridy = 0;
         mainContentPane.add(statPane, gbc);
 
-        ArrayList<String> subjectsList = db.fetchSubjects();
+        ArrayList<Subject> subjectsList = db.fetchSubjects();
         ArrayList<CustomRadioButton> radioBtns = new ArrayList<>();
 
-        for (String subject: subjectsList) {
-            radioBtns.add(new CustomRadioButton(subject));
+        for (Subject subject: subjectsList) {
+            radioBtns.add(new CustomRadioButton(subject.getSubjectName()));
         }
 
         JPanel rbtnPane = new JPanel();

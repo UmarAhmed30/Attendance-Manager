@@ -3,6 +3,7 @@ package com.attendance_manager.pages.bio;
 import com.attendance_manager.components.styles.ColorTheme;
 import com.attendance_manager.components.styles.GothamFont;
 import com.attendance_manager.services.DBHandler;
+import models.BioData;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -19,12 +20,12 @@ public class ViewBio extends JDialog {
 
     public ViewBio(String filePath) {
         DBHandler db=new DBHandler();
-        String[] bioInfo=new String[4];
+        BioData bioInfo;
         bioInfo=db.getBio();
-        String  name=bioInfo[0];
-        String year=bioInfo[1];
-        String college=bioInfo[2];
-        String fileP=bioInfo[3];
+        String  name=bioInfo.getName();
+        String year=bioInfo.getYear();
+        String college=bioInfo.getCollege();
+        String fileP=bioInfo.getImagePath();
         this.filePath = fileP;
 
         ColorTheme colorTheme = new ColorTheme();

@@ -2,6 +2,7 @@ package com.attendance_manager.pages.leaveForm;
 
 import com.attendance_manager.components.styles.*;
 import com.attendance_manager.services.DBHandler;
+import models.BioData;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -115,11 +116,11 @@ public class GenerateLeaveForm extends JFrame {
             String inputStaff = staffField.getText();
             String inputSubject = subjectField.getText();
 
-            String[] bio=new DBHandler().getBio();
+            BioData bio=new DBHandler().getBio();
 
             String name=null;
 
-            name=(bio[0]==null)?"":bio[0];
+            name=(bio.getName()==null)?"":bio.getName();
 
 
             String leaveLetter = "\n\n\n\n\nFrom,\n\t"+name+"\n\nTo,\n\t" + inputStaff + "\n\n\nRespected Mam/Sir,\n\tI " +

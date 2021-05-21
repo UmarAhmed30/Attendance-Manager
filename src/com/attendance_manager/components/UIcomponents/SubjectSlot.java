@@ -6,6 +6,7 @@ import com.attendance_manager.components.styles.CustomBorder;
 import com.attendance_manager.pages.subject.AddAttendance;
 import com.attendance_manager.pages.Homepage;
 import com.attendance_manager.services.DBHandler;
+import models.Subject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,10 +18,10 @@ public class SubjectSlot {
     GothamFont gothamFont = new GothamFont();
     ColorTheme colorTheme = new ColorTheme();
     CustomBorder customBorder = new CustomBorder();
-    String subject;
+    Subject subject;
     AddAttendance addAtt;
     DBHandler db=new DBHandler();
-    public SubjectSlot(String subject, AddAttendance a) {
+    public SubjectSlot(Subject subject, AddAttendance a) {
         this.subject = subject;
         this.addAtt=a;
     }
@@ -28,7 +29,7 @@ public class SubjectSlot {
     public JPanel generateSlot () {
         gbc.insets = new Insets(0,0,0,0);
 
-        JLabel sub = new JLabel(this.subject);
+        JLabel sub = new JLabel(this.subject.getSubjectName());
         sub.setFont(gothamFont.assignFont("GothamMedium", 14f));
         sub.setForeground(colorTheme.getTextColor());
 
@@ -40,6 +41,10 @@ public class SubjectSlot {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(subject+" Present!");
+
+
+
+
                 db.updateAttendance(subject,1);
                 db.updateHistory(subject,1);
                 Toast toast = new Toast("Attendance Added!", 700, 50);
@@ -61,6 +66,7 @@ public class SubjectSlot {
             public void actionPerformed(ActionEvent e) {
 
                 System.out.println(subject+" Absent");
+
                 db.updateAttendance(subject,0);
                 db.updateHistory(subject,0);
                 Toast toast = new Toast("Added to missed classes!", 700, 50);

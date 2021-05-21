@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import com.attendance_manager.pages.Homepage;
 import com.attendance_manager.services.DBHandler;
+import models.User;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+//added models
 public class Login extends JFrame {
 
 	GridBagConstraints gbc = new GridBagConstraints();
@@ -107,7 +109,9 @@ public class Login extends JFrame {
 				String inputEmail = emailField.getText();
 				String inputPassword = passwordField.getText();
 				System.out.println(inputEmail+" "+inputPassword);
-				if(db.validateUser(inputEmail,inputPassword)){
+
+				User user=new User(inputEmail,inputPassword);
+				if(db.validateUser(user)){
 					System.out.println("VALIDATED");
 
 					new Homepage();

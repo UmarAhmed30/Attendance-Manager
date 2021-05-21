@@ -4,6 +4,7 @@ import com.attendance_manager.components.UIcomponents.SubjectSlot;
 import com.attendance_manager.components.styles.ColorTheme;
 import com.attendance_manager.components.styles.GothamFont;
 import com.attendance_manager.services.DBHandler;
+import models.Subject;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -50,10 +51,10 @@ public class AddAttendance extends JFrame {
         gbc.gridy = 1;
         logoContainer.add(appTitle,gbc);
 
-        ArrayList<String> subjectsList=db.fetchSubjects();
+        ArrayList<Subject> subjectsList=db.fetchSubjects();
 
         ArrayList<SubjectSlot> subjectSlots= new ArrayList<>();
-        for (String s : subjectsList) {
+        for (Subject s : subjectsList) {
             subjectSlots.add(new SubjectSlot(s,this));
         }
 

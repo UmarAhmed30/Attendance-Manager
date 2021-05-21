@@ -8,6 +8,19 @@ public class Subject {
     private int attendedClasses;
     private int missedClasses;
     private  float attendancePercentage;
+    private int safebunks;
+
+    public Subject(String subjectCode, String subjectName, String faculty) {
+        this.subjectCode = subjectCode;
+        this.subjectName = subjectName;
+        this.faculty = faculty;
+    }
+
+
+
+    public Subject(String subjectName) {
+        this.subjectName = subjectName;
+    }
 
     public String getSubjectCode() {
         return subjectCode;
@@ -27,6 +40,14 @@ public class Subject {
 
     public String getFaculty() {
         return faculty;
+    }
+
+    public int getSafebunks() {
+        return safebunks;
+    }
+
+    public void setSafebunks(int safebunks) {
+        this.safebunks = safebunks;
     }
 
     public void setFaculty(String faculty) {

@@ -4,6 +4,7 @@ import com.attendance_manager.components.UIcomponents.Toast;
 import com.attendance_manager.components.styles.*;
 import com.attendance_manager.pages.Homepage;
 import com.attendance_manager.services.DBHandler;
+import models.BioData;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -147,7 +148,9 @@ public class Bio extends JFrame {
             String inputFilePath=filePath;
 
             DBHandler db=new DBHandler();
-            db.updateBio(inputName,inputYear,inputCollege,inputFilePath);
+
+            BioData bio=new BioData(inputName,inputYear,inputCollege,inputFilePath);
+            db.updateBio(bio);
             Toast toast = new Toast("Bio Updated!", 700, 50);
             toast.showtoast();
             new Homepage();

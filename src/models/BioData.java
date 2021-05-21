@@ -6,6 +6,17 @@ public class BioData {
     private String college;
     private String imagePath;
 
+    public BioData(String name, String year, String college, String imagePath) {
+        this.name = name;
+        this.year = year;
+        this.college = college;
+        this.imagePath = imagePath;
+    }
+
+    public BioData() {
+
+    }
+
     public String getName() {
         return name;
     }

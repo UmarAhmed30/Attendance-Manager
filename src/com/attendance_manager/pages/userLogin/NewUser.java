@@ -5,6 +5,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import com.attendance_manager.services.DBHandler;
+import models.User;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+
+//added models
 public class NewUser extends JFrame {
 
     GridBagConstraints gbc = new GridBagConstraints();
@@ -113,8 +116,10 @@ public class NewUser extends JFrame {
                 if(inputPassword.equals(inputConfirmPassword) && isValid(inputEmail)){
                     System.out.println("Email is correct and passwords match!");
 
-                    db.insertToDB(inputEmail,inputPassword);
 
+                    User user=new User(inputEmail,inputPassword);
+                    //db.insertToDB(inputEmail,inputPassword);
+                    db.insertToDB(user);
                 }
                 else{
                     System.out.println("no match");

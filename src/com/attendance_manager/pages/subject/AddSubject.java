@@ -4,6 +4,7 @@ import com.attendance_manager.components.UIcomponents.Toast;
 import com.attendance_manager.components.styles.*;
 import com.attendance_manager.pages.Homepage;
 import com.attendance_manager.services.DBHandler;
+import models.Subject;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -13,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+//added models
 public class AddSubject extends JFrame {
 
     GridBagConstraints gbc = new GridBagConstraints();
@@ -110,7 +112,9 @@ public class AddSubject extends JFrame {
                 String inputFaculty = facultyField.getText();
                 System.out.println(inputCode + " " + inputSubName + " " + inputFaculty);
 
-                boolean res = db.addSubject(inputCode, inputSubName, inputFaculty);
+                Subject subject=new Subject(inputCode,inputSubName,inputFaculty);
+
+                boolean res = db.addSubject(subject);
 
                 Toast toast = new Toast("Subject Added!", 700, 50);
                 toast.showtoast();

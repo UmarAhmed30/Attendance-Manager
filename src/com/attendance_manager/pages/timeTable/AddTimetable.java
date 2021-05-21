@@ -47,6 +47,8 @@ public class AddTimetable extends JFrame implements Serializable {
         containerTimetable.setPreferredSize(new Dimension(1000, 300));
 
         JTextField[][] classesTextField = new JTextField[5][8];
+
+
         String[][] classes = new String[5][8];
 
         containerTimetable.setLayout(new GridBagLayout());

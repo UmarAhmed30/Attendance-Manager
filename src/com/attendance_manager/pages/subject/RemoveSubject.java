@@ -4,6 +4,7 @@ import com.attendance_manager.components.UIcomponents.Toast;
 import com.attendance_manager.components.styles.*;
 import com.attendance_manager.pages.Homepage;
 import com.attendance_manager.services.DBHandler;
+import models.Subject;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -90,7 +91,10 @@ public class RemoveSubject extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String inputSubName = subNameField.getText();
-                int flag=db.deleteSubject(inputSubName);
+
+                Subject subject=new Subject(inputSubName);
+
+                int flag=db.deleteSubject(subject);
                 String toastString=(flag==0)?"Wrong Subject Name!":"Subject Removed!";
                 System.out.println(inputSubName);
                 Toast toast = new Toast(toastString, 700, 50);

@@ -1,5 +1,8 @@
 package com.attendance_manager.services;
 
+import models.BioData;
+import models.Subject;
+import models.User;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.sql.*;
@@ -13,7 +16,7 @@ public class DBHandler {
     Connection conn = null;
     Statement stmt = null;
 
-
+    //no mods needed
     public boolean userExists() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -54,7 +57,12 @@ public class DBHandler {
         return true;
     }
 
-    public boolean validateUser(String email, String password) {
+
+    //added models
+    public boolean validateUser(User user) {
+
+        String email=user.getEmail();
+        String password=user.getPassword();
 
         String hashedPwd = BCrypt.hashpw(password, BCrypt.gensalt(5));
         System.out.println(hashedPwd);
@@ -100,7 +108,11 @@ public class DBHandler {
         return false;
     }
 
-    public void insertToDB(String email, String password) {
+    //added models
+    public void insertToDB(User user) {
+
+        String email= user.getEmail();
+        String password=user.getPassword();
 
         String hashedPwd = BCrypt.hashpw(password, BCrypt.gensalt(5));
 
@@ -147,7 +159,13 @@ public class DBHandler {
         System.out.println("Goodbye!");
     }
 
-    public boolean addSubject(String inputCode, String inputSubName, String inputFaculty) {
+    //added models
+    public boolean addSubject(Subject subject) {
+
+        String inputSubName,inputCode,inputFaculty;
+        inputSubName=subject.getSubjectName();
+        inputCode=subject.getSubjectCode();
+        inputFaculty=subject.getFaculty();
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -163,7 +181,7 @@ public class DBHandler {
             ResultSet rs = checkExisting.executeQuery();
 
             if (rs.absolute(1)) {
-                System.out.println("Alreadt existing subject !");
+                System.out.println("Already existing subject !");
                 return false;
 
             } else {
@@ -225,8 +243,10 @@ public class DBHandler {
         return true;
     }
 
+    //added models
+    public int deleteSubject(Subject subject) {
 
-    public int deleteSubject(String inputSubName) {
+        String inputSubName=subject.getSubjectName();
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -282,9 +302,11 @@ public class DBHandler {
         return 1;
     }
 
-    public ArrayList<String> fetchSubjects() {
 
-        ArrayList<String> returnList = new ArrayList<String>();
+    //added modedls
+    public ArrayList<Subject> fetchSubjects() {
+
+        ArrayList<Subject> returnList = new ArrayList<>();
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -300,7 +322,7 @@ public class DBHandler {
 
             while (rs.next()) {
                 System.out.println(rs.getString("subjectName"));
-                returnList.add(rs.getString("subjectName"));
+                returnList.add(new Subject(rs.getString("subjectName")));
             }
 
 
@@ -312,8 +334,10 @@ public class DBHandler {
 
     }
 
+    //added models
+    public void updateAttendance(Subject subject, int flag) {
 
-    public void updateAttendance(String subjectName, int flag) {
+        String subjectName=subject.getSubjectName();
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -362,8 +386,11 @@ public class DBHandler {
 
     }
 
-    public void updateHistory(String subjectName, int flag) {
 
+    //added models
+    public void updateHistory(Subject subject, int flag) {
+
+        String subjectName=subject.getSubjectName();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Connecting to a selected database...");
@@ -478,16 +505,14 @@ public class DBHandler {
             stats.add(totalClasses);
             stats.add(attendedClasses);
             stats.add(safeBunks);
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
         return stats;
     }
 
-    public ArrayList<Integer> getStatsForSub(String sub) {
-        ArrayList<Integer> stats = new ArrayList<>();
+    public Subject getStatsForSub(String sub) {
+        Subject subject= new Subject(sub);
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -519,15 +544,16 @@ public class DBHandler {
 
             int safeBunks = calculateSafeBunks(attendedClasses, totalClasses);
 
-            stats.add(totalClasses);
-            stats.add(attendedClasses);
-            stats.add(safeBunks);
+            subject.setTotalClasses(totalClasses);
+            subject.setAttendedClasses(attendedClasses);
+            subject.setMissedClasses(missedClasses);
+            subject.setSafebunks(safeBunks);
 
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-        return stats;
+        return subject;
     }
 
     public int calculateSafeBunks(int attendedClasses, int totalClasses) {
@@ -566,9 +592,9 @@ public class DBHandler {
             return safeBunks * (-1);
         }
     }
-
-    public String[] getBio() {
-        String[] bio = new String[4];
+    //added models
+    public BioData getBio() {
+        BioData bio = new BioData();
 
 
         try {
@@ -585,10 +611,10 @@ public class DBHandler {
             ResultSet rs = preparedStmt.executeQuery();
 
             while (rs.next()) {
-                bio[0] = rs.getString("name");
-                bio[1] = rs.getString("year");
-                bio[2] = rs.getString("college");
-                bio[3]=rs.getString("filepath");
+                bio.setName(rs.getString("name"));
+                bio.setYear(rs.getString("year"));
+                bio.setCollege(rs.getString("college"));
+                bio.setImagePath(rs.getString("filepath"));
             }
 
 
@@ -599,7 +625,15 @@ public class DBHandler {
         return bio;
     }
 
-    public void updateBio(String inputName, String inputYear, String inputCollege, String inputFilePath) {
+    public void updateBio(BioData bioData) {
+
+
+        String inputName,  inputYear,  inputCollege,inputFilePath;
+
+        inputName=bioData.getName();
+        inputYear=bioData.getYear();
+        inputCollege=bioData.getCollege();
+        inputFilePath=bioData.getImagePath();
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
